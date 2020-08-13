@@ -57,7 +57,7 @@
                 <div class="sidenav-header-inner text-center"><a href="pages-profile.html"><img
                             src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" alt="person"
                             class="img-fluid rounded-circle"></a>
-                    <h2 class="h5">{{Auth::user()->name}}</h2><span>{{Auth::user()->category_user->name}}</span>
+                    <h2 class="h5">{{Auth::user()->guru->nama}}</h2><span></span>
                 </div>
                 @endguest
 
