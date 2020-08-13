@@ -16,8 +16,9 @@ class CreateMatapelajaransTable extends Migration
         Schema::create('matapelajaran', function (Blueprint $table) {
             $table->id();
             $table->string('nama',50);
-            $table->string('semester',50);
-            $table->bigInteger('idguru');
+            $table->integer('semester');
+            $table->bigInteger('guru_id')->unsigned()->nullable();
+            $table->foreign('guru_id')->references('id')->on('guru')->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +30,9 @@ class CreateMatapelajaransTable extends Migration
      */
     public function down()
     {
+        Schema::table('matapelajaran', function (Blueprint $table) {
+            $table->dropForeign(['guru_id']);
+        });
         Schema::dropIfExists('matapelajaran');
     }
 }

@@ -16,12 +16,16 @@ class CreateSiswasTable extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->integer('nis');
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->bigInteger('kelas_id')->unsigned()->nullable();
-            $table->foreign('kelas_id')->references('id')->on('kelas')->cascadeOnDelete();
-            $table->bigInteger('prodi_id')->unsigned()->nullable();
-            $table->foreign('prodi_id')->references('id')->on('prodi')->cascadeOnDelete();
+            $table->string('nama',100);
+            $table->string('tempat_lahir',45);
+            $table->date('tanggal_lahir');
+            $table->text('alamat');
+            $table->bigInteger('user_id')->unsigned()->nullable()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
+            $table->bigInteger('kelas_id')->unsigned()->nullable()->nullable();
+            $table->foreign('kelas_id')->references('id')->on('kelas')->nullOnDelete();
+            $table->bigInteger('prodi_id')->unsigned()->nullable()->nullable();
+            $table->foreign('prodi_id')->references('id')->on('prodi')->nullOnDelete();
             $table->date('tanggal_masuk');
             $table->string('angkatan_thn',4);
             $table->timestamps();
