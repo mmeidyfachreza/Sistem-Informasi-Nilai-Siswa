@@ -1,0 +1,49 @@
+/*
+* ==========================================================
+*     TABLES
+* ==========================================================
+*/
+
+.table {
+    margin-bottom: 0;
+    color: #666;
+}
+
+.table td,
+.table th {
+    border-color: $gray-300;
+}
+
+.table thead th {
+    border: none;
+}
+
+.table-striped tbody tr {
+    transition: all 0.3s;
+}
+
+.table-bordered {
+    td,
+    th {
+        border-color: $gray-300;
+    }
+}
+
+/*
+* ==========================================================
+*    Data Table
+* ==========================================================
+*/
+
+.dataTables_wrapper.container-fluid {
+    padding: 10px 5px 0 0;
+}
+
+div.dataTables_wrapper {
+    div.dataTables_info {
+        padding-top: 1.5rem;
+    }
+    div.dataTables_paginate {
+        padding-top: 0.65rem;
+    }
+} 

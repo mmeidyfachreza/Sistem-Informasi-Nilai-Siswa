@@ -1,0 +1,316 @@
+/*
+* ==========================================================
+*     NoUI Slider
+* ==========================================================
+*/
+
+.nouislider {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.noUi-target {
+    background: $body-bg;
+    border-radius: 0;
+    border: 1px solid $gray-300;
+    box-shadow: none;
+}
+
+.noUi-handle {
+    background: $gray-300;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    &:focus {
+        outline: none;
+    }
+    &:before,
+    &:after {
+        background: $gray-500;
+    }
+}
+
+.noUi-tooltip {
+    border-radius: 0;
+    background: $gray-100;
+    border-color: transparent;
+    color: $body-color;
+    font-size: .85rem;
+    font-weight: bold;
+}
+
+.noUi-connect {
+    background: $brand-primary;
+}
+
+/*
+* ==========================================================
+*    Datepicker
+* ==========================================================
+*/
+
+.datepicker-dropdown.dropdown-menu {
+    width: 300px;
+    margin-top: 0;
+    table {
+        width: 100%;
+    }
+    td {
+        width: 35px;
+        height: 35px;
+        border-radius: 0;
+        &.active,
+        &:active {
+            background-color: $brand-primary !important;
+            border-color: $brand-primary !important;
+        }
+    }
+    &:before,
+    &:after {
+        display: none;
+    }
+}
+
+.datepicker-days {
+    width: 300px;
+}
+
+.bootstrap-touchspin {
+    max-width: 15rem;
+}
+
+/*
+* ==========================================================
+*     Bootstrap Select
+* ==========================================================
+*/
+
+.bootstrap-select .dropdown-menu li a {
+    padding: 0.5rem 1.5rem;
+    font-weight: 400;
+    color: $body-color;
+    background: none;
+    font-size: 0.95rem;
+    &:hover {
+        background: $white;
+        color: $brand-primary;
+    }
+}
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+}
+
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 300px;
+}
+
+/*
+* ==========================================================
+*     Bootstrap Tags Input
+* ==========================================================
+*/
+
+.bootstrap-tagsinput .label-info {
+    background-color: $brand-primary;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 2px;
+}
+
+.bootstrap-tagsinput {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 3px 7px;
+    border: 1px solid $gray-300;
+    color: #ffffff;
+    width: 100%;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+    box-shadow: none;
+}
+
+/*
+* ==========================================================
+*     Data Table
+* ==========================================================
+*/
+
+.block .dataTables_wrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.dataTables_filter,
+.dataTables_length {
+    select:focus,
+    input:focus {
+        box-shadow: none;
+    }
+}
+
+/*
+* ==========================================================
+*     Multiselect
+* ==========================================================
+*/
+
+.ms-container {
+    background: transparent url('../img/multiselect-switch.png') no-repeat 50% 50%;
+    width: 370px;
+}
+
+.ms-container:after {
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    clear: both;
+    min-height: 0;
+    visibility: hidden;
+}
+
+.ms-container .ms-selectable,
+.ms-container .ms-selection {
+    color: #555555;
+    float: left;
+    width: 45%;
+}
+
+.ms-container .ms-selection {
+    float: right;
+}
+
+.ms-container .ms-list {
+    transition: border linear 0.2s;
+    border: 1px solid #e6e6e6;
+    border-radius: 0;
+    position: relative;
+    height: 200px;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.ms-container .ms-list.ms-focus {
+    border-color: $brand-primary;
+}
+
+.ms-container ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.ms-container .ms-optgroup-container {
+    width: 100%;
+}
+
+.ms-container .ms-optgroup-label {
+    margin: 0;
+    padding: 5px 0px 0px 5px;
+    cursor: pointer;
+    color: #999;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection {
+    padding: 5px 10px;
+    color: $body-color;
+    font-size: 14px;
+}
+
+.ms-container .ms-selectable li.ms-hover,
+.ms-container .ms-selection li.ms-hover {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    background-color: $brand-primary;
+}
+
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled {
+    color: #aaa;
+    cursor: text;
+}
+
+/*
+* ==========================================================
+*     Typeahead
+* ==========================================================
+*/
+
+.form-group-typeahead {
+    position: relative;
+}
+
+/*
+* ==========================================================
+*      Summernote
+* ==========================================================
+*/
+
+.note-editor {
+    &.card {
+        margin-bottom: 0;
+    }
+    .dropdown-toggle::after {
+        margin-left: .6rem;
+        margin-right: .4rem;
+    }
+    &.note-frame {
+        border: 1px solid $gray-300;
+        border-radius: 0;
+        .note-editing-area .note-editable {
+            padding: 10px;
+            overflow: auto;
+            color: $body-color;
+            background-color: $white;
+        }
+        .note-statusbar {
+            border-radius: 0;
+        }
+    }
+    .note-toolbar {
+        background-color: $gray-200;
+        border-bottom: 1px solid $gray-400;
+        margin: 0;
+    }
+    .btn-group-sm>.btn,
+    .btn-sm {
+        padding: 8px 12px;
+    }
+    .btn-light {
+        &.disabled {
+            color: $gray-800;
+        }
+        &.active,
+        &:active {
+            box-shadow: none !important;
+        }
+    }
+    .show>.btn-light.dropdown-toggle {
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+    .card-header.note-toolbar .note-color .dropdown-toggle {
+        width: auto !important;
+    }
+    i[class*='icon-'] {
+        transform: translateY(0);
+    }
+    .note-statusbar {
+        background-color: $gray-200 !important;
+    }
+    .dropdown-style {
+        p,
+        pre,
+        blockquote {
+            margin-bottom: 0;
+        }
+    }
+}

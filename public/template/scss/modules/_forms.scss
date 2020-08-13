@@ -1,0 +1,252 @@
+/*
+* ==========================================================
+*     FORMS ELEMENTS
+* ==========================================================
+*/
+
+label {
+    font-size: .9rem;
+}
+
+.form-control {
+    height: $input-height;
+    padding: $input-padding-y $input-padding-x;
+    font-size: $font-size-base;
+    line-height: $input-line-height;
+    color: $input-color;
+    border-radius: 0;
+    @include placeholder {
+        font-size: 0.75em;
+        font-weight: 400;
+        color: #aaa;
+        font-family: $font-family-base;
+    }
+}
+
+.form-control-sm {
+    height: $input-height-sm;
+    padding: $input-padding-y-sm $input-padding-x-sm;
+    font-size: $font-size-sm;
+    line-height: $input-line-height-sm;
+}
+
+.form-control-lg {
+    height: $input-height-lg;
+    padding: $input-padding-y-lg $input-padding-x-lg;
+    font-size: $font-size-lg;
+    line-height: $input-line-height-lg;
+}
+
+textarea.form-control {
+    height: auto;
+}
+
+select.form-control {
+    font-weight: 300;
+    &[size],
+    &[multiple] {
+        height: auto;
+    }
+    option {
+        color: #999;
+        font-weight: 300;
+    }
+}
+
+.custom-select {
+    height: $custom-select-height;
+    padding: $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
+    line-height: $custom-select-line-height;
+    color: $custom-select-color;
+    background: $custom-select-bg $custom-select-indicator no-repeat right $custom-select-padding-x center;
+    background-size: $custom-select-bg-size;
+    border: $custom-select-border-width solid $custom-select-border-color;
+    border-radius: 0;
+    &:focus {
+        border-color: $custom-select-focus-border-color;
+        outline: 0;
+    }
+}
+
+.custom-select-sm {
+    height: $custom-select-height-sm;
+    padding-top: $custom-select-padding-y;
+    padding-bottom: $custom-select-padding-y;
+    font-size: $custom-select-font-size-sm;
+}
+
+.custom-select-lg {
+    height: $custom-select-height-lg;
+    padding-top: $custom-select-padding-y;
+    padding-bottom: $custom-select-padding-y;
+    font-size: $custom-select-font-size-lg;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    div[class*='col-'] {
+        margin-bottom: 10px;
+    }
+}
+
+.input-group-text {
+    color: $gray-600;
+    background: $white;
+    border-radius: 0;
+}
+
+.form-group-material {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+input.input-material {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    color: $gray-600;
+    font-weight: 300;
+    &.is-valid {
+        border-color: theme-color("success") !important;
+    }
+    &.is-invalid {
+        border-color: theme-color("danger") !important;
+    }
+    &:focus {
+        border-color: $brand-primary;
+        outline: none;
+    }
+    &~label {
+        color: #aaa;
+        @include position(absolute, 14px, $left: 0);
+        cursor: text;
+        transition: all 0.2s;
+        font-weight: 300;
+        &.active {
+            font-size: 0.8rem;
+            top: -10px;
+            color: $brand-primary;
+        }
+    }
+    &.is-invalid~label {
+        color: $danger;
+    }
+}
+
+input.form-control-custom {
+    visibility: hidden;
+    width: 1px;
+    &:checked {
+        &+label {
+            &::before {
+                background: $brand-primary !important;
+            }
+            &::after {
+                opacity: 1 !important;
+            }
+        }
+    }
+    &.radio-custom+label {
+        &::before {
+            border-radius: 50%;
+        }
+        &::after {
+            content: '';
+            @include square(6px, #fff);
+            border-radius: 50%;
+            top: 7px;
+            left: 5px;
+        }
+    }
+    &[disabled]+label {
+        cursor: not-allowed;
+        &::before,
+        &::after {
+            border: 2px solid #aaa;
+            cursor: not-allowed;
+        }
+    }
+    &[checked]+label {
+        &::before,
+        &::after {
+            border: none;
+        }
+    }
+    &+label {
+        font-size: 0.85rem;
+        margin-bottom: 0;
+        margin-left: 0;
+        color: #999;
+        padding-left: 25px;
+        padding-top: 2px;
+        position: relative;
+        span {
+            margin-left: 20px;
+        }
+        &::before {
+            content: '';
+            display: block;
+            @include square(16px, #ddd, #fff, center);
+            @include position(absolute, 2px, null, null, 0);
+            transition: all 0.1s;
+            cursor: pointer;
+        }
+        &::after {
+            content: '\f00c';
+            display: block;
+            font-family: 'FontAwesome';
+            font-size: 8px;
+            color: #fff;
+            @include position(absolute, 4px, null, null, 4px);
+            transition: all 0.1s;
+            opacity: 0;
+            cursor: pointer;
+        }
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+/*
+* ==========================================================
+*     FORMS GENERAL
+* ==========================================================
+*/
+
+.forms {
+    .line {
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px dashed #eee;
+        margin: 20px 0 30px;
+    }
+    p {
+        font-size: 0.8rem;
+        color: $gray-600;
+    }
+    small {
+        color: $gray-600;
+    }
+}
+
+/* FORMS MEDIAQUERIES -------------------------- */
+
+@include media-breakpoint-up(md) {
+    .forms {
+        h2 {
+            font-size: 1rem;
+        }
+        input.form-control {
+            border-radius: 0;
+            @include placeholder {
+                font-size: 0.85em;
+            }
+        }
+        p {
+            font-size: 0.9em;
+        }
+    }
+}

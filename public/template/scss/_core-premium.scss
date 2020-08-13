@@ -1,0 +1,50 @@
+/*
+==========================================================
+==========================================================
+
+Bootstrapious Dashboard Template 1.2
+
+PREMIUM VERSION
+
+https://bootstrapious.com/p/bootstrap-4-dashboard-premium
+
+==========================================================
+==========================================================
+*/
+
+ // functions.scss - Bootstrap functions
+@import "modules/functions";
+// variables-custom.scss - to change colour variant, rounded corners, etc.
+@import "modules/variables-custom";
+// bootstrap mixins
+@import "modules/mixins";
+// custom mixins
+@import "modules/mixins-custom";
+// general styling
+@import "modules/general";
+// form elements styling
+@import "modules/forms";
+// pages
+@import "modules/pages";
+// premium form elements styling
+@import "modules/forms-premium";
+// DropzoneJS
+@import "modules/forms-dropzone";
+// login  page styling
+@import "modules/login";
+// charts styling
+@import "modules/charts";
+// charts premium
+@import "modules/charts-premium";
+// tables styling
+@import "modules/tables";
+// maps
+@import "modules/map";
+// other components styling
+@import "modules/components";
+// Spinkit preloaders
+@import "modules/spinkit";
+// demo styling
+@import "modules/demo";
+// bootstrap base stylesheet overrides
+@import "theme"; 
