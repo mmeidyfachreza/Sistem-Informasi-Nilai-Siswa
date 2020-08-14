@@ -20,6 +20,7 @@ class CreateSiswasTable extends Migration
             $table->string('tempat_lahir',45);
             $table->date('tanggal_lahir');
             $table->text('alamat');
+            $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
             $table->bigInteger('user_id')->unsigned()->nullable()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->bigInteger('kelas_id')->unsigned()->nullable()->nullable();

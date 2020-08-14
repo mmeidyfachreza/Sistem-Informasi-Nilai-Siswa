@@ -20,6 +20,7 @@ class CreateGurusTable extends Migration
             $table->string('tempat_lahir',45);
             $table->date('tanggal_lahir');
             $table->text('alamat');
+            $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
             $table->string('nohp',20);
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
