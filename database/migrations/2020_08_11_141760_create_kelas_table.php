@@ -19,8 +19,8 @@ class CreateKelasTable extends Migration
             $table->integer('nomor');
             $table->bigInteger('prodi_id')->unsigned()->nullable();
             $table->foreign('prodi_id')->references('id')->on('prodi')->nullOnDelete();
-            $table->bigInteger('walikelas')->unsigned()->nullable();
-            $table->foreign('walikelas')->references('id')->on('guru')->nullOnDelete();
+            $table->bigInteger('guru_id')->unsigned()->nullable();
+            $table->foreign('guru_id')->references('id')->on('guru')->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -34,7 +34,7 @@ class CreateKelasTable extends Migration
     {
         Schema::table('kelas', function (Blueprint $table) {
             $table->dropForeign(['prodi_id']);
-            $table->dropForeign(['walikelas']);
+            $table->dropForeign(['guru_id']);
         });
         Schema::dropIfExists('kelas');
     }
