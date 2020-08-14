@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Guru extends Model
 {
     protected $table = 'guru';
-    protected $fillable = ['nip','user_id'];
+    protected $fillable = [
+        'nip','nama','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','nohp','user_id'
+    ];
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id','guru_id');
+        return $this->belongsTo('App\User','user_id');
     }
 
     public function matapelajaran()
