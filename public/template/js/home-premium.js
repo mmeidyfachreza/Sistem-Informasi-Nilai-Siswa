@@ -8,7 +8,7 @@ $(function () {
         }
     }
     Messenger().post({
-        message: 'Hai, apa kabar?<br>Selamat datang di SIKESWA V2.',
+        message: 'Hai, apa kabar?<br>Selamat datang di website raport SMK 2 Samarinda.',
         type: 'success'
     });
 });

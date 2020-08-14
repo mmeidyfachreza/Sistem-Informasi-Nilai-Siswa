@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/','GuruController@index')->middleware('guru');
+
 Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
+    Route::get('/','GuruController@index');
     Route::resource('guru', 'GuruController');
 });
