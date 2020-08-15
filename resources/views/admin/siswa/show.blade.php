@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Guru </li>
+            <li class="breadcrumb-item active">Siswa </li>
         </ul>
     </div>
 </div>
@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <!-- Page Header-->
         <header>
-            <h1 class="h3 display">Detail Data Guru</h1>
+            <h1 class="h3 display">Detail Data Siswa</h1>
         </header>
         <div class="row">
             
@@ -28,33 +28,40 @@
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
-                                            <th class="pt-0 pb-0">NIP</th>
-                                            <td class="pt-0 pb-0">{{$guru->nip ?? "Tidak Diketahui"}}</td>
+                                            <th class="pt-0 pb-0">NIS</th>
+                                            <td class="pt-0 pb-0">{{$siswa->nis ?? "Tidak Diketahui"}}</td>
                                         </tr>
                                         <tr>
                                             <th class="pt-0 pb-0">Nama</th>
-                                            <td class="pt-0 pb-0">{{$guru->nama ?? "Tidak Diketahui"}}</td>
+                                            <td class="pt-0 pb-0">{{$siswa->nama ?? "Tidak Diketahui"}}</td>
                                         </tr>
                                         <tr>
                                             <th class="pt-0 pb-0">Tempat Lahir</th>
-                                            <td class="pt-0 pb-0">{{$guru->tempat_lahir ?? "Tidak Diketahui"}}</td>
+                                            <td class="pt-0 pb-0">{{$siswa->tempat_lahir ?? "Tidak Diketahui"}}</td>
                                         </tr>
                                         <tr>
                                             <th class="pt-0 pb-0">Tanggal Lahir</th>
-                                            <td class="pt-0 pb-0">{{date("d-m-Y", strtotime($guru->tanggal_lahir))}}</td>
+                                            <td class="pt-0 pb-0">{{date("d-m-Y", strtotime($siswa->tanggal_lahir))}}</td>
                                         </tr>
                                         <tr>
                                             <th class="pt-0 pb-0">Alamat</th>
-                                            <td class="pt-0 pb-0">{{$guru->alamat ?? "Tidak Diketahui"}}</td>
+                                            <td class="pt-0 pb-0">{{$siswa->alamat ?? "Tidak Diketahui"}}</td>
                                         </tr>
                                         <tr>
                                             <th class="pt-0 pb-0">No HP</th>
-                                            <td class="pt-0 pb-0">{{$guru->nohp ?? "Tidak Diketahui"}}</td>
+                                            <td class="pt-0 pb-0">{{$siswa->nohp ?? "Tidak Diketahui"}}</td>
                                         </tr>
                                             <th class="pt-0 pb-0">Jenis Kelamin </th>
-                                            <td class="pt-0 pb-0">{{$guru->jenis_kelamin}}</td>
+                                            <td class="pt-0 pb-0">{{$siswa->jenis_kelamin}}</td>
                                         </tr>
-                                        
+                                        <tr>
+                                            <th class="pt-0 pb-0">Tanggal Diterima</th>
+                                            <td class="pt-0 pb-0">{{date("d-m-Y", strtotime($siswa->tanggal_masuk))}}</td>
+                                        </tr>
+                                        </tr>
+                                            <th class="pt-0 pb-0">Angkatan Tahun </th>
+                                            <td class="pt-0 pb-0">{{$siswa->angkatan_thn}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 
