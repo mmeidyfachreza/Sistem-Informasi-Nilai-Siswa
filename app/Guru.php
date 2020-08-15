@@ -8,7 +8,7 @@ class Guru extends Model
 {
     protected $table = 'guru';
     protected $fillable = [
-        'nip','nama','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','nohp','user_id'
+        'nip','nama','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','nohp'
     ];
 
     public function user()

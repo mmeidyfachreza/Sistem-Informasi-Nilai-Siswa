@@ -7,6 +7,7 @@ use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class GuruController extends Controller
@@ -51,9 +52,8 @@ class GuruController extends Controller
      */
     public function create()
     {
-        // $classrooms = Classroom::all();
         $gender = ['Laki-laki','Perempuan'];
-        return view('admin.guru.form',compact('classrooms','gender'));
+        return view('admin.guru.form',compact('gender'));
     }
 
     /**
@@ -64,7 +64,13 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        Guru::create($request->all());
+        $guru = Guru::create($request->all());
+        $user = User::create([
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+        $guru->user_id = $user->id;
+        $guru->save();
         return redirect()->route('guru.index')->with('success','Berhasil menambah data');
     }
 
@@ -88,7 +94,7 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $guru = Guru::findOrFail($id);        
+        $guru = Guru::with('user')->findOrFail($id);        
         $gender = ['Laki-laki','Perempuan'];
         return view('admin.guru.form',compact('guru','gender'));
     }
@@ -103,6 +109,14 @@ class GuruController extends Controller
     public function update(Request $request, $id)
     {
         $guru = Guru::findOrFail($id);
+        $user = User::findOrFail($guru->id);
+        if ($request->password) {
+            $user->update([
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password)]);
+        }else{
+            $user->update(['email'=>$request->email]);
+        }
         $guru->update($request->all());
         return redirect()->route('guru.index')->with('success','Berhasil merubah data');
     }
@@ -115,10 +129,17 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        $guru = Guru::find($id);
-        User::find($guru->user_id)->delete();
-        $guru->delete();
-        return response()->json(['success'=>'berhasil menghapus data']);
+        if (request()->ajax()) {
+            if (auth()->user()->id==$id) {
+                # code...
+                return back()->withErrors(['Tidak Bisa Menghapus Akun yang sedang digunakan']);
+            }
+            $guru = Guru::find($id);
+            User::find($guru->user_id)->delete();
+            $guru->delete();
+            return response()->json(['success'=>'berhasil menghapus data']);
+        }
+        
     }
 
     // public function export(){
