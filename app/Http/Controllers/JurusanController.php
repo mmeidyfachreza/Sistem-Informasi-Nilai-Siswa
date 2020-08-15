@@ -104,7 +104,6 @@ class JurusanController extends Controller
             $jurusan = Jurusan::find($id);
             $jurusan->delete();
             return response()->json(['success'=>'berhasil menghapus data']);
-        }
-        
+        }        
     }
 }
