@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Matapelajaran;
+use App\Guru;
 use Illuminate\Http\Request;
 
 class MatapelajaranController extends Controller
@@ -14,7 +15,25 @@ class MatapelajaranController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $data = Matapelajaran::with('guru')->get();
+            return datatables()->of($data)
+                    ->addIndexColumn()
+                    ->addColumn('walikelas', function($data){
+                        return empty($data->guru->nama) ? "Belum Diatur" : $data->guru->nama;
+                    })
+                    ->addColumn('action', function($data){
+                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="'.route("matapelajaran.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i
+                        class="fa fa-trash"></i></a></div>';
+                        return $button;
+                    })
+                    ->rawColumns(['action','walikelas'])
+                    ->make(true);
+        }
+        
+        return view('admin.matapelajaran.index');
     }
 
     /**
@@ -24,7 +43,8 @@ class MatapelajaranController extends Controller
      */
     public function create()
     {
-        //
+        $guru = Guru::all();
+        return view('admin.matapelajaran.form',compact('guru'));
     }
 
     /**
@@ -35,7 +55,8 @@ class MatapelajaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $matapelajaran = Matapelajaran::create($request->all());
+        return redirect()->route('matapelajaran.index')->with('success','Berhasil menambah data');
     }
 
     /**
@@ -44,9 +65,10 @@ class MatapelajaranController extends Controller
      * @param  \App\Matapelajaran  $matapelajaran
      * @return \Illuminate\Http\Response
      */
-    public function show(Matapelajaran $matapelajaran)
+    public function show($id)
     {
-        //
+        $matapelajaran = Matapelajaran::findOrFail($id);
+        return view('admin.matapelajaran.show',compact('matapelajaran'));
     }
 
     /**
@@ -55,9 +77,11 @@ class MatapelajaranController extends Controller
      * @param  \App\Matapelajaran  $matapelajaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Matapelajaran $matapelajaran)
+    public function edit($id)
     {
-        //
+        $matapelajaran = Matapelajaran::findOrFail($id);
+        $guru = Guru::all();
+        return view('admin.matapelajaran.form',compact('matapelajaran','guru'));
     }
 
     /**
@@ -67,9 +91,11 @@ class MatapelajaranController extends Controller
      * @param  \App\Matapelajaran  $matapelajaran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Matapelajaran $matapelajaran)
+    public function update(Request $request, $id)
     {
-        //
+        $matapelajaran = Matapelajaran::findOrFail($id);
+        $matapelajaran->update($request->all());
+        return redirect()->route('matapelajaran.index')->with('success','Berhasil merubah data');
     }
 
     /**
@@ -78,8 +104,12 @@ class MatapelajaranController extends Controller
      * @param  \App\Matapelajaran  $matapelajaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matapelajaran $matapelajaran)
+    public function destroy($id)
     {
-        //
-    }
+        if (request()->ajax()) {
+            $matapelajaran = Matapelajaran::find($id);
+            $matapelajaran->delete();
+            return response()->json(['success'=>'berhasil menghapus data']);
+        }        
+    }    
 }

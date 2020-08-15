@@ -25,4 +25,5 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::resource('siswa', 'SiswaController');
     Route::resource('jurusan', 'JurusanController');
     Route::resource('prodi', 'ProdiController');
+    Route::resource('matapelajaran', 'MatapelajaranController');
 });

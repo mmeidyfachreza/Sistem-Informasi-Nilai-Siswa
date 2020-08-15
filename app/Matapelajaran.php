@@ -16,6 +16,6 @@ class Matapelajaran extends Model
 
     public function guru()
     {
-        return $this->belongsTo('App\Guru','guru_id','matapelajaran_id');
+        return $this->belongsTo('App\Guru','guru_id');
     }
 }
