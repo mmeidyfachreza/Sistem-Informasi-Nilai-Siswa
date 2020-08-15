@@ -28,10 +28,10 @@ class SiswaController extends Controller
                     })
                     ->addColumn('action', function($data){
                         $button = '<div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="'.route("guru.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                        <a href="'.route("siswa.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                         <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i
                         class="fa fa-trash"></i></a>
-                        <a href="'.route("guru.show",$data->id).'"class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                        <a href="'.route("siswa.show",$data->id).'"class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
                                     </div>';
                         return $button;
                     })
@@ -68,7 +68,7 @@ class SiswaController extends Controller
         ]);
         $siswa->user_id = $user->id;
         $siswa->save();
-        return redirect()->route('guru.index')->with('success','Berhasil menambah data');
+        return redirect()->route('siswa.index')->with('success','Berhasil menambah data');
     }
 
     /**
@@ -80,7 +80,7 @@ class SiswaController extends Controller
     public function show($id)
     {
         $siswa = Siswa::findOrFail($id);
-        return view('admin.siswa.show',compact('guru'));
+        return view('admin.siswa.show',compact('siswa'));
     }
 
     /**
@@ -93,7 +93,7 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::with('user')->findOrFail($id);        
         $gender = ['Laki-laki','Perempuan'];
-        return view('admin.siswa.form',compact('guru','gender'));
+        return view('admin.siswa.form',compact('siswa','gender'));
     }
 
     /**
@@ -115,7 +115,7 @@ class SiswaController extends Controller
             $user->update(['email'=>$request->email]);
         }
         $siswa->update($request->all());
-        return redirect()->route('guru.index')->with('success','Berhasil merubah data');
+        return redirect()->route('siswa.index')->with('success','Berhasil merubah data');
     }
 
     /**
