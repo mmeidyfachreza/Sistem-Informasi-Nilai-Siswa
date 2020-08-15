@@ -81,7 +81,7 @@
                         </li>
                         <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Kelas</a>
                         </li>
-                        <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Prodi</a>
+                        <li><a href="{{route('prodi.index')}}"><i class="far fa-envelope"></i>Prodi</a>
                         </li>
                         <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Mata Pelajaran</a>
                         </li>

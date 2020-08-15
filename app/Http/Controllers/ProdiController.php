@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jurusan;
 use App\Prodi;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,25 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $data = Prodi::with('jurusan')->get();
+            return datatables()->of($data)
+                    ->addIndexColumn()
+                    ->addColumn('jurusan', function($data){
+                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
+                    })
+                    ->addColumn('action', function($data){
+                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="'.route("prodi.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i
+                        class="fa fa-trash"></i></a></div>';
+                        return $button;
+                    })
+                    ->rawColumns(['action','jurusan'])
+                    ->make(true);
+        }
+        
+        return view('admin.prodi.index');
     }
 
     /**
@@ -24,7 +43,8 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        $jurusan = Jurusan::all();
+        return view('admin.prodi.form',compact('jurusan'));
     }
 
     /**
@@ -35,7 +55,8 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $prodi = Prodi::create($request->all());
+        return redirect()->route('prodi.index')->with('success','Berhasil menambah data');
     }
 
     /**
@@ -44,9 +65,10 @@ class ProdiController extends Controller
      * @param  \App\Prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function show(Prodi $prodi)
+    public function show($id)
     {
-        //
+        $prodi = Prodi::findOrFail($id);
+        return view('admin.prodi.show',compact('prodi'));
     }
 
     /**
@@ -55,9 +77,11 @@ class ProdiController extends Controller
      * @param  \App\Prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prodi $prodi)
+    public function edit($id)
     {
-        //
+        $prodi = Prodi::findOrFail($id);
+        $jurusan = Jurusan::all();
+        return view('admin.prodi.form',compact('prodi','jurusan'));
     }
 
     /**
@@ -67,9 +91,11 @@ class ProdiController extends Controller
      * @param  \App\Prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prodi $prodi)
+    public function update(Request $request, $id)
     {
-        //
+        $prodi = Prodi::findOrFail($id);
+        $prodi->update($request->all());
+        return redirect()->route('prodi.index')->with('success','Berhasil merubah data');
     }
 
     /**
@@ -78,8 +104,12 @@ class ProdiController extends Controller
      * @param  \App\Prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prodi $prodi)
+    public function destroy($id)
     {
-        //
+        if (request()->ajax()) {
+            $prodi = Prodi::find($id);
+            $prodi->delete();
+            return response()->json(['success'=>'berhasil menghapus data']);
+        }        
     }
 }
