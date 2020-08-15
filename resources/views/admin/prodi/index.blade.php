@@ -50,7 +50,7 @@
                                         <th>Nama</th>
                                         <th>Jurusan</th>
                                         <th>Kode Label Prodi</th>
-                                        <th>Kode Label Jurusan</th>
+                                        <th>Kode Jurusan Prodi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -83,7 +83,7 @@
             {data: 'nama', name: 'nama'},
             {data: 'jurusan', name: 'jurusan'},
             {data: 'kode_label_prodi', name: 'kode_label_prodi'},
-            {data: 'kode_label_jurusan', name: 'kode_label_jurusan'},
+            {data: 'kode_jurusan_prodi', name: 'kode_jurusan_prodi'},
             {data: 'action', name: 'action', searchable:false, orderable:false},
             ]
         });

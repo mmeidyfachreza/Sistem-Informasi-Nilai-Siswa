@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Jurusan</label>
-                                    <select name="jurusan" class="custom-select">
+                                    <select name="jurusan_id" class="custom-select">
                                         @isset($prodi)
                                         @foreach ($jurusan as $item)
                                         <option value={{$item->id}} @if($item->id==$prodi->jurusan_id)
@@ -68,13 +68,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Kode Label Prodi</label>
-                                    <input type="text" name="kode_label_prodi" placeholder="Masukan Nama Lengkap" class="form-control"
+                                    <input type="text" name="kode_label_prodi" placeholder="Masukan kode" class="form-control"
                                         value="{{old('kode_label_prodi', $prodi->kode_label_prodi ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Kode Label Jurusan</label>
-                                    <input type="number" name="kode_label_jurusan" placeholder="Masukan Nama Lengkap" class="form-control"
-                                        value="{{old('kode_label_jurusan', $prodi->kode_label_jurusan ?? '')}}" required>
+                                    <label>Kode Jurusan Prodi</label>
+                                    <input type="number" name="kode_jurusan_prodi" placeholder="Masukan kode" class="form-control"
+                                        value="{{old('kode_jurusan_prodi', $prodi->kode_jurusan_prodi ?? '')}}" required>
                                 </div>
                                 <br>
                                 <div class="form-group">
