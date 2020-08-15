@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Siswa;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SiswaController extends Controller
 {
@@ -14,7 +16,30 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $data = Siswa::with('user')->get();
+            return datatables()->of($data)
+                    ->addIndexColumn()
+                    ->editColumn('nip', function($data){
+                        return empty($data->nis) ? "Belum Diatur" : $data->nis;
+                    })
+                    ->addColumn('email', function($data){
+                        return empty($data->user->email) ? "Belum Diatur" : $data->user->email;
+                    })
+                    ->addColumn('action', function($data){
+                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="'.route("guru.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i
+                        class="fa fa-trash"></i></a>
+                        <a href="'.route("guru.show",$data->id).'"class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                    </div>';
+                        return $button;
+                    })
+                    ->rawColumns(['action','email','nip'])
+                    ->make(true);
+        }
+        
+        return view('admin.siswa.index');
     }
 
     /**
@@ -24,7 +49,8 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        $gender = ['Laki-laki','Perempuan'];
+        return view('admin.siswa.form',compact('gender'));
     }
 
     /**
@@ -35,7 +61,14 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $siswa = Siswa::create($request->all());
+        $user = User::create([
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+        $siswa->user_id = $user->id;
+        $siswa->save();
+        return redirect()->route('guru.index')->with('success','Berhasil menambah data');
     }
 
     /**
@@ -44,9 +77,10 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Siswa $siswa)
+    public function show($id)
     {
-        //
+        $siswa = Siswa::findOrFail($id);
+        return view('admin.siswa.show',compact('guru'));
     }
 
     /**
@@ -55,9 +89,11 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Siswa $siswa)
+    public function edit($id)
     {
-        //
+        $siswa = Siswa::with('user')->findOrFail($id);        
+        $gender = ['Laki-laki','Perempuan'];
+        return view('admin.siswa.form',compact('guru','gender'));
     }
 
     /**
@@ -67,9 +103,19 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update(Request $request, $id)
     {
-        //
+        $siswa = Siswa::findOrFail($id);
+        $user = User::findOrFail($siswa->id);
+        if ($request->password) {
+            $user->update([
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password)]);
+        }else{
+            $user->update(['email'=>$request->email]);
+        }
+        $siswa->update($request->all());
+        return redirect()->route('guru.index')->with('success','Berhasil merubah data');
     }
 
     /**
@@ -78,8 +124,39 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa)
+    public function destroy($id)
     {
-        //
+        if (request()->ajax()) {
+            if (auth()->user()->id==$id) {
+                # code...
+                return back()->withErrors(['Tidak Bisa Menghapus Akun yang sedang digunakan']);
+            }
+            $siswa = Siswa::find($id);
+            User::find($siswa->user_id)->delete();
+            $siswa->delete();
+            return response()->json(['success'=>'berhasil menghapus data']);
+        }
+        
     }
+
+    // public function export(){
+    //     return (new FastExcel(Siswa::with('classroom')->get()))->download('users.xlsx', function ($data) {
+    //         return [
+    //             'NIS' => ($data->nip? $data->nip : " "),
+    //             'Kelas' => ($data->classroom? $data->classroom->name : " "),
+    //             'Nama' => $data->name,
+    //             'Tanggal Lahir' => $data->born_date,
+    //             'Tempat Lahir' => $data->born_city,
+    //             'Alamat' => $data->address,
+    //             'Jenis Kelamin' => $data->gender,
+    //             'Golongan Darah' => $data->blood_type,
+    //             'Asal Sekolah' => $data->school_from,
+    //             'Nama Ayah' => $data->father_name,
+    //             'Nama Ibu' => $data->mother_name,
+    //             'Wali' => $data->guardian,
+    //             'No BPJS' => $data->no_bpjs,
+    //             'FASKES BPJS' => $data->faskes_bpjs,
+    //         ];
+    //     });
+    // }
 }

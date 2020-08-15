@@ -73,9 +73,9 @@
                 <li><a href="#letterDropdown" aria-expanded="false" data-toggle="collapse"> <i
                     class="far fa-envelope"></i>Data Master </a>
                     <ul id="letterDropdown" class="collapse list-unstyled ">
-                        <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Siswa</a>
+                        <li><a href="{{route('siswa.index')}}"><i class="far fa-envelope"></i>Siswa</a>
                         </li>
-                        <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Guru</a>
+                        <li><a href="{{route('guru.index')}}"><i class="far fa-envelope"></i>Guru</a>
                         </li>
                         <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Jurusan</a>
                         </li>
