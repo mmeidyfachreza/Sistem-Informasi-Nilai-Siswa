@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label>Nama Jurusan</label>
                                     <input type="text" name="nama" placeholder="Masukan Nama Lengkap" class="form-control"
-                                        value="{{old('name', $jurusan->nama ?? '')}}" required>
+                                        value="{{old('nama', $jurusan->nama ?? '')}}" required>
                                 </div>                                
                                 <br>
                                 <div class="form-group">
