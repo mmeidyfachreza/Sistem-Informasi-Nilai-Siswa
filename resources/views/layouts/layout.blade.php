@@ -77,7 +77,7 @@
                         </li>
                         <li><a href="{{route('guru.index')}}"><i class="far fa-envelope"></i>Guru</a>
                         </li>
-                        <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Jurusan</a>
+                        <li><a href="{{route('jurusan.index')}}"><i class="far fa-envelope"></i>Jurusan</a>
                         </li>
                         <li><a href="{{url('/admin')}}"><i class="far fa-envelope"></i>Kelas</a>
                         </li>
