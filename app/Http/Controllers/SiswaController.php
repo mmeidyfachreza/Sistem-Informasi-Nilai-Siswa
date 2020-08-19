@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Kelas;
+use App\Prodi;
 use App\Siswa;
 use App\User;
 use Illuminate\Http\Request;
@@ -50,7 +52,9 @@ class SiswaController extends Controller
     public function create()
     {
         $gender = ['Laki-laki','Perempuan'];
-        return view('admin.siswa.form',compact('gender'));
+        $kelas = Kelas::all();
+        $prodi = Prodi::all();
+        return view('admin.siswa.form',compact('gender','kelas','prodi'));
     }
 
     /**

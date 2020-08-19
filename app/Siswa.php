@@ -24,4 +24,14 @@ class Siswa extends Model
     {
         return $this->hasMany('App\Raport');
     }
+
+    public function kelas()
+    {
+        return $this->belongsTo('App\Kelas');
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo('App\Prodi');
+    }
 }

@@ -101,6 +101,38 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Kelas</label>
+                                    <select name="kelas_id" class="custom-select">
+                                        @isset($siswa)
+                                        @foreach ($kelas as $item)
+                                        <option value={{$item->id}} @if($item->id==$siswa->kelas_id)
+                                            selected @endif>{{$item->nama}}</option>
+                                        @endforeach
+                                        @else
+                                        <option value='' selected disabled>--Pilih--</option>
+                                        @foreach ($kelas  as $item)
+                                        <option value={{$item->id}}>{{$item->nama}}</option>
+                                        @endforeach
+                                        @endisset
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prodi</label>
+                                    <select name="prodi_id" class="custom-select">
+                                        @isset($siswa)
+                                        @foreach ($prodi as $item)
+                                        <option value={{$item->id}} @if($item->id==$siswa->prodi_id)
+                                            selected @endif>{{$item->nama}}</option>
+                                        @endforeach
+                                        @else
+                                        <option value='' selected disabled>--Pilih--</option>
+                                        @foreach ($prodi  as $item)
+                                        <option value={{$item->id}}>{{$item->nama}}</option>
+                                        @endforeach
+                                        @endisset
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>Tanggal Diterima</label>
                                     <input type="date" name="tanggal_masuk" class="form-control" value="{{old('tanggal_masuk', $siswa->tanggal_masuk ?? '')}}"
                                         required>

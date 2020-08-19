@@ -19,7 +19,7 @@ class MatapelajaranController extends Controller
             $data = Matapelajaran::with('guru')->get();
             return datatables()->of($data)
                     ->addIndexColumn()
-                    ->addColumn('walikelas', function($data){
+                    ->addColumn('guru', function($data){
                         return empty($data->guru->nama) ? "Belum Diatur" : $data->guru->nama;
                     })
                     ->addColumn('action', function($data){
@@ -29,7 +29,7 @@ class MatapelajaranController extends Controller
                         class="fa fa-trash"></i></a></div>';
                         return $button;
                     })
-                    ->rawColumns(['action','walikelas'])
+                    ->rawColumns(['action','guru'])
                     ->make(true);
         }
         

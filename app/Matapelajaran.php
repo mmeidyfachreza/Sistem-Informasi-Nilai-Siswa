@@ -18,4 +18,9 @@ class Matapelajaran extends Model
     {
         return $this->belongsTo('App\Guru','guru_id');
     }
+
+    public function nilaiAkademik()
+    {
+        return $this->belongsToMany('App\Nilaiakademik');
+    }
 }

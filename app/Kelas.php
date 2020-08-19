@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
-    protected $fillable = ['nama','prodi_id','guru_id'];
+    protected $fillable = ['nama','prodi_id','guru_id','nomor'];
 
     public function guru()
     {

@@ -48,7 +48,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Walikelas</th>
+                                        <th>Guru</th>
                                         <th>Semester</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -80,7 +80,7 @@
             columns:[
             {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable:false, orderable:false},
             {data: 'nama', name: 'nama'},
-            {data: 'walikelas', name: 'walikelas'},
+            {data: 'guru', name: 'guru'},
             {data: 'semester', name: 'semester'},
             {data: 'action', name: 'action', searchable:false, orderable:false},
             ]
