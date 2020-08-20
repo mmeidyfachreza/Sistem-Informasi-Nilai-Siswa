@@ -72,16 +72,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Prodi</label>
+                                    <label>Jurusan</label>
                                     <select name="prodi_id" class="custom-select">
                                         @isset($kelas)
-                                        @foreach ($prodi as $item)
+                                        @foreach ($jurusan as $item)
                                         <option value={{$item->id}} @if($item->id==$kelas->prodi_id)
                                             selected @endif>{{$item->nama}}</option>
                                         @endforeach
                                         @else
                                         <option value='' selected disabled>--Pilih--</option>
-                                        @foreach ($prodi  as $item)
+                                        @foreach ($jurusan  as $item)
                                         <option value={{$item->id}}>{{$item->nama}}</option>
                                         @endforeach
                                         @endisset

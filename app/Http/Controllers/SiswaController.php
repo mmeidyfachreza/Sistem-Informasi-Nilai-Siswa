@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Kelas;
-use App\Prodi;
+use App\Jurusan;
 use App\Siswa;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,9 +52,9 @@ class SiswaController extends Controller
     public function create()
     {
         $gender = ['Laki-laki','Perempuan'];
-        $kelas = Kelas::all();
-        $prodi = Prodi::all();
-        return view('admin.siswa.form',compact('gender','kelas','prodi'));
+        $kelas = Kelas::with('jurusan')->get();
+        $jurusan = Jurusan::all();
+        return view('admin.siswa.form',compact('gender','kelas','jurusan'));
     }
 
     /**
@@ -97,7 +97,9 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::with('user')->findOrFail($id);        
         $gender = ['Laki-laki','Perempuan'];
-        return view('admin.siswa.form',compact('siswa','gender'));
+        $kelas = Kelas::with('jurusan')->get();
+        $jurusan = Jurusan::all();
+        return view('admin.siswa.form',compact('siswa','gender','jurusan','kelas'));
     }
 
     /**
@@ -110,7 +112,7 @@ class SiswaController extends Controller
     public function update(Request $request, $id)
     {
         $siswa = Siswa::findOrFail($id);
-        $user = User::findOrFail($siswa->id);
+        $user = User::findOrFail($siswa->user_id);
         if ($request->password) {
             $user->update([
                 'email'=>$request->email,

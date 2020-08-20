@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/ajax', 'NilaiakademikController@ajax');
+Route::get('raport', function () {
+    return view('admin.raport.print');
+});
 
 Route::get('/','GuruController@index')->middleware('guru');
 

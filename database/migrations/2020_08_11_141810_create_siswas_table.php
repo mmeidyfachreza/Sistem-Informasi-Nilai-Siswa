@@ -15,7 +15,7 @@ class CreateSiswasTable extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->integer('nis');
+            $table->string('nis');
             $table->string('nama',100);
             $table->string('tempat_lahir',45);
             $table->date('tanggal_lahir');
@@ -26,8 +26,8 @@ class CreateSiswasTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->bigInteger('kelas_id')->unsigned()->nullable()->nullable();
             $table->foreign('kelas_id')->references('id')->on('kelas')->nullOnDelete();
-            $table->bigInteger('prodi_id')->unsigned()->nullable()->nullable();
-            $table->foreign('prodi_id')->references('id')->on('prodi')->nullOnDelete();
+            $table->bigInteger('jurusan_id')->unsigned()->nullable()->nullable();
+            $table->foreign('jurusan_id')->references('id')->on('jurusan')->nullOnDelete();
             $table->date('tanggal_masuk');
             $table->string('angkatan_thn',4);
             $table->timestamps();
@@ -44,7 +44,7 @@ class CreateSiswasTable extends Migration
         Schema::table('siswa', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['kelas_id']);
-            $table->dropForeign(['prodi_id']);
+            $table->dropForeign(['jurusan_id']);
         });
         Schema::dropIfExists('siswa');
     }

@@ -49,7 +49,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Nomor</th>
-                                        <th>Prodi</th>
+                                        <th>Jurusan</th>
                                         <th>Walikelas</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -82,7 +82,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable:false, orderable:false},
             {data: 'nama', name: 'nama'},
             {data: 'nomor', name: 'nomor'},
-            {data: 'prodi', name: 'prodi'},
+            {data: 'jurusan', name: 'jurusan'},
             {data: 'walikelas', name: 'walikelas'},
             {data: 'action', name: 'action', searchable:false, orderable:false},
             ]

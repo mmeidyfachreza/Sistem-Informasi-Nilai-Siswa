@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jurusan extends Model
 {
     protected $table = 'jurusan';
-    protected $fillable = ['nama'];
+    protected $fillable = ['nama','prodi_id'];
 
     public function prodi()
     {

@@ -1,4 +1,8 @@
-
+        <div class="form-group">
+            <label>Tahun</label>
+            <input type="text" name="tahun" class="form-control"
+                value="{{old('tahun', $record->tahun ?? '')}}" placeholder="masukan tahun" required>
+        </div>
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#lm">Nilai Akademik</a>
@@ -17,8 +21,7 @@
             </div>
         </div>
         <input type="hidden" name="siswa_id" value="{{$siswa->id}}">
-        <input type="hidden" name="semester" value="{{$semester}}">
-        <input type="hidden" name="tahun" value="{{$tahun}}">
+        <input type="hidden" name="semester" value="{{$semester ?? $record->semester}}">
         <div class="form-group">
             <input type="submit" value="Simpan" class="btn btn-primary">
             <a href="{{URL::previous()}}" class="btn btn-danger">Batal</a>
@@ -31,9 +34,9 @@
 
         $('.pengetahuan[id^="pengetahuan"]').keyup(function () {
             var id = parseInt(this.id.replace("pengetahuan", ""), 10);
-            $('#nilai_akhir' + id).val((parseFloat(this.value) + parseFloat($('#keterampilan' + id)
+            $('#nilai_akhir' + id).val((parseInt(this.value) + parseInt($('#keterampilan' + id)
             .val())) / 2);
-            var nilai_akhir = parseFloat($('#nilai_akhir' + id).val());
+            var nilai_akhir = parseInt($('#nilai_akhir' + id).val());
             $('#na' + id).val(nilai_akhir);
             if (nilai_akhir >= 85) {
                 $('#predikat' + id).val("A-");
@@ -58,11 +61,11 @@
             var totalNA = 0;
             var count = 0;
             $('.pengetahuan').each(function () {
-                total += parseFloat(this.value);
+                total += parseInt(this.value);
                 count++;
             })
             $('.nilai_akhir').each(function () {
-                totalNA += parseFloat(this.value);
+                totalNA += parseInt(this.value);
             })
 
             $('#total_pengetahuan').val(total);
@@ -97,9 +100,9 @@
 
         $('.keterampilan[id^="keterampilan"]').keyup(function () {
             var id = parseInt(this.id.replace("keterampilan", ""), 10);
-            $('#nilai_akhir' + id).val(parseFloat((parseFloat(this.value) + parseFloat($(
+            $('#nilai_akhir' + id).val(parseInt((parseInt(this.value) + parseInt($(
                 '#pengetahuan' + id).val())) / 2));
-            var nilai_akhir = parseFloat($('#nilai_akhir' + id).val());
+            var nilai_akhir = parseInt($('#nilai_akhir' + id).val());
             $('#na' + id).val(nilai_akhir);
             if (nilai_akhir >= 85) {
                 $('#predikat' + id).val("A-");
@@ -125,11 +128,11 @@
             var totalNA = 0;
             var count = 0;
             $('.keterampilan').each(function () {
-                total += parseFloat(this.value);
+                total += parseInt(this.value);
                 count++;
             })
             $('.nilai_akhir').each(function () {
-                totalNA += parseFloat(this.value);
+                totalNA += parseInt(this.value);
             })
             $('#total_keterampilan').val(total);
             $('#tk').val(total);
@@ -170,15 +173,15 @@
         var countP = 0;
         var countK = 0;
         $('.pengetahuan').each(function () {
-            totalP += parseFloat(this.value);
+            totalP += parseInt(this.value);
             countP++;
         })
         $('.keterampilan').each(function () {
-            totalK += parseFloat(this.value);
+            totalK += parseInt(this.value);
             countK++;
         })
         $('.nilai_akhir').each(function () {
-            totalNA += parseFloat(this.value);
+            totalNA += parseInt(this.value);
         })
 
         $('#total_pengetahuan').val(totalP);

@@ -18,7 +18,7 @@ class NilaiakademikController extends Controller
     {
         
         if(request()->ajax()){
-            $data = Siswa::with('kelas')->with('prodi')->get();
+            $data = Siswa::with('kelas')->with('jurusan')->get();
             return datatables()->of($data)
                     ->editColumn('nama', function($data){
                         $nama = '<a href="'.route("cari.nilai.siswa", $data->id).'">'.$data->nama.'</a>';
@@ -27,10 +27,10 @@ class NilaiakademikController extends Controller
                     ->addColumn('kelas', function($data){
                         return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama;
                     })
-                    ->addColumn('prodi', function($data){
-                        return empty($data->prodi->nama) ? "Belum Diatur" : $data->prodi->nama;
+                    ->addColumn('jurusan', function($data){
+                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
                     })
-                    ->rawColumns(['kelas','nama','prodi'])
+                    ->rawColumns(['kelas','nama','jurusan'])
                     ->make(true);
         }
         return view('admin.nilai.index_student');
@@ -57,8 +57,7 @@ class NilaiakademikController extends Controller
             return redirect()->to('admin/nilai-akademik/create/'.$request->siswa_id)->withErrors('data matapelajaran pada semester '.$request->semester.' kosong');
         }
         $semester = $request->semester;
-        $tahun = $request->tahun;
-        return view('admin.nilai.create',compact('siswa','matapelajaran','semester','tahun'));
+        return view('admin.nilai.create',compact('siswa','matapelajaran','semester'));
     }
 
     /**

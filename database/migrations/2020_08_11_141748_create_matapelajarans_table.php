@@ -19,6 +19,8 @@ class CreateMatapelajaransTable extends Migration
             $table->integer('semester');
             $table->bigInteger('guru_id')->unsigned()->nullable();
             $table->foreign('guru_id')->references('id')->on('guru')->nullOnDelete();
+            $table->string('jenis',50)->nullable();
+            $table->string('sub_jenis',50)->nullable();
             $table->timestamps();
         });
     }

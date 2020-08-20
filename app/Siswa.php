@@ -10,7 +10,7 @@ class Siswa extends Model
     protected $fillable = [
         'nis','nama','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','nohp',
         'kelas_id',
-        'prodi_id',
+        'jurusan_id',
         'tanggal_masuk',
         'angkatan_thn',
     ];
@@ -30,8 +30,8 @@ class Siswa extends Model
         return $this->belongsTo('App\Kelas');
     }
 
-    public function prodi()
+    public function jurusan()
     {
-        return $this->belongsTo('App\Prodi');
+        return $this->belongsTo('App\Jurusan');
     }
 }

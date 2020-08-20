@@ -51,11 +51,6 @@
                                     <input type="number" name="semester" class="form-control" min="1"
                                         value="{{old('semester', $semester ?? ' ')}}" placeholder="masukan angka" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Tahun</label>
-                                    <input type="text" name="tahun" class="form-control"
-                                        value="{{old('tahun', $tahun ?? '')}}" placeholder="masukan tahun" required>
-                                </div>
                                 <input type="hidden" name="siswa_id" value="{{$siswa->id}}">
                                 <div class="form-group">
                                     <input type="submit" value="Proses" class="btn btn-primary">
@@ -65,7 +60,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h4>Tambah Nilai Akademik Semester {{$semester ?? ''}} Tahun {{$tahun ?? ''}}</h4>
+                        <h4>Tambah Nilai Akademik Semester {{$semester ?? ''}}</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{route('nilai-akademik.store')}}" method="POST">

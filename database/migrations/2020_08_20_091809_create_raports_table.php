@@ -22,6 +22,10 @@ class CreateRaportsTable extends Migration
             $table->string('no_kelas');
             $table->bigInteger('nilaiakademik_id')->unsigned()->nullable();
             $table->foreign('nilaiakademik_id')->references('id')->on('nilaiakademik')->cascadeOnDelete();
+            $table->bigInteger('pkl_siswa_id')->unsigned()->nullable();
+            $table->foreign('pkl_siswa_id')->references('id')->on('pkl_siswa')->cascadeOnDelete();
+            $table->bigInteger('ekskul_siswa_id')->unsigned()->nullable();
+            $table->foreign('ekskul_siswa_id')->references('id')->on('ekskul_siswa')->cascadeOnDelete();
             $table->integer('peringkat');
             $table->string('cat_akademik');
             $table->integer('sakit');
@@ -42,6 +46,8 @@ class CreateRaportsTable extends Migration
     {
         Schema::table('raport', function (Blueprint $table) {
             $table->dropForeign(['nilaiakademik_id']);
+            $table->dropForeign(['pkl_siswa_id']);
+            $table->dropForeign(['ekskul_siswa_id']);
         });
         Schema::dropIfExists('raport');
     }

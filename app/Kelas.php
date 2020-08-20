@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
-    protected $fillable = ['nama','prodi_id','guru_id','nomor'];
+    protected $fillable = ['nama','jurusan_id','guru_id','nomor'];
 
     public function guru()
     {
         return $this->belongsTo('App\Guru','guru_id');
     }
 
-    public function prodi()
+    public function jurusan()
     {
-        return $this->belongsTo('App\Prodi','prodi_id');
+        return $this->belongsTo('App\Jurusan','jurusan_id');
     }
 }

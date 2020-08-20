@@ -27,13 +27,11 @@
                             <table class="table" id="student-table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Nama</th>
-                                        <th class="text-center">kelas</th>
-                                        <th class="text-center">prodi</th>
-                                        
+                                        <th>Nama</th>
+                                        <th>kelas</th>
+                                        <th>prodi</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -55,7 +53,7 @@
                 
             {data: 'nama', name: 'nama'},
             {data: 'kelas', name: 'kelas'},
-            {data: 'prodi', name: 'prodi'},
+            {data: 'jurusan', name: 'jurusan'},
             ]
         });
     })

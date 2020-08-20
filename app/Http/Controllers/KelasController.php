@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Kelas;
 use App\Guru;
-use App\Prodi;
+use App\Jurusan;
 use Illuminate\Http\Request;
 
 class KelasController extends Controller
@@ -17,11 +17,11 @@ class KelasController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $data = Kelas::with('guru')->with('prodi')->get();
+            $data = Kelas::with('guru')->with('jurusan')->get();
             return datatables()->of($data)
                     ->addIndexColumn()
-                    ->addColumn('prodi', function($data){
-                        return empty($data->prodi->nama) ? "Belum Diatur" : $data->prodi->nama;
+                    ->addColumn('jurusan', function($data){
+                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
                     })
                     ->addColumn('walikelas', function($data){
                         return empty($data->guru->nama) ? "Belum Diatur" : $data->guru->nama;
@@ -33,7 +33,7 @@ class KelasController extends Controller
                         class="fa fa-trash"></i></a></div>';
                         return $button;
                     })
-                    ->rawColumns(['action','walikelas','prodi'])
+                    ->rawColumns(['action','walikelas','jurusan'])
                     ->make(true);
         }
         
@@ -48,8 +48,8 @@ class KelasController extends Controller
     public function create()
     {
         $guru = Guru::all();
-        $prodi = Prodi::all();
-        return view('admin.kelas.form',compact('guru','prodi'));
+        $jurusan = Jurusan::all();
+        return view('admin.kelas.form',compact('guru','jurusan'));
     }
 
     /**
@@ -86,8 +86,8 @@ class KelasController extends Controller
     {
         $kelas = Kelas::findOrFail($id);
         $guru = Guru::all();
-        $prodi = Prodi::all();
-        return view('admin.kelas.form',compact('kelas','guru','prodi'));
+        $jurusan = Jurusan::all();
+        return view('admin.kelas.form',compact('kelas','guru','jurusan'));
     }
 
     /**

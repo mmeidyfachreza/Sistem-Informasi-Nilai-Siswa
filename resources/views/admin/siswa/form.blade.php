@@ -47,7 +47,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Nomor Induk Siswa</label>
-                                    <input type="text" name="nis" placeholder="Masukan Nomor Induk Pegawai" class="form-control"
+                                    <input type="text" name="nis" placeholder="Masukan Nomor Induk Siswa" class="form-control"
                                         value="{{old('nis', $siswa->nis ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
@@ -106,27 +106,27 @@
                                         @isset($siswa)
                                         @foreach ($kelas as $item)
                                         <option value={{$item->id}} @if($item->id==$siswa->kelas_id)
-                                            selected @endif>{{$item->nama}}</option>
+                                            selected @endif>{{$item->nama}} {{$item->jurusan->nama}} {{$item->nomor}}</option>
                                         @endforeach
                                         @else
                                         <option value='' selected disabled>--Pilih--</option>
                                         @foreach ($kelas  as $item)
-                                        <option value={{$item->id}}>{{$item->nama}}</option>
+                                        <option value={{$item->id}}>{{$item->nama}} {{$item->jurusan->nama}} {{$item->nomor}}</option>
                                         @endforeach
                                         @endisset
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Prodi</label>
-                                    <select name="prodi_id" class="custom-select">
+                                    <label>Jurusan</label>
+                                    <select name="jurusan_id" class="custom-select">
                                         @isset($siswa)
-                                        @foreach ($prodi as $item)
-                                        <option value={{$item->id}} @if($item->id==$siswa->prodi_id)
+                                        @foreach ($jurusan as $item)
+                                        <option value={{$item->id}} @if($item->id==$siswa->jurusan_id)
                                             selected @endif>{{$item->nama}}</option>
                                         @endforeach
                                         @else
                                         <option value='' selected disabled>--Pilih--</option>
-                                        @foreach ($prodi  as $item)
+                                        @foreach ($jurusan  as $item)
                                         <option value={{$item->id}}>{{$item->nama}}</option>
                                         @endforeach
                                         @endisset

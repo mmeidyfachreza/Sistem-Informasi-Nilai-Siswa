@@ -41,9 +41,37 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h4>Ubah Nilai Akademik</h4>
+                        <h4>Pilih Semester</h4>
                     </div>
-                    @include('admin.nilai.form')
+                        <div class="card-body">
+                            <form action="{{route('nilai.siswa.semester')}}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Semester</label>
+                                    <input type="number" name="semester" class="form-control" min="1"
+                                        value="{{old('semester', $record->semester ?? ' ')}}" placeholder="masukan angka" required>
+                                </div>
+                                <input type="hidden" name="siswa_id" value="{{$siswa->id}}">
+                                <div class="form-group">
+                                    <input type="submit" value="Proses" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h4>Ubah Nilai Akademik Semester {{$record->semester ?? ''}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{route('nilai-akademik.update',$record->id)}}"
+                            method="POST">
+                            @method('PUT')
+                            @csrf
+                            @isset($matapelajaran)
+                                @include('admin.nilai.form')
+                            @endisset
+                        <form>
+                    <div>
                 </div>
             </div>
         </div>
