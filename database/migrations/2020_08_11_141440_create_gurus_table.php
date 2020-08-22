@@ -22,6 +22,7 @@ class CreateGurusTable extends Migration
             $table->text('alamat');
             $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
             $table->string('nohp',20);
+            $table->string('jabatan',50)->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->timestamps();

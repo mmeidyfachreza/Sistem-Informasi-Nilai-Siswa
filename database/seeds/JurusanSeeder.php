@@ -14,7 +14,7 @@ class JurusanSeeder extends Seeder
     {
         $data = ['Jaringan','Desain Grafis','Rekayasa Perangkat Lunak','Hardware','Data Mining','Keamanan Jaringan'];
         foreach ($data as $value) {
-            Jurusan::create(['nama'=>$value,'prodi_id'=>rand(1,3)]);
+            Jurusan::create(['nama'=>$value]);
         }
     }
 }

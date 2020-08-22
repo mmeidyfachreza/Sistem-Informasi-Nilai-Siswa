@@ -16,8 +16,7 @@ class CreateJurusansTable extends Migration
         Schema::create('jurusan', function (Blueprint $table) {
             $table->id();
             $table->string('nama',50);
-            $table->bigInteger('prodi_id')->unsigned();
-            $table->foreign('prodi_id')->references('id')->on('prodi')->cascadeOnDelete();
+            $table->string('kode_jurusan',10)->nullable();
             $table->timestamps();
         });
     }
@@ -29,9 +28,6 @@ class CreateJurusansTable extends Migration
      */
     public function down()
     {
-        Schema::table('jurusan', function (Blueprint $table) {
-            $table->dropForeign(['prodi_id']);
-        });
         Schema::dropIfExists('jurusan');
     }
 }
