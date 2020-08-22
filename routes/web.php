@@ -35,4 +35,5 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::get('nilai-akademik/siswa/{id}', 'NilaiakademikController@indexNilai')->name('cari.nilai.siswa');
     Route::get('nilai-akademik/create/{id}', 'NilaiakademikController@create')->name('nilai.siswa.create');
     Route::post('nilai-akademik/find-semester', 'NilaiakademikController@orderBySemester')->name('nilai.siswa.semester');
+    Route::post('nilai-akademik/find-semester-edit', 'NilaiakademikController@orderBySemesterEdit')->name('nilai.siswa.semester2');
 });
