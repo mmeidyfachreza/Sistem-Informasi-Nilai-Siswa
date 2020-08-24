@@ -46,9 +46,14 @@
                                 @endisset
                                 @csrf
                                 <div class="form-group">
-                                    <label>Nomor Induk Siswa</label>
+                                    <label>NIS</label>
                                     <input type="text" name="nis" placeholder="Masukan Nomor Induk Siswa" class="form-control"
                                         value="{{old('nis', $siswa->nis ?? '')}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>NISN</label>
+                                    <input type="text" name="nisn" placeholder="Masukan Nomor Induk Nasional Siswa (jika ada)" class="form-control"
+                                        value="{{old('nis', $siswa->nisn ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Lengkap</label>
