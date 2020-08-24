@@ -29,4 +29,9 @@ class Nilaiakademik extends Model
                     ->withPivot('predikat')
                     ->withTimestamps();
     }
+
+    public function siswa()
+    {
+        return $this->belongsTo('App\Siswa');
+    }
 }

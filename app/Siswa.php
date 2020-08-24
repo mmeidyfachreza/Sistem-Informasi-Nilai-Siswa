@@ -8,7 +8,7 @@ class Siswa extends Model
 {
     protected $table = 'siswa';
     protected $fillable = [
-        'nis','nama','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','nohp',
+        'nis','nisn','nama','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','nohp',
         'kelas_id',
         'jurusan_id',
         'tanggal_masuk',
@@ -23,6 +23,11 @@ class Siswa extends Model
     public function raport()
     {
         return $this->hasMany('App\Raport');
+    }
+
+    public function nilai_akademik()
+    {
+        return $this->hasMany('App\Nilaiakademik');
     }
 
     public function kelas()
