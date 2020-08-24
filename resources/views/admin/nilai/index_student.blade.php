@@ -28,8 +28,8 @@
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>kelas</th>
-                                        <th>prodi</th>
+                                        <th>Kelas</th>
+                                        <th>Jurusan</th>
                                     </tr>
                                 </thead>
                             </table>
