@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Matapelajaran extends Model
 {
     protected $table = 'matapelajaran';
-    protected $fillable = ['nama','semester','guru_id'];
+    protected $fillable = ['nama','semester','guru_id','jenis','sub_jenis'];
 
     public function raport()
     {

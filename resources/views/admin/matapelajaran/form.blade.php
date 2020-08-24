@@ -71,6 +71,38 @@
                                     <input type="number" name="semester" placeholder="Masukan Angka Semester" class="form-control"
                                         value="{{old('semester', $matapelajaran->semester ?? '')}}" required>
                                 </div>
+                                <div class="form-group">
+                                    <label>Jenis</label>
+                                    <select name="jenis" class="custom-select">
+                                        <option value='' selected disabled>Pilih</option>
+                                        @isset($siswa)
+                                        @foreach ($jenis as $item)
+                                        <option value={{$item}} @if($item==$matapelajaran->jenis)
+                                            selected @endif>{{$item}}</option>
+                                        @endforeach
+                                        @else
+                                        @foreach ($jenis as $item)
+                                        <option value={{$item}}>{{$item}}</option>
+                                        @endforeach
+                                        @endisset
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sub Jenis</label>
+                                    <select name="sub_jenis" class="custom-select">
+                                        <option value='' selected disabled>Pilih</option>
+                                        @isset($siswa)
+                                        @foreach ($sub_jenis as $item)
+                                        <option value={{$item}} @if($item==$matapelajaran->sub_jenis)
+                                            selected @endif>{{$item}}</option>
+                                        @endforeach
+                                        @else
+                                        @foreach ($sub_jenis as $item)
+                                        <option value={{$item}}>{{$item}}</option>
+                                        @endforeach
+                                        @endisset
+                                    </select>
+                                </div>
                                 <br>
                                 <div class="form-group">
                                     <input type="submit" value="Simpan" class="btn btn-primary">

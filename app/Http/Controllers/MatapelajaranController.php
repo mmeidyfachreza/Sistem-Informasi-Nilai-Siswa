@@ -44,7 +44,9 @@ class MatapelajaranController extends Controller
     public function create()
     {
         $guru = Guru::all();
-        return view('admin.matapelajaran.form',compact('guru'));
+        $jenis = ['A. Muatan Nasional','B. Muatan Kewilayahan','C. Muatan Peminatan Kejuruan'];
+        $sub_jenis = ['C1. Dasar Program Keahlian'];
+        return view('admin.matapelajaran.form',compact('guru','jenis','sub_jenis'));
     }
 
     /**
