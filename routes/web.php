@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('raport', function () {
-    return view('admin.raport.print');
-});
+Route::get('raport', 'RaportController@cetak');
 
 Route::get('/','GuruController@index')->middleware('guru');
 
