@@ -22,7 +22,7 @@ class CreateTableNilaiMapel extends Migration
             $table->float('pengetahuan')->nullable();
             $table->float('keterampilan')->nullable();
             $table->float('nilai_akhir')->nullable();
-            $table->string('predikat',2);
+            $table->string('predikat',2)->nullable();
             $table->timestamps();
         });
     }

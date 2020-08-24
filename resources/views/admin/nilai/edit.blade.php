@@ -44,12 +44,12 @@
                         <h4>Pilih Semester</h4>
                     </div>
                         <div class="card-body">
-                            <form action="{{route('nilai.siswa.semester')}}" method="POST">
+                            <form action="{{route('nilai.siswa.semester2',$record->id)}}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label>Semester</label>
                                     <input type="number" name="semester" class="form-control" min="1"
-                                        value="{{old('semester', $record->semester ?? ' ')}}" placeholder="masukan angka" required>
+                                        value="{{old('semester', $semester ?? ' ')}}" placeholder="masukan angka" required>
                                 </div>
                                 <input type="hidden" name="siswa_id" value="{{$siswa->id}}">
                                 <div class="form-group">

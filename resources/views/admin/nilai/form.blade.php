@@ -7,9 +7,6 @@
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#lm">Nilai Akademik</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#bd">Praktek Kerja Lapangan</a>
-            </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">

@@ -1,5 +1,18 @@
 @extends('layouts.layout')
 
+@section('custom-style')
+    <style>
+        .nilai-akademik thead th{
+            border: 1px solid grey !important; 
+            vertical-align: middle;
+            text-align: center;
+        }
+        .nilai-akademik tbody td{
+            text-align: center;
+        }
+    </style>
+@endsection
+
 @section('content')
 <!-- Breadcrumb-->
 <div class="breadcrumb-holder">
@@ -42,25 +55,43 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive table-striped nilai-akademik">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Semester</th>
-                                        <th>Tahun</th>
-                                        <th>Aksi</th>
+                                        <th class="text-center" rowspan="2">#</th>
+                                        <th rowspan="2">Semester</th>
+                                        <th rowspan="2">Tahun</th>
+                                        <th class="text-center" colspan="3">Total</th>
+                                        <th class="text-center" colspan="3">rata-rata</th>
+                                        <th rowspan="2">Predikat</th>
+                                        <th rowspan="2">Aksi</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Pengetahuan</th>
+                                        <th>Keterampilan</th>
+                                        <th>Nilai Akhir</th>
+                                        <th>Pengetahuan</th>
+                                        <th>Keterampilan</th>
+                                        <th>Nilai Akhir</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $x=1;?>
                                     @foreach ($records as $item)
                                     <tr>
-                                        <th scope="row">{{$x++}}</th>
+                                        <td scope="row">{{$x++}}</th>
                                         <td>{{$item->semester}}</td>
                                         <td>{{$item->tahun}}</td>
+                                        <td>{{$item->sum_pengetahuan}}</td>
+                                        <td>{{$item->sum_keterampilan}}</td>
+                                        <td>{{$item->sum_nilai_akhir}}</td>
+                                        <td>{{$item->avg_pengetahuan}}</td>
+                                        <td>{{$item->avg_keterampilan}}</td>
+                                        <td>{{$item->avg_nilai_akhir}}</td>
+                                        <td>{{$item->avg_predikat}}</td>
                                         <td>
-                                            <form action="{{ route('nilai-akademik.destroy',$item->id) }}" method="POST">
+                                            <form class="btn-group" role="group" aria-label="Basic example" action="{{ route('nilai-akademik.destroy',$item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="return confirm('Apakah anda yakin?')"

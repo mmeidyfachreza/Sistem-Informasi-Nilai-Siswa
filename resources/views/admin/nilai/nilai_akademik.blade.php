@@ -40,8 +40,8 @@
                     <td><input class="nilai_akhir" type="string" id="nilai_akhir{{$x}}" style="width:50px" value="{{old('nilai_akhir['.$x.']', $record->nilaiMaPel->find($item->id)->pivot->nilai_akhir ?? 0)}}" disabled></td>
                     <input type="hidden" name="nilai_akhir[{{$x}}]" id="na{{$x}}" value="{{old('nilai_akhir['.$x.']', $record->nilaiMaPel->find($item->id)->pivot->nilai_akhir ?? 0)}}">    
                     
-                    <td><input type="string" id="predikat{{$x}}" style="width:50px" value="{{old('predikat['.$x.']', $record->nilaiMaPel->find($item->id)->pivot->predikat ?? 0)}}" disabled></td>
-                    <input type="hidden" name="predikat[{{$x}}]" id="pd{{$x}}" value="{{old('predikat['.$x++.']', $record->nilaiMaPel->find($item->id)->pivot->predikat ?? "")}}">
+                    <td><input type="string" id="predikat{{$x}}" style="width:50px" value="{{old('predikat['.$x.']', $record->nilaiMaPel->find($item->id)->pivot->predikat ?? " ")}}" disabled></td>
+                    <input type="hidden" name="predikat[{{$x}}]" id="pd{{$x}}" value="{{old('predikat['.$x++.']', $record->nilaiMaPel->find($item->id)->pivot->predikat ?? " ")}}">
                 </tr>
                 @endforeach
                 <tr>

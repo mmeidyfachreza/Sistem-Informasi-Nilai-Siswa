@@ -25,7 +25,7 @@ class NilaiakademikController extends Controller
                         return $nama;
                     })
                     ->addColumn('kelas', function($data){
-                        return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama;
+                        return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama." ".$data->kelas->nomor;
                     })
                     ->addColumn('jurusan', function($data){
                         return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
@@ -60,6 +60,24 @@ class NilaiakademikController extends Controller
         return view('admin.nilai.create',compact('siswa','matapelajaran','semester'));
     }
 
+    public function orderBySemesterEdit(Request $request,$id)
+    {
+        
+        $siswa = Siswa::findOrFail($request->siswa_id);
+        $record = Nilaiakademik::with('nilaiMaPel')->findOrFail($id);
+        $matapelajaran = Matapelajaran::where('semester','=',$request->semester)->get();
+        $semester = $request->semester;
+        if (!$matapelajaran->first()) {
+            return redirect()->to('admin/nilai-akademik/'.$id.'/edit')->with([
+                'error'=>'data matapelajaran pada semester '.$request->semester.' kosong',
+                'record'=>$record,
+                'semester'=>$semester
+                ]);
+        }
+        
+        return view('admin.nilai.edit',compact('siswa','matapelajaran','semester','record'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -83,7 +101,7 @@ class NilaiakademikController extends Controller
     {
         $siswa = Siswa::findOrFail($request->siswa_id);
         $nilaiakademik = Nilaiakademik::create($request->all());
-        $mp = Matapelajaran::all();
+        $mp = Matapelajaran::where('semester','=',$request->semester)->get();
         $x = 1;
         foreach ($mp as $item) {
             //collect all inserted record IDs
@@ -147,13 +165,14 @@ class NilaiakademikController extends Controller
     {
         $record = Nilaiakademik::with('nilaiMaPel')->findOrFail($id);
         $siswa = Siswa::findOrFail($record->siswa_id);
-
-        $matapelajaran = Matapelajaran::all();
+        $semester = $record->semester;
+        $matapelajaran = Matapelajaran::where('semester','=',$semester)->get();
 
         return view('admin.nilai.edit',compact(
             'record',
             'siswa',
             'matapelajaran',
+            'semester'
         ));
     }
 
@@ -166,11 +185,10 @@ class NilaiakademikController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $siswa = Siswa::findOrFail($request->siswa_id);
         $nilaiakademik = Nilaiakademik::findOrFail($id);
         $nilaiakademik->update($request->all());
-        $mp = Matapelajaran::all();
+        $mp = Matapelajaran::where('semester','=',$request->semester)->get();
         $x = 1;
         foreach ($mp as $item) {
             //collect all inserted record IDs
@@ -182,7 +200,7 @@ class NilaiakademikController extends Controller
             ];
         }
 
-        $nilaiakademik->nilaiMaPel()->syncWithoutDetaching($mp_id_array);
+        $nilaiakademik->nilaiMaPel()->sync($mp_id_array);
        
         return redirect()->route('cari.nilai.siswa',$request->siswa_id)->with(['success'=>'Berhasil merubah data','data'=>$siswa]);
     }
