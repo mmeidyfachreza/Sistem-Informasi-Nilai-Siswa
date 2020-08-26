@@ -16,7 +16,6 @@ class EkstrakurikulerTable extends Migration
         Schema::create('ekstrakurikuler', function (Blueprint $table) {
             $table->id();
             $table->string('nama',50);
-            $table->text('keterangan');
             $table->timestamps();
         });
     }

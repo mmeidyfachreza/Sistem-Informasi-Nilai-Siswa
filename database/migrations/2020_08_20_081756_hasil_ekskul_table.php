@@ -19,7 +19,7 @@ class HasilEkskulTable extends Migration
             $table->foreign('ekskul_siswa_id')->references('id')->on('ekskul_siswa')->cascadeOnDelete();
             $table->bigInteger('ekstrakurikuler_id')->unsigned();
             $table->foreign('ekstrakurikuler_id')->references('id')->on('ekstrakurikuler')->cascadeOnDelete();
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

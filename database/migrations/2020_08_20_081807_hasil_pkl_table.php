@@ -20,7 +20,7 @@ class HasilPklTable extends Migration
             $table->bigInteger('pkl_id')->unsigned();
             $table->foreign('pkl_id')->references('id')->on('pkl')->cascadeOnDelete();
             $table->integer('lamanya');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
