@@ -34,4 +34,10 @@ class Nilaiakademik extends Model
     {
         return $this->belongsTo('App\Siswa');
     }
+
+    public function raport()
+    {
+        return $this->hasOne('App\Raport');
+    }
+
 }

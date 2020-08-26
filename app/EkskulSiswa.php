@@ -13,10 +13,15 @@ class EkskulSiswa extends Model
         'siswa_id',        
     ];
 
-    public function hasilPKL()
+    public function hasilEkskul()
     {
-        return $this->belongsToMany('App\Ekstrakurikuler','ekskul_siswa','ekskul_siswa_id','ekstrakurikuler_id')
+        return $this->belongsToMany('App\Ekskul','hasil_ekskul','ekskul_siswa_id','ekstrakurikuler_id')
                     ->withPivot('keterangan')
                     ->withTimestamps();
+    }
+
+    public function raport()
+    {
+        return $this->hasOne('App\Raport');
     }
 }
