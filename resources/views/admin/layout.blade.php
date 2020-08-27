@@ -24,6 +24,8 @@
             </li>
             <li><a href="{{route('ekskul.index')}}"><i class="far fa-envelope"></i>Ekskul</a>
             </li>
+            <li><a href="{{route('pkl.index')}}"><i class="far fa-envelope"></i>PKL</a>
+            </li>
         </ul>
     </li>
     </ul>                
