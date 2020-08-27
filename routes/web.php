@@ -29,6 +29,7 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::resource('matapelajaran', 'MatapelajaranController');
     Route::resource('kelas', 'KelasController');
     Route::resource('nilai-akademik', 'NilaiakademikController');
+    Route::resource('ekskul', 'EkskulController');
 
     Route::get('nilai-akademik/siswa/{id}', 'NilaiakademikController@indexNilai')->name('cari.nilai.siswa');
     Route::get('nilai-akademik/create/{id}', 'NilaiakademikController@create')->name('nilai.siswa.create');
