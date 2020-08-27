@@ -19,6 +19,6 @@ class Guru
             return $next($request);
         }
 
-            return redirect('login')->with('error','You don\'t have admin access');
+        return redirect('login')->with('error','anda tidak memiliki akses ke halaman tersebut');
     }
 }
