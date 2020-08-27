@@ -1,5 +1,5 @@
 
-@extends('layouts.layout')
+@extends('admin.layout')
 
 @section('content')
 <!-- Breadcrumb-->
