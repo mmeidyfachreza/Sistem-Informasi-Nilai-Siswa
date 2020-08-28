@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Jurusan</label>
-                                    <select name="prodi_id" class="custom-select">
+                                    <select name="jurusan_id" class="custom-select">
                                         @isset($kelas)
                                         @foreach ($jurusan as $item)
                                         <option value={{$item->id}} @if($item->id==$kelas->prodi_id)
