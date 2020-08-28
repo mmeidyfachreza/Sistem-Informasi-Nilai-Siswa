@@ -18,8 +18,6 @@
             </li>
             <li><a href="{{route('kelas.index')}}"><i class="far fa-envelope"></i>Kelas</a>
             </li>
-            <li><a href="{{route('prodi.index')}}"><i class="far fa-envelope"></i>Prodi</a>
-            </li>
             <li><a href="{{route('matapelajaran.index')}}"><i class="far fa-envelope"></i>Mata Pelajaran</a>
             </li>
             <li><a href="{{route('ekskul.index')}}"><i class="far fa-envelope"></i>Ekskul</a>
