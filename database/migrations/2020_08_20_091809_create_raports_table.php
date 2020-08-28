@@ -15,24 +15,20 @@ class CreateRaportsTable extends Migration
     {
         Schema::create('raport', function (Blueprint $table) {
             $table->id();
-            $table->integer('semester');
-            $table->string('kelas');
-            $table->string('prodi');
-            $table->string('jurusan');
-            $table->string('no_kelas');
             $table->bigInteger('nilaiakademik_id')->unsigned()->nullable();
             $table->foreign('nilaiakademik_id')->references('id')->on('nilaiakademik')->cascadeOnDelete();
             $table->bigInteger('pkl_siswa_id')->unsigned()->nullable();
             $table->foreign('pkl_siswa_id')->references('id')->on('pkl_siswa')->cascadeOnDelete();
             $table->bigInteger('ekskul_siswa_id')->unsigned()->nullable();
             $table->foreign('ekskul_siswa_id')->references('id')->on('ekskul_siswa')->cascadeOnDelete();
-            $table->integer('peringkat');
-            $table->string('cat_akademik');
-            $table->integer('sakit');
-            $table->integer('izin');
-            $table->integer('tanpa_ket');
+            $table->integer('peringkat')->nullable();
+            $table->string('cat_akademik')->nullable();
+            $table->integer('sakit')->nullable();
+            $table->integer('izin')->nullable();
+            $table->integer('tanpa_ket')->nullable();
             $table->enum('kenaikan_kelas',['Naik','Tidak Naik']);
-            $table->string('ke_kelas');
+            $table->bigInteger('kelas_id')->unsigned()->nullable();
+            $table->foreign('kelas_id')->references('id')->on('kelas')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -48,6 +44,7 @@ class CreateRaportsTable extends Migration
             $table->dropForeign(['nilaiakademik_id']);
             $table->dropForeign(['pkl_siswa_id']);
             $table->dropForeign(['ekskul_siswa_id']);
+            $table->dropForeign(['kelas_id']);
         });
         Schema::dropIfExists('raport');
     }

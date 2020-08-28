@@ -28,7 +28,7 @@ class LoginController extends Controller
     return redirect()->route('guru.index');
     }
 
-    return redirect('/raport');
+    return redirect()->route('home');
     }
 
     /**

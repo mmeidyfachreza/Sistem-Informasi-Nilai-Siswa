@@ -8,28 +8,29 @@ class Raport extends Model
 {
     protected $table = 'raport';
     protected $fillable = [
-        'siswa_id',
-        'semester_id',
-        'matapelajaran_id',
-        'total_nilai_tugas',
-        'nilai_uts',
-        'nilai_uas',
-        'bobot_nilai',
-        'predikat'
+        'nilaiakademik_id',
+        'pkl_siswa_id',
+        'ekskul_siswa_id',
+        'cat_akademik',
+        'peringkat',
+        'sakit',
+        'izin',
+        'tanpa_ket',
+        'ke_kelas'
     ];
 
-    public function semester()
+    public function nilaiAkademik()
     {
-        return $this->belongsTo('App\Semester');
+        return $this->belongsTo('App\Nilaiakademik','nilaiakademik_id');
     }
 
-    public function matapelajaran()
+    public function PKLSiswa()
     {
-        return $this->belongsTo('App\Matapelajaran');
+        return $this->belongsTo('App\PKLSiswa','pkl_siswa_id');
     }
 
-    public function siswa()
+    public function ekskulSiswa()
     {
-        return $this->belongsTo('App\Siswa');
+        return $this->belongsTo('App\EkskulSiswa','ekskul_siswa_id');
     }
 }
