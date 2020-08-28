@@ -47,20 +47,15 @@
             <!-- Sidebar Header    -->
             <div class="sidenav-header d-flex align-items-center justify-content-center">
                 <!-- User Info-->
-                @guest
-                <div class="sidenav-header-inner text-center"><a href="pages-profile.html"><img
-                            src="{{asset('/uploads/avatars/default.jpg')}}" alt="person"
-                            class="img-fluid rounded-circle"></a>
-                    <h2 class="h5">Samamrinda</h2>
-                </div>
-                @else
-                <div class="sidenav-header-inner text-center"><a href="pages-profile.html"><img
-                            src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" alt="person"
-                            class="img-fluid rounded-circle"></a>
+                @if (Auth::user()->guru)
+                <div class="sidenav-header-inner text-center">
                     <h2 class="h5">{{Auth::user()->guru->nama}}</h2><span></span>
+                </div>    
+                @else
+                <div class="sidenav-header-inner text-center">
+                    <h2 class="h5">{{Auth::user()->siswa->nama}}</h2><span></span>
                 </div>
-                @endguest
-
+                @endif
                 <!-- Small Brand information, appears on minimized sidebar-->
                 <div class="sidenav-header-logo"><a href="{{url('/')}}" class="brand-small text-center">
                         <strong>B</strong><strong class="text-primary">U</strong></a></div>
