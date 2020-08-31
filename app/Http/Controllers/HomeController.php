@@ -8,6 +8,12 @@ use App\Raport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+    /**
+     * controller ini berfungsi untuk mengelola
+     * fitur untuk akun jenis siswa
+     * 
+     */
+
 class HomeController extends Controller
 {
     /**
@@ -21,15 +27,20 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * menampilkan layout halaman siswa
+     * 
+     * 
      */
     public function index()
     {
         return view('siswa.layout');
     }
 
+    /**
+     * proses menampilan data raport siswa
+     * saat siswa akses menu raport
+     * 
+     */
     public function indexRaport()
     {
         $siswa_id = auth()->user()->siswa->id;
@@ -53,11 +64,15 @@ class HomeController extends Controller
         return view('siswa.raport.index');
     }
 
+    /**
+     * proses cetak raport siswa
+     * 
+     * 
+     */
     public function printRaport($id)
     {
-
-        $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($id);
-        $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiAkademik->semester)->get();
+        $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($id); //proses pencarian raport
+        $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiAkademik->semester)->get(); //penyesuaiam data matapelajaran yang ditampilkan saat cetak raport
         return view('siswa.raport.print',compact('raport','matapelajaran'));
     }
 }

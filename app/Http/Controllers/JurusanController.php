@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Jurusan;
 use Illuminate\Http\Request;
 
+/**
+     * controller ini berfungsi untuk mengelola
+     * data jurusan yang termasuk tambah,ubah
+     * dan hapus
+     */
+
 class JurusanController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * proses menampilkan data jurusan
+     * saat mengakses menu jurusan
+     * 
      */
     public function index()
     {
@@ -33,9 +39,9 @@ class JurusanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * proses mengarahan ke halaman
+     * formulir tambah data jurusan
+     * 
      */
     public function create()
     {
@@ -43,34 +49,20 @@ class JurusanController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * proses simpan data ke database
+     * dari formulir tambah data jurusan
+     * 
      */
     public function store(Request $request)
     {
-        $jurusan = Jurusan::create($request->all());
+        $jurusan = Jurusan::create($request->all()); //proses simpan data ke database
         return redirect()->route('jurusan.index')->with('success','Berhasil menambah data');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $jurusan = Jurusan::findOrFail($id);
-        return view('admin.jurusan.show',compact('jurusan'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
+     * proses mengarahakan ke halaman 
+     * formulir ubah data jurusan
+     * 
      */
     public function edit($id)
     {
@@ -79,11 +71,9 @@ class JurusanController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
+     * proses perbarui data jurusan di
+     * database
+     * 
      */
     public function update(Request $request, $id)
     {
@@ -93,10 +83,9 @@ class JurusanController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
+     * proses hapus data 
+     * 
+     * 
      */
     public function destroy($id)
     {

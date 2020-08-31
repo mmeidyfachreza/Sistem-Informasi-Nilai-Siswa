@@ -2,7 +2,7 @@
 
 Aplikasi berbasis website yang dapat melakukan penginputan nilai raport siswa sampai cetak raport
 
-### Prerequisites
+### Persiapan
 
 Pastikan anda sudah menginstall aplikasi pendukung yang tertera dibawah ini agar website bisa digunakan
 
@@ -12,7 +12,7 @@ composer - untuk instalasi laravel
 
 ```
 
-### Installing
+### Instalasi
 
 setelah clone, akses folder project menggunakan command prompt lalu ikuti langkah dibawah ini
 
@@ -59,29 +59,33 @@ akses website pada browser anda misal chrome dengan alamat website localhost
 http://localhost:8000
 ```
 
-## Deployment
+## Dibuat dengan
 
-Upcoming.
+* [Laravel 7](https://laravel.com/) - Framework yang digunakan
 
-## Built With
-
-* [Laravel 7](https://laravel.com/) - The web framework used
-
-## Contributing
-
-Upcoming.
-
-
-## Authors
+## Pembuat
 
 * **Muhammad Meidy Fachreza** - *Initial work* - [MMeidyF](https://github.com/PurpleBooth)
 
-## License
+## Penjelasan Singkat
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+bagian controller
+```
+#fungsi
+index = menampilkan halaman utama dari fitur yang diakses 
+create = mengarahkan ke halaman formulir tambah data
+store = proses penyimpanan tambah data dari formulir tambah data ke dalam database
+show = menampilkan ke halaman yang menampilkan data yang dipilih secara detail 
+edit = mengarahkan ke halaman formulir ubah data
+update = proses perbarui data yang ada di database dari formulir ubah data
+destroy = proses hapus data yang dipilih
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+#di dalam fungsi
+$request->all() = mengekstrak seluruh data yang diisi dari halaman formulir
+->create() = proses simpan data baru ke dalam database yang sumber datanya dari halaman formulir
+->findOrFail($id) = proses pencarian data berdasarkan id, jika tidak ditemukan maka tampilan akan menampilan status 404 yang artinya halaman tidak ada
+->find($id) = proses pencarian data berdasarkan id
+->delete() = proses penghapusan data di database
+->first() = mengambil data pada baris pertama dari sebuah tabel pada database
+->all() = mengambil seluruh data yang ada pada tabel yang diinginkan
+```

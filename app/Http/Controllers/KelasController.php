@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class KelasController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * controller ini berfungsi untuk mengelola
+     * data kelas yang termasuk tambah,ubah
+     * dan hapus
      */
     public function index()
     {
@@ -41,9 +41,9 @@ class KelasController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * proses mengarahkan ke halaman
+     * formulir tambah data kelas
+     * 
      */
     public function create()
     {

@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ekskul;
 
+    /**
+     * controller ini berfungsi untuk mengelola
+     * data ekskul yang termasuk tambah,lihat,ubah
+     * dan hapus
+     */
+
 class EkskulController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * fungsinya uktuk menampilkan data ekskul
+     * saat mengakses fitur ekskul 
+     * 
      */
     public function index()
     {
@@ -33,9 +39,9 @@ class EkskulController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * fungsinya mengarahkan ke halaman 
+     * yang menampilkan formulir untuk
+     * menambahkan data baru
      */
     public function create()
     {
@@ -43,34 +49,20 @@ class EkskulController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * fungsinya menyimpan data dari
+     * formulir yang diisi saat menambah
+     * data baru ke dalam database
      */
     public function store(Request $request)
     {
-        $ekskul = Ekskul::create($request->all());
-        return redirect()->route('ekskul.index')->with('success','Berhasil menambah data');
+        $ekskul = Ekskul::create($request->all()); //proses simpan data ke database
+        return redirect()->route('ekskul.index')->with('success','Berhasil menambah data'); //jika berhasil akan diarahkan ke halaman utama ekskul
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ekskul  $ekskul
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $ekskul = Ekskul::findOrFail($id);
-        return view('admin.ekskul.show',compact('ekskul'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ekskul  $ekskul
-     * @return \Illuminate\Http\Response
+     * fungsinya untuk mengarahkan ke halaman 
+     * formulir ubah data
+     * 
      */
     public function edit($id)
     {
@@ -79,31 +71,28 @@ class EkskulController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ekskul  $ekskul
-     * @return \Illuminate\Http\Response
+     * fungsinya untuk menyimpan data
+     * dari formulir ubah data ke dalam
+     * database
      */
     public function update(Request $request, $id)
     {
-        $ekskul = Ekskul::findOrFail($id);
-        $ekskul->update($request->all());
-        return redirect()->route('ekskul.index')->with('success','Berhasil merubah data');
+        $ekskul = Ekskul::findOrFail($id); //proses pencarian data di db
+        $ekskul->update($request->all()); //proses update data ke db
+        return redirect()->route('ekskul.index')->with('success','Berhasil merubah data'); // jika berhasil diarahkan ke halaman utama ekskul
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ekskul  $ekskul
-     * @return \Illuminate\Http\Response
+     * proses penghapusan data yang dipilih
+     * 
+     * 
      */
     public function destroy($id)
     {
         if (request()->ajax()) {
-            $ekskul = Ekskul::find($id);
-            $ekskul->delete();
-            return response()->json(['success'=>'berhasil menghapus data']);
+            $ekskul = Ekskul::find($id); //proses pencarian data di db
+            $ekskul->delete(); //proses hapus data di db
+            return response()->json(['success'=>'berhasil menghapus data']); //jika berhasil
         }        
     }
 }

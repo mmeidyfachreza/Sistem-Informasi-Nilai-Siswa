@@ -10,12 +10,18 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Rap2hpoutre\FastExcel\FastExcel;
 
+    /**
+     * controller ini berfungsi untuk mengelola
+     * data guru yang termasuk tambah,lihat,ubah
+     * dan hapus
+     */
+
 class GuruController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * fungsi ini untuk menampilkan data 
+     * guru saat mengakses fitur guru
+     * 
      */
     public function index()
     {
@@ -46,9 +52,9 @@ class GuruController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * fungsi ini untuk mengarahkan ke 
+     * formulir tambah data guru
+     * 
      */
     public function create()
     {
@@ -57,28 +63,26 @@ class GuruController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * fungsi ini untuk proses menyimpan data
+     * dari formulir tambah data ke dalam
+     * database
      */
     public function store(Request $request)
     {
-        $guru = Guru::create($request->all());
+        $guru = Guru::create($request->all()); //proses tambah data guru
         $user = User::create([
             'email'=>$request->email,
             'password'=>Hash::make($request->password)
-        ]);
+        ]); //proses tambah data user
         $guru->user_id = $user->id;
-        $guru->save();
+        $guru->save(); //proses acc simpan data ke db
         return redirect()->route('guru.index')->with('success','Berhasil menambah data');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\guru  $guru
-     * @return \Illuminate\Http\Response
+     * proses menampilkan rincian data guru
+     * saat klik tombol mata di halaman utama
+     * data guru
      */
     public function show($id)
     {
@@ -87,10 +91,9 @@ class GuruController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\guru  $guru
-     * @return \Illuminate\Http\Response
+     * proses mengarahkan ke formulir
+     * halaman ubah data guru
+     * 
      */
     public function edit($id)
     {
@@ -100,66 +103,42 @@ class GuruController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\guru  $guru
-     * @return \Illuminate\Http\Response
+     * proses penyimpanan data dari formulir
+     * ubah data guru ke dalam database
+     * 
      */
     public function update(Request $request, $id)
     {
-        $guru = Guru::findOrFail($id);
-        $user = User::findOrFail($guru->id);
-        if ($request->password) {
+        $guru = Guru::findOrFail($id); //proses pencarian data guru di db
+        $user = User::findOrFail($guru->id); //proses pencarian data user di db
+        if ($request->password) { //jika user menginputkan password maka password akan dirubah
             $user->update([
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password)]);
-        }else{
+        }else{ //jika tidak update email saja
             $user->update(['email'=>$request->email]);
         }
-        $guru->update($request->all());
+        $guru->update($request->all()); //proses perbarui data guru di db
         return redirect()->route('guru.index')->with('success','Berhasil merubah data');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\guru  $guru
-     * @return \Illuminate\Http\Response
+     * proses hapus data guru di database
+     * 
+     * 
      */
     public function destroy($id)
     {
-        if (request()->ajax()) {
+        if (request()->ajax()) { 
             if (auth()->user()->id==$id) {
                 # code...
                 return back()->withErrors(['Tidak Bisa Menghapus Akun yang sedang digunakan']);
             }
-            $guru = Guru::find($id);
-            User::find($guru->user_id)->delete();
-            $guru->delete();
+            $guru = Guru::find($id); //proses cari data guru di db
+            User::find($guru->user_id)->delete(); //cari data user di db lalu hapus
+            $guru->delete(); //proses hapus data guru
             return response()->json(['success'=>'berhasil menghapus data']);
         }
         
     }
-
-    // public function export(){
-    //     return (new FastExcel(Guru::with('classroom')->get()))->download('users.xlsx', function ($data) {
-    //         return [
-    //             'NIS' => ($data->nip? $data->nip : " "),
-    //             'Kelas' => ($data->classroom? $data->classroom->name : " "),
-    //             'Nama' => $data->name,
-    //             'Tanggal Lahir' => $data->born_date,
-    //             'Tempat Lahir' => $data->born_city,
-    //             'Alamat' => $data->address,
-    //             'Jenis Kelamin' => $data->gender,
-    //             'Golongan Darah' => $data->blood_type,
-    //             'Asal Sekolah' => $data->school_from,
-    //             'Nama Ayah' => $data->father_name,
-    //             'Nama Ibu' => $data->mother_name,
-    //             'Wali' => $data->guardian,
-    //             'No BPJS' => $data->no_bpjs,
-    //             'FASKES BPJS' => $data->faskes_bpjs,
-    //         ];
-    //     });
-    // }
 }
