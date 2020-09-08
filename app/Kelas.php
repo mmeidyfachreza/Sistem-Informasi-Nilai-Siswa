@@ -17,4 +17,9 @@ class Kelas extends Model
     {
         return $this->belongsTo('App\Jurusan','jurusan_id');
     }
+
+    public function siswa()
+    {
+        return $this->hasOne('App\Siswa');
+    }
 }

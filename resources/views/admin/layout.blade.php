@@ -7,6 +7,10 @@
     <ul id="side-main-menu" class="side-menu list-unstyled">
         <li><a href="{{url('/admin')}}"> <i class="fas fa-home"></i>Beranda </a></li>
         <li><a href="{{route('nilai-akademik.index')}}"> <i class="fas fa-home"></i>Nilai Akademik </a></li>
+        @if (Auth::user()->guru->kelas->first())
+            <li><a href="{{route('raport.index')}}"><i class="far fa-envelope"></i>Raport</a>
+            </li>
+        @endif
     <li><a href="#letterDropdown" aria-expanded="false" data-toggle="collapse"> <i
         class="far fa-envelope"></i>Data Master </a>
         <ul id="letterDropdown" class="collapse list-unstyled ">

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Kelas;
 use App\Matapelajaran;
 use App\Nilaiakademik;
 use App\Raport;
+use App\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-    /**
+/**
      * controller ini berfungsi untuk mengelola
      * fitur untuk akun jenis siswa
      * 
@@ -74,5 +77,19 @@ class HomeController extends Controller
         $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($id); //proses pencarian raport
         $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiAkademik->semester)->get(); //penyesuaiam data matapelajaran yang ditampilkan saat cetak raport
         return view('siswa.raport.print',compact('raport','matapelajaran'));
+    }
+
+    public function query()
+    {
+        DB::statement("SET sql_mode = 'STRICT_ALL_TABLES' ");
+        // $query = DB::table('kelas')->join('siswa','kelas.id','=','siswa.kelas_id')->select('kelas.id','kelas.nama','siswa.id')->where('kelas.guru_id','=',4)->groupBy('kelas.id','siswa.id')->get();
+        $query = DB::table('jurusan')
+        ->join('kelas','jurusan.id','=','kelas.jurusan_id')
+        ->join('siswa','kelas.id','=','siswa.kelas_id')
+        ->select('kelas.*','siswa.angkatan_thn as angkatan','jurusan.nama')
+        ->where('kelas.guru_id','=',10)
+        ->groupBy('siswa.angkatan_thn')
+        ->get();
+        dd($query);
     }
 }

@@ -16,8 +16,7 @@ class NilaiakademikController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {        
         if(request()->ajax()){
             $data = Siswa::with('kelas')->with('jurusan')->get();
             return datatables()->of($data)
@@ -100,10 +99,9 @@ class NilaiakademikController extends Controller
      */
     public function store(Request $request)
     {
-
         $siswa = Siswa::findOrFail($request->siswa_id);
         $nilaiakademik = Nilaiakademik::create($request->all());
-        $mp = Matapelajaran::where('semester','=',$request->semester)->where('guru_id','=',Auth::user()->guru->id)->get();
+        $mp = Matapelajaran::where('semester','=',$request->semester)->get();
         $x = 1;
         foreach ($mp as $item) {
             //collect all inserted record IDs
@@ -168,7 +166,7 @@ class NilaiakademikController extends Controller
         $record = Nilaiakademik::with('nilaiMaPel')->findOrFail($id);
         $siswa = Siswa::findOrFail($record->siswa_id);
         $semester = $record->semester;
-        $matapelajaran = Matapelajaran::where('semester','=',$semester)->where('guru_id','=',Auth::user()->guru->id)->get();
+        $matapelajaran = Matapelajaran::where('semester','=',$semester)->get();
 
         return view('admin.nilai.edit',compact(
             'record',
@@ -215,9 +213,8 @@ class NilaiakademikController extends Controller
      */
     public function destroy($id)
     {
-        $nilaiakademik = Nilaiakademik::findOrFail($id);
+        $nilaiakademik = Nilaiakademik::findOrFail($id)->delete();
         $siswa = Siswa::findOrFail($nilaiakademik->siswa_id);
-        $nilaiakademik->delete();
         return redirect()->route('cari.nilai.siswa',$siswa->id)->with(['success'=>'Berhasil merubah data','data'=>$siswa]);
     }
 

@@ -94,11 +94,12 @@
                                             <form class="btn-group" role="group" aria-label="Basic example" action="{{ route('nilai-akademik.destroy',$item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" onclick="return confirm('Apakah anda yakin?')"
-                                                    class="btn btn-danger btn-sm"><i
-                                                        class="fa fa-trash"></i></button>
-                                                <a href="{{route('nilai-akademik.edit',$item->id)}}"
+                                                <a href="{{route('raport.edit',$item->id)}}"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                <a href="{{route('raport.show',$item->id)}}"
+                                                    class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                <a href="{{route('raport.create',$item->id)}}"
+                                                    class="btn btn-info btn-sm"><i class="fa fa-plus"></i></a>
                                             </form>
                                         </td>
                                     </tr>

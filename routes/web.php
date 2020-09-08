@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('tes','HomeController@query');
 Auth::routes();
 
 Route::group(['prefix' => 'siswa'], function () {
@@ -23,9 +24,6 @@ Route::group(['prefix' => 'siswa'], function () {
 
 Route::get('raport', 'RaportController@cetak');
 Route::get('/','GuruController@index')->middleware('guru');
-Route::get('tes', function () {
-    return view('auth.login2');
-});
 
 Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::get('/','GuruController@index');
@@ -41,6 +39,7 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
 
     Route::get('raport/create/{id}', 'RaportController@create')->name('raport.create');
     Route::get('nilai-akademik/siswa/{id}', 'NilaiakademikController@indexNilai')->name('cari.nilai.siswa');
+    Route::get('raport/siswa/{id}', 'RaportController@indexNilai')->name('cari.raport.siswa');
     Route::get('nilai-akademik/create/{id}', 'NilaiakademikController@create')->name('nilai.siswa.create');
     Route::post('nilai-akademik/find-semester', 'NilaiakademikController@orderBySemester')->name('nilai.siswa.semester');
     Route::post('nilai-akademik/find-semester-edit/{id}', 'NilaiakademikController@orderBySemesterEdit')->name('nilai.siswa.semester2');

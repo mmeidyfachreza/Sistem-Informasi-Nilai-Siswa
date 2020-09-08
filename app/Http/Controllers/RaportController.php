@@ -10,6 +10,7 @@ use App\Nilaiakademik;
 use App\PKL;
 use App\PKLSiswa;
 use App\Raport;
+use App\Siswa;
 use Illuminate\Http\Request;
 
 class RaportController extends Controller
@@ -21,7 +22,30 @@ class RaportController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $data = Siswa::with('kelas')->with('jurusan')->get();
+            return datatables()->of($data)
+                    ->editColumn('nama', function($data){
+                        $nama = '<a href="'.route("cari.raport.siswa", $data->id).'">'.$data->nama.'</a>';
+                        return $nama;
+                    })
+                    ->addColumn('kelas', function($data){
+                        return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama." ".$data->kelas->nomor;
+                    })
+                    ->addColumn('jurusan', function($data){
+                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
+                    })
+                    ->rawColumns(['kelas','nama','jurusan'])
+                    ->make(true);
+        }
+        return view('admin.raport.index_student');
+    }
+
+    public function indexNilai($id)
+    {
+        $records = Nilaiakademik::where('siswa_id','=',$id)->get();
+        $siswa = Siswa::findOrFail($id);
+        return view('admin.raport.index3',compact('records','siswa'));
     }
 
     /**

@@ -23,6 +23,6 @@ class Guru extends Model
 
     public function kelas()
     {
-        return $this->hasMany('App\Kelas','kelas_id','guru_id');
+        return $this->hasMany('App\Kelas');
     }
 }

@@ -19,13 +19,13 @@ class CreateNilaiakademiksTable extends Migration
             $table->integer('semester');
             $table->bigInteger('siswa_id')->unsigned()->nullable();
             $table->foreign('siswa_id')->references('id')->on('siswa')->cascadeOnDelete();
-            $table->float('sum_pengetahuan');
-            $table->float('sum_keterampilan');
-            $table->float('sum_nilai_akhir');
-            $table->float('avg_pengetahuan');
-            $table->float('avg_keterampilan');
-            $table->float('avg_nilai_akhir');
-            $table->string('avg_predikat',2);
+            $table->float('sum_pengetahuan')->nullable();
+            $table->float('sum_keterampilan')->nullable();
+            $table->float('sum_nilai_akhir')->nullable();
+            $table->float('avg_pengetahuan')->nullable();
+            $table->float('avg_keterampilan')->nullable();
+            $table->float('avg_nilai_akhir')->nullable();
+            $table->string('avg_predikat',2)->nullable();
             $table->timestamps();
         });
     }

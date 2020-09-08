@@ -32,7 +32,7 @@ class MataPelajaranSeeder extends Seeder
             Matapelajaran::create([
                 'nama'=>$value,
                 'semester'=>1,
-                'guru_id'=>1,
+                'guru_id'=>rand(1,10),
             ]);
         }
     }
