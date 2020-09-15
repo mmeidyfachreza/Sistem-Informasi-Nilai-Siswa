@@ -3,7 +3,7 @@
 @section('custom-style')
     <style>
         .nilai-akademik thead th{
-            border: 1px solid grey !important; 
+            border: 1px solid grey !important;
             vertical-align: middle;
             text-align: center;
         }
@@ -50,9 +50,6 @@
                         <h4 style="float:left">
                             {{$siswa->nama}}
                         </h4>
-                        <div style="float:right">
-                            <a href="{{route('nilai.siswa.create',$siswa->id)}}" class="btn btn-primary btn-sm">Tambah</a>
-                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive table-striped nilai-akademik">
@@ -78,7 +75,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $x=1;?>
-                                    @foreach ($records as $item)
+                                    @foreach ($nilaiakademik as $item)
                                     <tr>
                                         <td scope="row">{{$x++}}</th>
                                         <td>{{$item->semester}}</td>

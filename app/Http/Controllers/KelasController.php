@@ -37,36 +37,14 @@ class KelasController extends Controller
                     ->rawColumns(['action','walikelas','jurusan'])
                     ->make(true);
         }
-        
+
         return view('admin.kelas.index');
-    }
-
-    public function index_walikelas()
-    {
-
-        if(request()->ajax()){
-            $data = Kelas::with('jurusan')->where('guru_id','=',Auth::user()->id)->get();
-            return datatables()->of($data)
-                    ->addIndexColumn()
-                    ->addColumn('jurusan', function($data){
-                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
-                    })
-                    ->addColumn('action', function($data){
-                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="'.route("kelas.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a></div>';
-                        return $button;
-                    })
-                    ->rawColumns(['action','jurusan'])
-                    ->make(true);
-        }
-        
-        return view('admin.kelas.index_walikelas');
     }
 
     /**
      * proses mengarahkan ke halaman
      * formulir tambah data kelas
-     * 
+     *
      */
     public function create()
     {

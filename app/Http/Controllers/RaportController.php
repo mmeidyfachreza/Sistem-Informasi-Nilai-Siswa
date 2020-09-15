@@ -11,7 +11,9 @@ use App\PKL;
 use App\PKLSiswa;
 use App\Raport;
 use App\Siswa;
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RaportController extends Controller
 {
@@ -23,29 +25,86 @@ class RaportController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $data = Siswa::with('kelas')->with('jurusan')->get();
+            $data = Kelas::with('guru')->with('jurusan')->where('guru_id','=',Auth::user()->guru->id)->get();
             return datatables()->of($data)
-                    ->editColumn('nama', function($data){
-                        $nama = '<a href="'.route("cari.raport.siswa", $data->id).'">'.$data->nama.'</a>';
-                        return $nama;
-                    })
-                    ->addColumn('kelas', function($data){
-                        return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama." ".$data->kelas->nomor;
-                    })
+                    ->addIndexColumn()
                     ->addColumn('jurusan', function($data){
                         return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
                     })
-                    ->rawColumns(['kelas','nama','jurusan'])
+                    ->addColumn('walikelas', function($data){
+                        return empty($data->guru->nama) ? "Belum Diatur" : $data->guru->nama;
+                    })
+                    ->addColumn('action', function($data){
+                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="'.route("raport.index.nilai",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                        </div>';
+                        return $button;
+                    })
+                    ->rawColumns(['action','walikelas','jurusan'])
                     ->make(true);
         }
-        return view('admin.raport.index_student');
+        return view('admin.raport.index_kelas');
     }
 
-    public function indexNilai($id)
+    public function indexNilai($kelas)
     {
-        $records = Nilaiakademik::where('siswa_id','=',$id)->get();
-        $siswa = Siswa::findOrFail($id);
-        return view('admin.raport.index3',compact('records','siswa'));
+        $status = Null;
+        if (Nilaiakademik::with('siswa.kelas')->first()) {
+            $status = Nilaiakademik::with('siswa.kelas')->first()->siswa->where('kelas_id','=',$kelas)->first();
+        }
+
+        $nilaiakademik = Nilaiakademik::with('siswa')->get()->groupBy(['siswa.angkatan_thn','tahun','semester']);
+        $kelas = Kelas::findOrFail($kelas);
+
+        return view('admin.raport.index_nilai',compact('kelas','nilaiakademik','status'));
+    }
+
+    public function detailNilai(Request $request,$kelas)
+    {
+        $kelas = Kelas::findOrFail($kelas);
+        $angkatan = $request->angkatan;
+        $tahun = $request->tahun;
+        $semester = $request->semester;
+        $siswa = Siswa::where('kelas_id','=',$kelas->id)->where('angkatan_thn','=',$request->angkatan)->get();
+        return view('admin.raport.index_siswa',compact('siswa','kelas','angkatan','tahun','semester'));
+    }
+
+    public function detailNilaiSiswa(Request $request,$kelas,$siswa)
+    {
+        $nilaiakademik = Nilaiakademik::where('siswa_id','=',$siswa)->where('semester','=',$request->semester)->where('tahun','=',$request->tahun)->get();
+        $siswa = Siswa::find($siswa);
+        $kelas = Kelas::findOrFail($kelas);
+        $tahun = $request->tahun;
+        return view('admin.raport.index3',compact('nilaiakademik','kelas','tahun','siswa'));
+    }
+
+    public function createNilai($kelas)
+    {
+        $kelas = Kelas::findOrFail($kelas);
+        return view('admin.raport.create_nilai',compact('kelas'));
+    }
+
+    public function checkNilai(Request $request, $id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $siswa = Siswa::where('angkatan_thn','=',$request->angkatan)->where('kelas_id','=',$id)->get();
+        $angkatan = $request->angkatan;
+        return view('admin.raport.create_nilai',compact('kelas','siswa','angkatan'));
+    }
+
+    public function generateNilai(Request $request, $kelas)
+    {
+        $siswa = Siswa::where('angkatan_thn','=',$request->angkatan)->where('kelas_id','=',$kelas)->get();
+
+        foreach ($siswa as $value) {
+            Nilaiakademik::create([
+                'siswa_id'=>$value->id,
+                'tahun'=>$request->tahun,
+                'semester'=>$request->semester,
+                ]);
+        }
+
+        return redirect()->route("raport.index.nilai",$kelas)->with(['success'=>'Berhasil menambah data, guru dapat input nilai siswa']);
     }
 
     /**
@@ -61,7 +120,7 @@ class RaportController extends Controller
         $ekskul = Ekskul::all();
         $kenaikan = ['Naik','Tidak Naik'];
         $kelas = Kelas::all();
-    
+
         return view('admin.raport.create',compact('record','matapelajaran','pkl','ekskul','kenaikan','kelas'));
     }
 
@@ -126,7 +185,7 @@ class RaportController extends Controller
             $raport->ekskul_siswa_id = $ekskul->id;
         }
         $raport->save();
-        
+
         $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($raport->id);
         return view('admin.raport.print',compact('raport','matapelajaran'));
     }

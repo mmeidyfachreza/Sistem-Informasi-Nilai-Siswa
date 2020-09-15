@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-            <li class="breadcrumb-item active">Raport</li>
+            <li class="breadcrumb-item active">Nilai Akademik</li>
         </ul>
     </div>
 </div>
@@ -20,16 +20,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table" id="student-table">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama</th>
-                                        <th>Kelas</th>
+                                        <th>Nomor</th>
                                         <th>Jurusan</th>
+                                        <th>Walikelas</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -48,12 +51,14 @@
         $('#student-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax:"{{ route('raport.index') }}",
+            ajax:"{{ route('nilai-akademik.index') }}",
             columns:[
-                
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable:false, orderable:false},
             {data: 'nama', name: 'nama'},
-            {data: 'kelas', name: 'kelas'},
+            {data: 'nomor', name: 'nomor'},
             {data: 'jurusan', name: 'jurusan'},
+            {data: 'walikelas', name: 'walikelas'},
+            {data: 'action', name: 'action', searchable:false, orderable:false},
             ]
         });
     })

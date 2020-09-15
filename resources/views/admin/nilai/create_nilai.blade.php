@@ -1,29 +1,88 @@
-        {{-- <div class="form-group">
-            <label>Tahun</label>
-            <input type="text" name="tahun" class="form-control"
-                value="{{old('tahun', $record->tahun ?? '')}}" placeholder="masukan tahun" required>
-        </div> --}}
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#lm">Nilai Akademik</a>
-            </li>
+@extends('admin.layout')
+
+@section('content')
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Nilai Akademik </li>
         </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane container active" id="lm">
-                <div class="table-responsive">
-                    @include('admin.nilai.nilai_akademik')
+    </div>
+</div>
+<section>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+            <h1 class="h3 display">Nilai Akademik </h1>
+        </header>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                <li>Proses Gagal!!!</li>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <h4>Input Data Nilai Akademik</h4>
+            </div>
+            <div class="card-body">
+                <p>Kelas : {{$kelas->nama}} {{$kelas->jurusan->nama}} {{$kelas->nomor}}</p>
+                <p>Mata Pelajaran : {{$mapel->nama}}</p>
+                <p>Angkatan : {{$angkatan}}</p>
+                <p>Tahun Ajaran : {{$tahun_ajrn}}</p>
+                <p>Semester : {{$semester}}</p>
+                <form action="{{route('nilai-akademik.store')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="angkatan" value="{{$angkatan}}">
+                    <input type="hidden" name="semester" value="{{$semester}}">
+                    <input type="hidden" name="tahun_ajrn" value="{{$tahun_ajrn}}">
+                    <input type="hidden" name="mapel" value="{{$mapel->id}}">
+                    <input type="hidden" name="kelas" value="{{$kelas->id}}">
                     <br>
-                </div>
+                    <div class="table-responsive table-striped">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Pengetahuan</th>
+                                    <th>Keterampilan</th>
+                                    <th>Nilai Akhir</th>
+                                    <th>Predikat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <?php $x=1;?>
+                                    @foreach ($siswa as $item)
+                                    <tr>
+                                        <td>{{$x}}</td>
+                                        <td>{{$item->nama}}</td>
+                                        <td><input class="pengetahuan" type="string" name="pengetahuan[{{$x}}]" id="pengetahuan{{$x}}" style="width:50px" value="0"></td>
+                                        <td><input class="keterampilan" type="string" name="keterampilan[{{$x}}]" id="keterampilan{{$x}}" style="width:50px" value="0"></td>
+                                        <td><input class="nilai_akhir" type="string" id="nilai_akhir{{$x}}" style="width:50px" value="0" disabled>
+                                        <input type="hidden" name="nilai_akhir[{{$x}}]" id="na{{$x}}" value="0">
+                                        <td><input type="string" id="predikat{{$x}}" style="width:50px" value="" disabled></td>
+                                        <input type="hidden" name="predikat[{{$x}}]" id="pd{{$x++}}" value="D">
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" value="Simpan" class="btn btn-primary">
+                    </div>
+                </form>
             </div>
         </div>
-        {{-- <input type="hidden" name="semester" value="{{$semester ?? $record->semester}}"> --}}
-        <div class="form-group">
-            <input type="submit" value="Simpan" class="btn btn-primary">
-            <a href="{{URL::previous()}}" class="btn btn-danger">Batal</a>
-        </div>
-
-
+    </div>
+</section>
+@endsection
 @section('custom-script')
 <script type="text/javascript">
     $(function () {

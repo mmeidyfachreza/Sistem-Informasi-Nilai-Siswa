@@ -16,17 +16,6 @@
         <header>
             <h1 class="h3 display">Nilai Akademik </h1>
         </header>
-        <div class="card">
-            <div class="card-body">
-                <div class="media align-items-center">
-                    <div class="media-body overflow-hidden">
-                        <h5 class="card-text mb-0">{{$siswa->nama}}</h5>
-                        <p class="card-text text-uppercase">Kelas {{$siswa->kelas->nama ?? ''}}</p>
-                        <p class="card-text">NIS: {{$siswa->nis ?? "belum diatur"}}<br></p>
-                    </div>
-                </div><a href="#" class="tile-link"></a>
-            </div>
-        </div>
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -51,7 +40,7 @@
                                     <input type="number" name="semester" class="form-control" min="1"
                                         value="{{old('semester', $semester ?? ' ')}}" placeholder="masukan angka" required>
                                 </div>
-                                <input type="hidden" name="siswa_id" value="{{$siswa->id}}">
+
                                 <div class="form-group">
                                     <input type="submit" value="Proses" class="btn btn-primary">
                                 </div>
@@ -65,9 +54,9 @@
                     <div class="card-body">
                         <form action="{{route('nilai-akademik.store')}}" method="POST">
                             @csrf
-                            @isset($matapelajaran)
+
                                 @include('admin.nilai.form')
-                            @endisset
+
                         <form>
                     <div>
                 </div>

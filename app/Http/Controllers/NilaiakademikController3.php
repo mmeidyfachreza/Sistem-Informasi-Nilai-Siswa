@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Kelas;
 use App\Nilaiakademik;
 use App\Matapelajaran;
 use App\Siswa;
@@ -19,39 +18,29 @@ class NilaiakademikController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $data = Kelas::with('guru')->with('jurusan')->get();
+            $data = Siswa::with('kelas')->with('jurusan')->get();
             return datatables()->of($data)
-                    ->addIndexColumn()
+                    ->editColumn('nama', function($data){
+                        $nama = '<a href="'.route("cari.nilai.siswa", $data->id).'">'.$data->nama.'</a>';
+                        return $nama;
+                    })
+                    ->addColumn('kelas', function($data){
+                        return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama." ".$data->kelas->nomor;
+                    })
                     ->addColumn('jurusan', function($data){
                         return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
                     })
-                    ->addColumn('walikelas', function($data){
-                        return empty($data->guru->nama) ? "Belum Diatur" : $data->guru->nama;
-                    })
-                    ->addColumn('action', function($data){
-                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="'.route("nilai.mapel.index",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                        </div>';
-                        return $button;
-                    })
-                    ->rawColumns(['action','walikelas','jurusan'])
+                    ->rawColumns(['kelas','nama','jurusan'])
                     ->make(true);
         }
-        return view('admin.nilai.index_kelas');
+        return view('admin.nilai.index_student');
     }
 
-    // public function indexNilai($id)
-    // {
-    //     $records = Nilaiakademik::where('siswa_id','=',$id)->get();
-    //     $siswa = Siswa::findOrFail($id);
-    //     return view('admin.nilai.index3',compact('records','siswa'));
-    // }
-
-    public function indexMapel($kelas)
+    public function indexNilai($id)
     {
-        $matapelajaran = Matapelajaran::where('guru_id','=',Auth::user()->guru->id)->get();
-        $kelas = Kelas::find($kelas);
-        return view('admin.nilai.index_mapel',compact('matapelajaran','kelas'));
+        $records = Nilaiakademik::where('siswa_id','=',$id)->get();
+        $siswa = Siswa::findOrFail($id);
+        return view('admin.nilai.index3',compact('records','siswa'));
     }
 
     /**
@@ -102,60 +91,6 @@ class NilaiakademikController extends Controller
         return view('admin.nilai.create',compact('siswa'));
     }
 
-    public function indexForm($kelas,$mapel)
-    {
-        $siswa = Siswa::with('kelas.jurusan')->where('kelas_id','=',$kelas)->get();
-        $matapelajaran = Matapelajaran::all();
-        return view('admin.nilai.create',compact('siswa'));
-    }
-
-    public function create2(Request $request,$kelas, $mapel)
-    {
-        $siswa = Siswa::with('kelas.jurusan')->where('kelas_id','=',$kelas)->where('angkatan_thn','=',$request->angkatan)->get();
-        $angkatan = $request->angkatan;
-        $tahun_ajrn = $request->tahun;
-        $semester = $request->semester;
-        $mapel = Matapelajaran::find($mapel);
-        $kelas = Kelas::find($kelas);
-        return view('admin.nilai.create_nilai',compact('siswa','kelas','angkatan','tahun_ajrn','mapel','semester'));
-    }
-
-    public function indexNilai($kelas,$mapel)
-    {
-
-        $mapel = Matapelajaran::find($mapel);
-        $status = Null;
-        if (Nilaiakademik::with('siswa.kelas')->first()) {
-            $status = Nilaiakademik::with('siswa.kelas')->first()->siswa->where('kelas_id','=',$kelas)->first();
-        }
-
-        $nilaiakademik = Nilaiakademik::with('siswa')->get()->groupBy(['siswa.angkatan_thn','tahun','semester']);
-        $kelas = Kelas::findOrFail($kelas);
-        return view('admin.nilai.index_nilai',compact('mapel','kelas','status','nilaiakademik'));
-    }
-
-    public function index_walikelas()
-    {
-
-        if(request()->ajax()){
-            $data = Kelas::with('jurusan')->where('guru_id','=',Auth::user()->id)->get();
-            return datatables()->of($data)
-                    ->addIndexColumn()
-                    ->addColumn('jurusan', function($data){
-                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
-                    })
-                    ->addColumn('action', function($data){
-                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="'.route("kelas.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a></div>';
-                        return $button;
-                    })
-                    ->rawColumns(['action','jurusan'])
-                    ->make(true);
-        }
-
-        return view('admin.kelas.index_walikelas');
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -164,38 +99,24 @@ class NilaiakademikController extends Controller
      */
     public function store(Request $request)
     {
-        $nilaiakademik = Nilaiakademik::with('siswa')->where('semester','=',$request->semester)
-                        ->where('tahun','=',$request->tahun_ajrn)->get();
-        $mp = Matapelajaran::find($request->mapel);
+
+        $siswa = Siswa::findOrFail($request->siswa_id);
+        $nilaiakademik = Nilaiakademik::create($request->all());
+        $mp = Matapelajaran::where('semester','=',$request->semester)->where('guru_id','=',Auth::user()->guru->id)->get();
         $x = 1;
-        foreach ($nilaiakademik as $value) {
-            $mp_id_array[$mp->id] = [
+        foreach ($mp as $item) {
+            //collect all inserted record IDs
+            $mp_id_array[$item->id] = [
                 'pengetahuan' => $request->pengetahuan[$x],
                 'keterampilan' => $request->keterampilan[$x],
                 'nilai_akhir' => $request->nilai_akhir[$x],
                 'predikat' => $request->predikat[$x++]
             ];
-            $value->nilaiMaPel()->attach($mp_id_array);
         }
 
-        return redirect()->route('nilai.index2',['kelas'=>$request->kelas,'mapel'=>$request->mapel])->with(['success'=>'Berhasil menambah data']);
-        // $siswa = Siswa::findOrFail($request->siswa_id);
-        // $nilaiakademik = Nilaiakademik::create($request->all());
-        // $mp = Matapelajaran::where('semester','=',$request->semester)->where('guru_id','=',Auth::user()->guru->id)->get();
-        // $x = 1;
-        // foreach ($mp as $item) {
-        //     //collect all inserted record IDs
-        //     $mp_id_array[$item->id] = [
-        //         'pengetahuan' => $request->pengetahuan[$x],
-        //         'keterampilan' => $request->keterampilan[$x],
-        //         'nilai_akhir' => $request->nilai_akhir[$x],
-        //         'predikat' => $request->predikat[$x++]
-        //     ];
-        // }
+        $nilaiakademik->nilaiMaPel()->attach($mp_id_array);
 
-        // $nilaiakademik->nilaiMaPel()->attach($mp_id_array);
-
-        // return redirect()->route('cari.nilai.siswa',$request->siswa_id)->with(['success'=>'Berhasil menambah data','data'=>$siswa]);
+        return redirect()->route('cari.nilai.siswa',$request->siswa_id)->with(['success'=>'Berhasil menambah data','data'=>$siswa]);
     }
 
     /**

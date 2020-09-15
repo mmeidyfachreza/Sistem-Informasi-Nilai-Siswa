@@ -17,7 +17,7 @@ Route::get('tes','HomeController@query');
 Auth::routes();
 
 Route::group(['prefix' => 'siswa'], function () {
-    Route::get('/home', 'HomeController@index')->name('home'); 
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/raport','HomeController@indexRaport')->name('index.raport.siswa');
     Route::get('/cetak-raport/{id}','HomeController@printRaport')->name('print.raport.siswa');
 });
@@ -38,7 +38,19 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::resource('pkl', 'PKLController');
 
     Route::get('raport/create/{id}', 'RaportController@create')->name('raport.create');
+    Route::get('raport/kelas/{kelas}/nilai-akademik', 'RaportController@indexNilai')->name('raport.index.nilai');
+    Route::get('raport/kelas/{kelas}/nilai-akademik/tambah', 'RaportController@createNilai')->name('raport.create.nilai');
+    Route::get('raport/kelas/{kelas}/nilai-akademik/buat', 'RaportController@generateNilai')->name('raport.generate.nilai');
+    Route::post('raport/kelas/{id}/nilai-akademik/cek', 'RaportController@checkNilai')->name('raport.check.nilai');
+    Route::post('raport/kelas/{id}/nilai-akademik/generate', 'RaportController@generateNilai')->name('raport.generate.nilai');
+    Route::post('raport/kelas/{kelas}/nilai-akademik/detail', 'RaportController@detailNilai')->name('raport.detail.nilai');
+    Route::post('raport/kelas/{kelas}/nilai-akademik/detail/siswa/{siswa}', 'RaportController@detailNilaiSiswa')->name('raport.detail.nilai.siswa');
+
+
     Route::get('nilai-akademik/siswa/{id}', 'NilaiakademikController@indexNilai')->name('cari.nilai.siswa');
+    Route::get('nilai-akademik/kelas/{kelas}/mapel/', 'NilaiakademikController@indexMapel')->name('nilai.mapel.index');
+    Route::get('nilai-akademik/kelas/{kelas}/mapel/{mapel}', 'NilaiakademikController@indexNilai')->name('nilai.index2');
+    Route::post('nilai-akademik/kelas/{kelas}/mapel/{mapel}/tambah', 'NilaiakademikController@create2')->name('nilai.create2');
     Route::get('raport/siswa/{id}', 'RaportController@indexNilai')->name('cari.raport.siswa');
     Route::get('nilai-akademik/create/{id}', 'NilaiakademikController@create')->name('nilai.siswa.create');
     Route::post('nilai-akademik/find-semester', 'NilaiakademikController@orderBySemester')->name('nilai.siswa.semester');
