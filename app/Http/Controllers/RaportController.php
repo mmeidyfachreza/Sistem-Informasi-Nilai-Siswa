@@ -199,9 +199,12 @@ class RaportController extends Controller
      * @param  \App\Raport  $raport
      * @return \Illuminate\Http\Response
      */
-    public function show(Raport $raport)
+    public function show($id)
     {
-        //
+        $nilaiakademik = Nilaiakademik::find($id);
+        $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($nilaiakademik->raport->id);
+        $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiakademik->semester)->get();
+        return view('admin.raport.print',compact('raport','matapelajaran'));
     }
 
     /**
