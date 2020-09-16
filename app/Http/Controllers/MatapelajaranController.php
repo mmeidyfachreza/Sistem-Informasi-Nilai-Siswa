@@ -32,7 +32,7 @@ class MatapelajaranController extends Controller
                     ->rawColumns(['action','guru'])
                     ->make(true);
         }
-        
+
         return view('admin.matapelajaran.index');
     }
 
@@ -83,7 +83,9 @@ class MatapelajaranController extends Controller
     {
         $matapelajaran = Matapelajaran::findOrFail($id);
         $guru = Guru::all();
-        return view('admin.matapelajaran.form',compact('matapelajaran','guru'));
+        $jenis = ['A. Muatan Nasional','B. Muatan Kewilayahan','C. Muatan Peminatan Kejuruan'];
+        $sub_jenis = ['C1. Dasar Program Keahlian'];
+        return view('admin.matapelajaran.form',compact('matapelajaran','guru','jenis','sub_jenis'));
     }
 
     /**
@@ -112,6 +114,6 @@ class MatapelajaranController extends Controller
             $matapelajaran = Matapelajaran::find($id);
             $matapelajaran->delete();
             return response()->json(['success'=>'berhasil menghapus data']);
-        }        
-    }    
+        }
+    }
 }
