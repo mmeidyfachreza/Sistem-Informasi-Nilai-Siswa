@@ -95,7 +95,10 @@ class RaportController extends Controller
     public function generateNilai(Request $request, $kelas)
     {
         $siswa = Siswa::where('angkatan_thn','=',$request->angkatan)->where('kelas_id','=',$kelas)->get();
-
+        $matapelajaran = Matapelajaran::where('semester','=',$request->semester)->get();
+        if (!$matapelajaran->first()) {
+            return redirect()->to('admin/raport/kelas/'.$kelas.'/nilai-akademik/tambah')->withErrors('data matapelajaran pada semester '.$request->semester.' kosong');
+        }
         foreach ($siswa as $value) {
             Nilaiakademik::create([
                 'siswa_id'=>$value->id,
