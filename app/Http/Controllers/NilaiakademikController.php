@@ -168,7 +168,7 @@ class NilaiakademikController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
         $nilaiakademik = Nilaiakademik::with('siswa')->where('semester','=',$request->semester)
                         ->where('tahun','=',$request->tahun_ajrn)->get();
         $mp = Matapelajaran::find($request->mapel);
