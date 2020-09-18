@@ -169,18 +169,42 @@ class NilaiakademikController extends Controller
     public function store(Request $request)
     {
 
-        $nilaiakademik = Nilaiakademik::with('siswa')->where('semester','=',$request->semester)
-                        ->where('tahun','=',$request->tahun_ajrn)->get();
-        $mp = Matapelajaran::find($request->mapel);
+        $nilaiakademik = Nilaiakademik::whereHas('siswa', function ($query) use ($request) {
+            return $query->where('kelas_id', '=', $request->kelas)->where('angkatan_thn', '=', $request->angkatan);
+        })->where('semester','=',$request->semester)->where('tahun','=',$request->tahun_ajrn)->get();
+
+        // $nilaiakademik = Nilaiakademik::with('siswa')->where('semester','=',$request->semester)
+        //                 ->where('tahun','=',$request->tahun_ajrn)->get();
+        $mp = Matapelajaran::where('semester','=',$request->semester)->get();
         $x = 1;
         foreach ($nilaiakademik as $value) {
-            $mp_id_array[$mp->id] = [
+            $mp_id_array[$mp->find($request->mapel)->id] = [
                 'pengetahuan' => $request->pengetahuan[$x],
                 'keterampilan' => $request->keterampilan[$x],
                 'nilai_akhir' => $request->nilai_akhir[$x],
                 'predikat' => $request->predikat[$x++]
             ];
             $value->nilaiMaPel()->attach($mp_id_array);
+            $value->sum_pengetahuan = $value->nilaiMaPel->sum('pivot.pengetahuan');
+            $value->sum_keterampilan = $value->nilaiMaPel->sum('pivot.keterampilan');
+            $value->sum_nilai_akhir = $value->nilaiMaPel->sum('pivot.nilai_akhir');
+            $value->avg_pengetahuan = $value->sum_pengetahuan/$mp->count();
+            $value->avg_keterampilan = $value->sum_keterampilan/$mp->count();
+            $value->avg_nilai_akhir = $value->sum_nilai_akhir/$mp->count();
+            if ($value->avg_nilai_akhir >= 85) {
+                $value->avg_predikat = "A-";
+            } else if ($value->avg_nilai_akhir >= 80) {
+                $value->avg_predikat = "B+";
+            } else if ($value->avg_nilai_akhir >= 75) {
+                $value->avg_predikat = "B";
+            } else if ($value->avg_nilai_akhir >= 70) {
+                $value->avg_predikat = "B-";
+            } else if ($value->avg_nilai_akhir >= 60) {
+                $value->avg_predikat = "C";
+            } else {
+                $value->avg_predikat = "D";
+            }
+            $value->update();
         }
 
         return redirect()->route('nilai.index2',['kelas'=>$request->kelas,'mapel'=>$request->mapel])->with(['success'=>'Berhasil menambah data']);
