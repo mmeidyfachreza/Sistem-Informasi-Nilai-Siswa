@@ -49,11 +49,13 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>NIS</th>
+                                        <th>Angkatan</th>
+                                        <th>Kelas</th>
                                         <th>Email</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -81,12 +83,14 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable:false, orderable:false},
             {data: 'nama', name: 'nama'},
             {data: 'nis', name: 'nis'},
+            {data: 'angkatan_thn', name: 'angkatan_thn'},
+            {data: 'kelas', name: 'kelas'},
             {data: 'email', name: 'email'},
             {data: 'action', name: 'action', searchable:false, orderable:false},
             ]
         });
 
-        $('body').on('click', '.deleteProduct', function () { 
+        $('body').on('click', '.deleteProduct', function () {
             var data_id = $(this).data("id");
             confirm("Apakah anda yakin untuk menghapus!");
             var url = '{{ route("siswa.destroy", ":id") }}';
@@ -94,7 +98,7 @@
             $.ajax({
                 type: "DELETE",
                 url: url,
-                
+
                 success: function (data) {
                     table.draw();
                 },

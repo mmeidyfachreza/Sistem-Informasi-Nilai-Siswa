@@ -111,13 +111,17 @@ class NilaiakademikController extends Controller
 
     public function create2(Request $request,$kelas, $mapel)
     {
-        $siswa = Siswa::with('kelas.jurusan')->where('kelas_id','=',$kelas)->where('angkatan_thn','=',$request->angkatan)->get();
+        // $siswa = Siswa::with('kelas.jurusan')->where('kelas_id','=',$kelas)->where('angkatan_thn','=',$request->angkatan)->get();
+        $nilaiakademik = Nilaiakademik::whereHas('siswa', function ($query) use ($request,$kelas) {
+            return $query->where('kelas_id', '=', $kelas)->where('angkatan_thn', '=', $request->angkatan);
+        })->where('semester','=',$request->semester)->where('tahun','=',$request->tahun)->get();
         $angkatan = $request->angkatan;
         $tahun_ajrn = $request->tahun;
         $semester = $request->semester;
         $mapel = Matapelajaran::find($mapel);
         $kelas = Kelas::find($kelas);
-        return view('admin.nilai.create_nilai',compact('siswa','kelas','angkatan','tahun_ajrn','mapel','semester'));
+
+        return view('admin.nilai.create_nilai',compact('nilaiakademik','kelas','angkatan','tahun_ajrn','mapel','semester'));
     }
 
     public function indexNilai($kelas,$mapel)
@@ -164,6 +168,7 @@ class NilaiakademikController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $nilaiakademik = Nilaiakademik::with('siswa')->where('semester','=',$request->semester)
                         ->where('tahun','=',$request->tahun_ajrn)->get();
         $mp = Matapelajaran::find($request->mapel);

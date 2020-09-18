@@ -19,11 +19,14 @@ class SiswaController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $data = Siswa::with('user')->get();
+            $data = Siswa::with('user')->with('kelas.jurusan')->get();
             return datatables()->of($data)
                     ->addIndexColumn()
                     ->editColumn('nip', function($data){
                         return empty($data->nis) ? "Belum Diatur" : $data->nis;
+                    })
+                    ->addColumn('kelas', function($data){
+                        return empty($data->kelas->nama) ? "Belum Diatur" : $data->kelas->nama.' '.$data->kelas->jurusan->nama.' '.$data->kelas->nomor;
                     })
                     ->addColumn('email', function($data){
                         return empty($data->user->email) ? "Belum Diatur" : $data->user->email;
@@ -37,10 +40,10 @@ class SiswaController extends Controller
                                     </div>';
                         return $button;
                     })
-                    ->rawColumns(['action','email','nip'])
+                    ->rawColumns(['action','email','nip','kelas'])
                     ->make(true);
         }
-        
+
         return view('admin.siswa.index');
     }
 
@@ -95,7 +98,7 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = Siswa::with('user')->findOrFail($id);        
+        $siswa = Siswa::with('user')->findOrFail($id);
         $gender = ['Laki-laki','Perempuan'];
         $kelas = Kelas::with('jurusan')->get();
         $jurusan = Jurusan::all();
@@ -142,7 +145,7 @@ class SiswaController extends Controller
             $siswa->delete();
             return response()->json(['success'=>'berhasil menghapus data']);
         }
-        
+
     }
 
     // public function export(){

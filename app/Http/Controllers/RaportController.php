@@ -53,7 +53,7 @@ class RaportController extends Controller
             $status = Nilaiakademik::with('siswa.kelas')->first()->siswa->where('kelas_id','=',$kelas)->first();
         }
 
-        $nilaiakademik = Nilaiakademik::with('siswa')->get()->groupBy(['siswa.angkatan_thn','tahun','semester']);
+        $nilaiakademik = Nilaiakademik::whereHas('siswa', function ($query) use ($kelas) {return $query->where('kelas_id', '=', $kelas);})->get()->groupBy(['siswa.angkatan_thn','tahun','semester']);
         $kelas = Kelas::findOrFail($kelas);
 
         return view('admin.raport.index_nilai',compact('kelas','nilaiakademik','status'));

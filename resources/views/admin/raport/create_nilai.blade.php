@@ -79,6 +79,7 @@
                                     <th>No</th>
                                     <th>Nis</th>
                                     <th>Nama</th>
+                                    <th>Angkatan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,6 +89,7 @@
                                     <td scope="row">{{$x++}}</th>
                                     <td>{{$item->nis}}</td>
                                     <td>{{$item->nama}}</td>
+                                    <td>{{$item->angkatan_thn}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

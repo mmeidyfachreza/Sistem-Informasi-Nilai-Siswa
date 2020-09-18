@@ -58,10 +58,10 @@
                             </thead>
                             <tbody>
                                     <?php $x=1;?>
-                                    @foreach ($siswa as $item)
+                                    @foreach ($nilaiakademik as $item)
                                     <tr>
                                         <td>{{$x}}</td>
-                                        <td>{{$item->nama}}</td>
+                                        <td>{{$item->siswa->nama}}</td>
                                         <td><input class="pengetahuan" type="string" name="pengetahuan[{{$x}}]" id="pengetahuan{{$x}}" style="width:50px" value="0"></td>
                                         <td><input class="keterampilan" type="string" name="keterampilan[{{$x}}]" id="keterampilan{{$x}}" style="width:50px" value="0"></td>
                                         <td><input class="nilai_akhir" type="string" id="nilai_akhir{{$x}}" style="width:50px" value="0" disabled>
