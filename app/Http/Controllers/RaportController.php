@@ -48,34 +48,27 @@ class RaportController extends Controller
 
     public function indexNilai($kelas)
     {
-        $status = Null;
-        if (Nilaiakademik::with('siswa.kelas')->first()) {
-            $status = Nilaiakademik::with('siswa.kelas')->first()->siswa->where('kelas_id','=',$kelas)->first();
-        }
-
-        $nilaiakademik = Nilaiakademik::whereHas('siswa', function ($query) use ($kelas) {return $query->where('kelas_id', '=', $kelas);})->get()->groupBy(['siswa.angkatan_thn','tahun','semester']);
         $kelas = Kelas::findOrFail($kelas);
+        $nilaiakademik = Nilaiakademik::where('nama_kelas','=',$kelas->nama)
+        ->where('nama_jurusan','=',$kelas->jurusan->nama)
+        ->where('nomor_kelas','=',$kelas->nomor)
+        ->get()->groupBy(['angkatan','tahun','semester']);
 
-        return view('admin.raport.index_nilai',compact('kelas','nilaiakademik','status'));
+        return view('admin.raport.index_nilai',compact('kelas','nilaiakademik'));
     }
 
     public function detailNilai(Request $request,$kelas)
     {
         $kelas = Kelas::findOrFail($kelas);
-        $angkatan = $request->angkatan;
+        $nilaiakademik = Nilaiakademik::with('siswa')
+        ->where('nama_kelas','=',$kelas->nama)
+        ->where('nama_jurusan','=',$kelas->jurusan->nama)
+        ->where('nomor_kelas','=',$kelas->nomor)
+        ->where('semester','=',$request->semester)
+        ->where('tahun','=',$request->tahun)
+        ->where('angkatan','=',$request->angkatan)->get();
         $tahun = $request->tahun;
-        $semester = $request->semester;
-        $siswa = Siswa::where('kelas_id','=',$kelas->id)->where('angkatan_thn','=',$request->angkatan)->get();
-        return view('admin.raport.index_siswa',compact('siswa','kelas','angkatan','tahun','semester'));
-    }
-
-    public function detailNilaiSiswa(Request $request,$kelas,$siswa)
-    {
-        $nilaiakademik = Nilaiakademik::where('siswa_id','=',$siswa)->where('semester','=',$request->semester)->where('tahun','=',$request->tahun)->get();
-        $siswa = Siswa::find($siswa);
-        $kelas = Kelas::findOrFail($kelas);
-        $tahun = $request->tahun;
-        return view('admin.raport.index3',compact('nilaiakademik','kelas','tahun','siswa'));
+        return view('admin.raport.index3',compact('nilaiakademik','kelas','tahun'));
     }
 
     public function createNilai($kelas)
@@ -104,6 +97,10 @@ class RaportController extends Controller
                 'siswa_id'=>$value->id,
                 'tahun'=>$request->tahun,
                 'semester'=>$request->semester,
+                'nama_kelas'=>$value->kelas->nama,
+                'nama_jurusan'=>$value->kelas->jurusan->nama,
+                'nomor_kelas'=>$value->kelas->nomor,
+                'angkatan'=>$value->angkatan_thn,
                 ]);
         }
 

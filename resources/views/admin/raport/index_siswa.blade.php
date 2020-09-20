@@ -57,15 +57,15 @@
                                 </thead>
                                 <tbody>
                                     <?php $x=1;?>
-                                    @foreach ($siswa as  $item)
+                                    @foreach ($nilaiakademik as $key => $item)
                                         <tr>
                                             <td>{{$x++}}</td>
-                                            <td>{{$item->nis}}</td>
-                                            <td>{{$item->nama}}</td>
-                                            <td>{{$item->angkatan_thn}}</td>
+                                            <td>{{$item->first()->siswa->nis}}</td>
+                                            <td>{{$key}}</td>
+                                            <td>{{$item->first()->siswa->angkatan_thn}}</td>
                                             <td>
                                                 <form
-                                                        action="{{route('raport.detail.nilai.siswa',['kelas'=>$kelas->id,'siswa'=>$item->id])}}"
+                                                        action="{{route('raport.detail.nilai.siswa',['kelas'=>$kelas->id,'siswa'=>$item->first()->siswa->id])}}"
                                                         method="POST">
                                                         @csrf
                                                         <input type="hidden" name="tahun" value="{{$tahun}}">

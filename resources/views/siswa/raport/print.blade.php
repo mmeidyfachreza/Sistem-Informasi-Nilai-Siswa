@@ -131,10 +131,17 @@
                     <tr>
                         <td>{{$x++}}</td>
                         <td>{{$item->nama}}</td>
+                        @if ($raport->nilaiakademik->nilaiMaPel->find($item->id))
                         <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->pengetahuan}}</td>
                         <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->keterampilan}}</td>
                         <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->nilai_akhir}}</td>
                         <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->predikat}}</td>
+                        @else
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        @endif
                     </tr>
                     @endforeach
                     <tr>
@@ -207,7 +214,7 @@
                         <td>{{$raport->PKLSiswa->hasilPKL->toArray()[$i]['pivot']['lamanya'] ?? ""}}</td>
                         <td>{{$raport->PKLSiswa->hasilPKL->toArray()[$i]['pivot']['keterangan'] ?? ""}}</td>
                     </tr>
-                    @endfor  
+                    @endfor
                     @else
                     @for ($i = 0; $i < 3; $i++)
                     <tr>
@@ -280,12 +287,12 @@
                 <tr>
                     <td>Mengetahui</td>
                     <td>Samarinda</td>
-                    
+
                 </tr>
                 <tr>
                     <td>Orang Tua/Wali</td>
                     <td>Wali kelas</td>
-                    
+
                 </tr>
                 <tr style="height: 100px">
                     <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>

@@ -55,8 +55,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $x=1;?>
-                                    @if ($status!=Null)
-                                    @foreach ($nilaiakademik as  $angkatan => $nilai_tahun)
+                                    @forelse ($nilaiakademik as  $angkatan => $nilai_tahun)
                                         @foreach ($nilai_tahun as $tahun => $nilai_semester)
                                             @foreach ($nilai_semester as $semester => $item)
                                             <tr>
@@ -66,7 +65,7 @@
                                                 <td>{{$angkatan}}</td>
                                                 <td>
                                                     <form
-                                                        action="{{route('nilai.create2',['kelas'=>$kelas->id,'mapel'=>$mapel->id])}}"
+                                                    action="{{route('nilai.create2',['kelas'=>$kelas->id,'mapel'=>$mapel->id])}}"
                                                         method="POST">
                                                         @csrf
                                                         <input type="hidden" name="tahun" value="{{$tahun}}">
@@ -78,8 +77,9 @@
                                             </tr>
                                             @endforeach
                                         @endforeach
-                                    @endforeach
-                                    @endif
+                                        @empty
+                                        <td colspan="5" class="text-center">Data Kosong</td>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

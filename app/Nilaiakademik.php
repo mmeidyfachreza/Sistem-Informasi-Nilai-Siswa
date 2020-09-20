@@ -9,8 +9,12 @@ class Nilaiakademik extends Model
     protected $table = 'nilaiakademik';
     protected $fillable = [
         'tahun',
+        'angkatan',
         'semester',
         'siswa_id',
+        'nama_kelas',
+        'nama_jurusan',
+        'nomor_kelas',
         'sum_pengetahuan',
         'sum_keterampilan',
         'sum_nilai_akhir',

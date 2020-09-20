@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 style="float:left">
-                            {{$siswa->nama}}
+                            nama kelas
                         </h4>
                     </div>
                     <div class="card-body">
@@ -57,6 +57,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" rowspan="2">#</th>
+                                        <th rowspan="2">Nama</th>
                                         <th rowspan="2">Semester</th>
                                         <th rowspan="2">Tahun</th>
                                         <th class="text-center" colspan="3">Total</th>
@@ -78,6 +79,7 @@
                                     @foreach ($nilaiakademik as $item)
                                     <tr>
                                         <td scope="row">{{$x++}}</th>
+                                        <td>{{$item->siswa->nama}}</td>
                                         <td>{{$item->semester}}</td>
                                         <td>{{$item->tahun}}</td>
                                         <td>{{$item->sum_pengetahuan}}</td>

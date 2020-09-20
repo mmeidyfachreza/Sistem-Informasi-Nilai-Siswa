@@ -1,6 +1,7 @@
 <?php
 
 use App\Guru;
+use App\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -14,15 +15,16 @@ class GuruSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('id_ID');
-        for ($i=1; $i <=10 ; $i++) { 
+        $user = User::all();
+        foreach ($user as $value) {
             Guru::create([
                 'nip' => '1234567890',
-                'nama' => $faker->firstName(),
+                'nama' => str_replace('@admin.com','',$value->email),
                 'tempat_lahir' => $faker->city,
                 'tanggal_lahir' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'alamat' => $faker->address,
                 'nohp' => $faker->e164PhoneNumber,
-                'user_id' => $i,
+                'user_id' => $value->id,
             ]);
         }
     }

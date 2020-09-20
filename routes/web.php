@@ -44,8 +44,6 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::post('raport/kelas/{id}/nilai-akademik/cek', 'RaportController@checkNilai')->name('raport.check.nilai');
     Route::post('raport/kelas/{id}/nilai-akademik/generate', 'RaportController@generateNilai')->name('raport.generate.nilai');
     Route::post('raport/kelas/{kelas}/nilai-akademik/detail', 'RaportController@detailNilai')->name('raport.detail.nilai');
-    Route::post('raport/kelas/{kelas}/nilai-akademik/detail/siswa/{siswa}', 'RaportController@detailNilaiSiswa')->name('raport.detail.nilai.siswa');
-
 
     Route::get('nilai-akademik/siswa/{id}', 'NilaiakademikController@indexNilai')->name('cari.nilai.siswa');
     Route::get('nilai-akademik/kelas/{kelas}/mapel/', 'NilaiakademikController@indexMapel')->name('nilai.mapel.index');

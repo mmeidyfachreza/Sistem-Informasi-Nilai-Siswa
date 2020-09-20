@@ -111,31 +111,30 @@ class NilaiakademikController extends Controller
 
     public function create2(Request $request,$kelas, $mapel)
     {
-        // $siswa = Siswa::with('kelas.jurusan')->where('kelas_id','=',$kelas)->where('angkatan_thn','=',$request->angkatan)->get();
-        $nilaiakademik = Nilaiakademik::whereHas('siswa', function ($query) use ($request,$kelas) {
-            return $query->where('kelas_id', '=', $kelas)->where('angkatan_thn', '=', $request->angkatan);
-        })->where('semester','=',$request->semester)->where('tahun','=',$request->tahun)->get();
+        $mapel = Matapelajaran::find($mapel);
+        $kelas = Kelas::find($kelas);
+        $nilaiakademik = Nilaiakademik::with('siswa')
+        ->where('nama_kelas','=',$kelas->nama)
+        ->where('nama_jurusan','=',$kelas->jurusan->nama)
+        ->where('nomor_kelas','=',$kelas->nomor)
+        ->where('semester','=',$request->semester)
+        ->where('tahun','=',$request->tahun)
+        ->where('angkatan','=',$request->angkatan)->get();
         $angkatan = $request->angkatan;
         $tahun_ajrn = $request->tahun;
         $semester = $request->semester;
-        $mapel = Matapelajaran::find($mapel);
-        $kelas = Kelas::find($kelas);
-
         return view('admin.nilai.create_nilai',compact('nilaiakademik','kelas','angkatan','tahun_ajrn','mapel','semester'));
     }
 
     public function indexNilai($kelas,$mapel)
     {
-
         $mapel = Matapelajaran::find($mapel);
-        $status = Null;
-        if (Nilaiakademik::with('siswa.kelas')->first()) {
-            $status = Nilaiakademik::with('siswa.kelas')->first()->siswa->where('kelas_id','=',$kelas)->first();
-        }
-
-        $nilaiakademik = Nilaiakademik::with('siswa')->get()->groupBy(['siswa.angkatan_thn','tahun','semester']);
         $kelas = Kelas::findOrFail($kelas);
-        return view('admin.nilai.index_nilai',compact('mapel','kelas','status','nilaiakademik'));
+        $nilaiakademik = Nilaiakademik::where('nama_kelas','=',$kelas->nama)
+        ->where('nama_jurusan','=',$kelas->jurusan->nama)
+        ->where('nomor_kelas','=',$kelas->nomor)
+        ->get()->groupBy(['angkatan','tahun','semester']);
+        return view('admin.nilai.index_nilai',compact('mapel','kelas','nilaiakademik'));
     }
 
     public function index_walikelas()
@@ -169,12 +168,15 @@ class NilaiakademikController extends Controller
     public function store(Request $request)
     {
 
-        $nilaiakademik = Nilaiakademik::whereHas('siswa', function ($query) use ($request) {
-            return $query->where('kelas_id', '=', $request->kelas)->where('angkatan_thn', '=', $request->angkatan);
-        })->where('semester','=',$request->semester)->where('tahun','=',$request->tahun_ajrn)->get();
+        $kelas = Kelas::find($request->kelas);
+        $nilaiakademik = Nilaiakademik::with('siswa')
+        ->where('nama_kelas','=',$kelas->nama)
+        ->where('nama_jurusan','=',$kelas->jurusan->nama)
+        ->where('nomor_kelas','=',$kelas->nomor)
+        ->where('semester','=',$request->semester)
+        ->where('tahun','=',$request->tahun_ajrn)
+        ->where('angkatan','=',$request->angkatan)->get();
 
-        // $nilaiakademik = Nilaiakademik::with('siswa')->where('semester','=',$request->semester)
-        //                 ->where('tahun','=',$request->tahun_ajrn)->get();
         $mp = Matapelajaran::where('semester','=',$request->semester)->get();
         $x = 1;
         foreach ($nilaiakademik as $value) {
@@ -208,23 +210,7 @@ class NilaiakademikController extends Controller
         }
 
         return redirect()->route('nilai.index2',['kelas'=>$request->kelas,'mapel'=>$request->mapel])->with(['success'=>'Berhasil menambah data']);
-        // $siswa = Siswa::findOrFail($request->siswa_id);
-        // $nilaiakademik = Nilaiakademik::create($request->all());
-        // $mp = Matapelajaran::where('semester','=',$request->semester)->where('guru_id','=',Auth::user()->guru->id)->get();
-        // $x = 1;
-        // foreach ($mp as $item) {
-        //     //collect all inserted record IDs
-        //     $mp_id_array[$item->id] = [
-        //         'pengetahuan' => $request->pengetahuan[$x],
-        //         'keterampilan' => $request->keterampilan[$x],
-        //         'nilai_akhir' => $request->nilai_akhir[$x],
-        //         'predikat' => $request->predikat[$x++]
-        //     ];
-        // }
 
-        // $nilaiakademik->nilaiMaPel()->attach($mp_id_array);
-
-        // return redirect()->route('cari.nilai.siswa',$request->siswa_id)->with(['success'=>'Berhasil menambah data','data'=>$siswa]);
     }
 
     /**
