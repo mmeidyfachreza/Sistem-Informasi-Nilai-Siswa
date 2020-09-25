@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 style="float:left">
-                            nama kelas
+                            {{$kelas->nama}} {{$kelas->jurusan->nama}} {{$kelas->nomor}}
                         </h4>
                     </div>
                     <div class="card-body">
@@ -61,8 +61,7 @@
                                         <th rowspan="2">Semester</th>
                                         <th rowspan="2">Tahun</th>
                                         <th class="text-center" colspan="3">Total</th>
-                                        <th class="text-center" colspan="3">rata-rata</th>
-                                        <th rowspan="2">Predikat</th>
+                                        <th class="text-center" colspan="4">rata-rata</th>
                                         <th rowspan="2">Aksi</th>
                                     </tr>
                                     <tr>
@@ -72,6 +71,7 @@
                                         <th>Pengetahuan</th>
                                         <th>Keterampilan</th>
                                         <th>Nilai Akhir</th>
+                                        <th>Predikat</th>
                                     </tr>
                                 </thead>
                                 <tbody>

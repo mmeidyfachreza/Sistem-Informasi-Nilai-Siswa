@@ -12,7 +12,7 @@ class JurusanSeeder extends Seeder
      */
     public function run()
     {
-        $data = ['Jaringan','Desain Grafis','Rekayasa Perangkat Lunak','Hardware','Data Mining','Keamanan Jaringan'];
+        $data = ['Akomodasi Perhotelan','Akuntansi','Multimedia','Sekretaris','Teknik Alat Berat','Teknik Jaringan Komputer'];
         foreach ($data as $value) {
             Jurusan::create(['nama'=>$value]);
         }

@@ -32,7 +32,7 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::resource('jurusan', 'JurusanController');
     Route::resource('matapelajaran', 'MatapelajaranController');
     Route::resource('kelas', 'KelasController');
-    Route::resource('nilai-akademik', 'NilaiakademikController');
+    Route::resource('nilai-akademik', 'NilaiakademikController')->except('create');
     Route::resource('raport', 'RaportController')->except('create');
     Route::resource('ekskul', 'EkskulController');
     Route::resource('pkl', 'PKLController');
@@ -48,7 +48,7 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::get('nilai-akademik/siswa/{id}', 'NilaiakademikController@indexNilai')->name('cari.nilai.siswa');
     Route::get('nilai-akademik/kelas/{kelas}/mapel/', 'NilaiakademikController@indexMapel')->name('nilai.mapel.index');
     Route::get('nilai-akademik/kelas/{kelas}/mapel/{mapel}', 'NilaiakademikController@indexNilai')->name('nilai.index2');
-    Route::post('nilai-akademik/kelas/{kelas}/mapel/{mapel}/tambah', 'NilaiakademikController@create2')->name('nilai.create2');
+    Route::post('nilai-akademik/kelas/{kelas}/mapel/{mapel}/tambah', 'NilaiakademikController@create')->name('nilai-akademik.create');
     Route::get('raport/siswa/{id}', 'RaportController@indexNilai')->name('cari.raport.siswa');
     Route::get('nilai-akademik/create/{id}', 'NilaiakademikController@create')->name('nilai.siswa.create');
     Route::post('nilai-akademik/find-semester', 'NilaiakademikController@orderBySemester')->name('nilai.siswa.semester');

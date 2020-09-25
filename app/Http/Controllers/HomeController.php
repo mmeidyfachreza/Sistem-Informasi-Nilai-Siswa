@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 /**
      * controller ini berfungsi untuk mengelola
      * fitur untuk akun jenis siswa
-     * 
+     *
      */
 
 class HomeController extends Controller
@@ -31,8 +31,8 @@ class HomeController extends Controller
 
     /**
      * menampilkan layout halaman siswa
-     * 
-     * 
+     *
+     *
      */
     public function index()
     {
@@ -42,7 +42,7 @@ class HomeController extends Controller
     /**
      * proses menampilan data raport siswa
      * saat siswa akses menu raport
-     * 
+     *
      */
     public function indexRaport()
     {
@@ -51,26 +51,29 @@ class HomeController extends Controller
             $data = Nilaiakademik::with('raport')->where('siswa_id','=',$siswa_id)->get();
             return datatables()->of($data)
                     ->addIndexColumn()
+                    ->addColumn('kelas', function($data){
+                        return $data->nama_kelas.' '.$data->nama_jurusan.' '.$data->nomor_kelas;
+                    })
                     ->addColumn('action', function($data){
                         if (empty($data->raport->id)) {
                             $button = '<div class="btn-group" role="group" aria-label="Basic example">Belum di publikasi</div>';
                         }else
                         $button = '<div class="btn-group" role="group" aria-label="Basic example">
                             <a href="'.route("print.raport.siswa",$data->raport->id).'" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-                            </div>';                        
+                            </div>';
                         return $button;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['kelas','action'])
                     ->make(true);
         }
-        
+
         return view('siswa.raport.index');
     }
 
     /**
      * proses cetak raport siswa
-     * 
-     * 
+     *
+     *
      */
     public function printRaport($id)
     {

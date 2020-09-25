@@ -65,7 +65,7 @@
                                                 <td>{{$angkatan}}</td>
                                                 <td>
                                                     <form
-                                                    action="{{route('nilai.create2',['kelas'=>$kelas->id,'mapel'=>$mapel->id])}}"
+                                                    action="{{route('nilai-akademik.create',['kelas'=>$kelas->id,'mapel'=>$mapel->id])}}"
                                                         method="POST">
                                                         @csrf
                                                         <input type="hidden" name="tahun" value="{{$tahun}}">

@@ -48,13 +48,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Nomor</th>
+                                        <th>Ruang</th>
                                         <th>Jurusan</th>
                                         <th>Walikelas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
             ]
         });
 
-        $('body').on('click', '.deleteProduct', function () { 
+        $('body').on('click', '.deleteProduct', function () {
             var data_id = $(this).data("id");
             confirm("Apakah anda yakin untuk menghapus!");
             var url = '{{ route("kelas.destroy", ":id") }}';
@@ -96,7 +96,7 @@
             $.ajax({
                 type: "DELETE",
                 url: url,
-                
+
                 success: function (data) {
                     table.draw();
                 },

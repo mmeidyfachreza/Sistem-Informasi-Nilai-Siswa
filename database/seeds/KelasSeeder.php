@@ -1,5 +1,6 @@
 <?php
 
+use App\Jurusan;
 use Illuminate\Database\Seeder;
 use App\Kelas;
 
@@ -12,9 +13,17 @@ class KelasSeeder extends Seeder
      */
     public function run()
     {
-        $data = ['X','XI','XII'];
-        foreach ($data as $value) {
-            Kelas::create(['nama'=>$value,'jurusan_id'=>rand(1,6),'nomor'=>rand(1,3),'guru_id'=>rand(1,10)]);
+        $arrayData = array(
+            'X' => array(1),
+            // 'XI' => array(1),
+            // 'XII' => array(1),
+        );
+        foreach (Jurusan::all() as $value) {
+            foreach ($arrayData as $nama => $data) {
+                foreach ($data as $nomor) {
+                    Kelas::create(['nama'=>$nama,'jurusan_id'=>$value->id,'nomor'=>$nomor,'guru_id'=>rand(1,10)]);
+                }
+            }
         }
     }
 }

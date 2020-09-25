@@ -39,12 +39,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kelas</th>
                                         <th>Semester</th>
                                         <th>Tahun</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -70,13 +71,14 @@
             ajax:"{{ route('index.raport.siswa') }}",
             columns:[
             {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable:false, orderable:false},
+            {data: 'kelas', name: 'kelas'},
             {data: 'semester', name: 'semester'},
             {data: 'tahun', name: 'tahun'},
             {data: 'action', name: 'action', searchable:false, orderable:false},
             ]
         });
 
-        $('body').on('click', '.deleteProduct', function () { 
+        $('body').on('click', '.deleteProduct', function () {
             var data_id = $(this).data("id");
             confirm("Apakah anda yakin untuk menghapus!");
             var url = '{{ route("jurusan.destroy", ":id") }}';
@@ -84,7 +86,7 @@
             $.ajax({
                 type: "DELETE",
                 url: url,
-                
+
                 success: function (data) {
                     table.draw();
                 },

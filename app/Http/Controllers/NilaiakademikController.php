@@ -16,10 +16,10 @@ class NilaiakademikController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //fungsi menampilkan data kelas saat akses menu nilai akademik
     {
-        if(request()->ajax()){
-            $data = Kelas::with('guru')->with('jurusan')->get();
+        if(request()->ajax()){ //jika mengirimlan response menggunakan ajax
+            $data = Kelas::with('guru')->with('jurusan')->get(); //mengambil seluruh data kelas bersama relasi guru dan jurusan
             return datatables()->of($data)
                     ->addIndexColumn()
                     ->addColumn('jurusan', function($data){
@@ -35,23 +35,16 @@ class NilaiakademikController extends Controller
                         return $button;
                     })
                     ->rawColumns(['action','walikelas','jurusan'])
-                    ->make(true);
+                    ->make(true); //kirim data berupa response ke halaman pilih kelas di menu nilai akademik
         }
-        return view('admin.nilai.index_kelas');
+        return view('admin.nilai.index_kelas'); //mengarahkan ke halaman pilih kelas di menu nilai akademik
     }
 
-    // public function indexNilai($id)
-    // {
-    //     $records = Nilaiakademik::where('siswa_id','=',$id)->get();
-    //     $siswa = Siswa::findOrFail($id);
-    //     return view('admin.nilai.index3',compact('records','siswa'));
-    // }
-
-    public function indexMapel($kelas)
+    public function indexMapel($kelas) //fungsi untuk menampilkan data matapelajaran yang diampu oleh guru setelah tadi memilih kelas
     {
-        $matapelajaran = Matapelajaran::where('guru_id','=',Auth::user()->guru->id)->get();
-        $kelas = Kelas::find($kelas);
-        return view('admin.nilai.index_mapel',compact('matapelajaran','kelas'));
+        $matapelajaran = Matapelajaran::where('guru_id','=',Auth::user()->guru->id)->get(); //menampilkan data matapelajaran berdasarkan guru yang login
+        $kelas = Kelas::find($kelas); //mencari kelas berdasarkan yang dipilih saat di halaman pilih kelas menu nilai akademik
+        return view('admin.nilai.index_mapel',compact('matapelajaran','kelas')); //mengarahkan ke halaman pilih mata pelajaran
     }
 
     /**
@@ -59,104 +52,32 @@ class NilaiakademikController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function orderBySemester(Request $request)
+    public function create(Request $request,$kelas, $mapel) //fungsi untuk menyiapkan form input data nilai buat guru
     {
-
-        $siswa = Siswa::findOrFail($request->siswa_id);
-        $matapelajaran = Matapelajaran::where('semester','=',$request->semester)->where('guru_id','=',Auth::user()->guru->id)->get();
-        if (!$matapelajaran->first()) {
-            return redirect()->to('admin/nilai-akademik/create/'.$request->siswa_id)->withErrors('data matapelajaran pada semester '.$request->semester.' kosong');
-        }
-        $semester = $request->semester;
-        return view('admin.nilai.create',compact('siswa','matapelajaran','semester'));
-    }
-
-    public function orderBySemesterEdit(Request $request,$id)
-    {
-
-        $siswa = Siswa::findOrFail($request->siswa_id);
-        $record = Nilaiakademik::with('nilaiMaPel')->findOrFail($id);
-        $matapelajaran = Matapelajaran::where('semester','=',$request->semester)->get();
-        $semester = $request->semester;
-        if (!$matapelajaran->first()) {
-            return redirect()->to('admin/nilai-akademik/'.$id.'/edit')->with([
-                'error'=>'data matapelajaran pada semester '.$request->semester.' kosong',
-                'record'=>$record,
-                'semester'=>$semester
-                ]);
-        }
-
-        return view('admin.nilai.edit',compact('siswa','matapelajaran','semester','record'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($id)
-    {
-        $siswa = Siswa::findOrFail($id);
-        $matapelajaran = Matapelajaran::all();
-
-        return view('admin.nilai.create',compact('siswa'));
-    }
-
-    public function indexForm($kelas,$mapel)
-    {
-        $siswa = Siswa::with('kelas.jurusan')->where('kelas_id','=',$kelas)->get();
-        $matapelajaran = Matapelajaran::all();
-        return view('admin.nilai.create',compact('siswa'));
-    }
-
-    public function create2(Request $request,$kelas, $mapel)
-    {
-        $mapel = Matapelajaran::find($mapel);
-        $kelas = Kelas::find($kelas);
+        $mapel = Matapelajaran::find($mapel); //mendapatkan data mapel berdasarkan mata pelajaran saat di menu nilai akademiik
+        $kelas = Kelas::find($kelas); // mendapatkan data kelas berdasarkan kelas yang dipilih saat di menu nilai akademik
         $nilaiakademik = Nilaiakademik::with('siswa')
         ->where('nama_kelas','=',$kelas->nama)
         ->where('nama_jurusan','=',$kelas->jurusan->nama)
         ->where('nomor_kelas','=',$kelas->nomor)
         ->where('semester','=',$request->semester)
         ->where('tahun','=',$request->tahun)
-        ->where('angkatan','=',$request->angkatan)->get();
-        $angkatan = $request->angkatan;
-        $tahun_ajrn = $request->tahun;
-        $semester = $request->semester;
-        return view('admin.nilai.create_nilai',compact('nilaiakademik','kelas','angkatan','tahun_ajrn','mapel','semester'));
+        ->where('angkatan','=',$request->angkatan)->get(); //mendapatkan data nilai akademik siswa berdasarkan kondisi pada 'where'
+        $angkatan = $request->angkatan; //simpan data request ke variabel untuk dibawa ke halaman input nilai siswa
+        $tahun_ajrn = $request->tahun; //simpan data request ke variabel untuk dibawa ke halaman input nilai siswa
+        $semester = $request->semester; //simpan data request ke variabel untuk dibawa ke halaman input nilai siswa
+        return view('admin.nilai.create',compact('nilaiakademik','kelas','angkatan','tahun_ajrn','mapel','semester')); //mengarahkan ke halaman input data nilai siswa buat guru
     }
 
-    public function indexNilai($kelas,$mapel)
+    public function indexNilai($kelas,$mapel) //fungsi untuk menampilkan nilai akademik yang telah dibuat oleh walikelas
     {
-        $mapel = Matapelajaran::find($mapel);
-        $kelas = Kelas::findOrFail($kelas);
+        $mapel = Matapelajaran::find($mapel); //mendapatkan data mapel berdasarkan mata pelajaran saat di menu nilai akademiik
+        $kelas = Kelas::findOrFail($kelas); // mendapatkan data kelas berdasarkan kelas yang dipilih saat di menu nilai akademik
         $nilaiakademik = Nilaiakademik::where('nama_kelas','=',$kelas->nama)
         ->where('nama_jurusan','=',$kelas->jurusan->nama)
         ->where('nomor_kelas','=',$kelas->nomor)
-        ->get()->groupBy(['angkatan','tahun','semester']);
-        return view('admin.nilai.index_nilai',compact('mapel','kelas','nilaiakademik'));
-    }
-
-    public function index_walikelas()
-    {
-
-        if(request()->ajax()){
-            $data = Kelas::with('jurusan')->where('guru_id','=',Auth::user()->id)->get();
-            return datatables()->of($data)
-                    ->addIndexColumn()
-                    ->addColumn('jurusan', function($data){
-                        return empty($data->jurusan->nama) ? "Belum Diatur" : $data->jurusan->nama;
-                    })
-                    ->addColumn('action', function($data){
-                        $button = '<div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="'.route("kelas.edit",$data->id).'"class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a></div>';
-                        return $button;
-                    })
-                    ->rawColumns(['action','jurusan'])
-                    ->make(true);
-        }
-
-        return view('admin.kelas.index_walikelas');
+        ->get()->groupBy(['angkatan','tahun','semester']); //mendapatkan data nilai akademik siswa berdasarkan kondisi pada 'where'
+        return view('admin.nilai.index_nilai',compact('mapel','kelas','nilaiakademik')); //mengarahka ke halaman pilih nilai akademik untuk guru di menu nilai akademik
     }
 
     /**
@@ -165,35 +86,39 @@ class NilaiakademikController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //fungsi simpan data nilai siswa yang telah diinput oleh guru
     {
-
-        $kelas = Kelas::find($request->kelas);
+        $kelas = Kelas::find($request->kelas); //mendapatkan data kelas berdasarkan id
         $nilaiakademik = Nilaiakademik::with('siswa')
         ->where('nama_kelas','=',$kelas->nama)
         ->where('nama_jurusan','=',$kelas->jurusan->nama)
         ->where('nomor_kelas','=',$kelas->nomor)
         ->where('semester','=',$request->semester)
         ->where('tahun','=',$request->tahun_ajrn)
-        ->where('angkatan','=',$request->angkatan)->get();
+        ->where('angkatan','=',$request->angkatan)->get(); // mendapatkan data nilai akademik siswa bersarkan kondis 'where'
 
-        $mp = Matapelajaran::where('semester','=',$request->semester)->get();
+        $mp = Matapelajaran::where('semester','=',$request->semester)->get(); //mendapatkan data matapelajaran
         $x = 1;
-        foreach ($nilaiakademik as $value) {
+        /*
+        karena relasi tabel nilai akademik dan matapelajaran itu many to many jadi
+        untuk proses penyimpanan datanya lumayan ribet dan agak susah dijelaskan dengan kalimat
+        */
+        foreach ($nilaiakademik as $value) { //proses simpan data nilai akademik per siswa
+            //contoh ini proses simpan data nilai siswa namanya meidy
             $mp_id_array[$mp->find($request->mapel)->id] = [
                 'pengetahuan' => $request->pengetahuan[$x],
                 'keterampilan' => $request->keterampilan[$x],
                 'nilai_akhir' => $request->nilai_akhir[$x],
                 'predikat' => $request->predikat[$x++]
-            ];
-            $value->nilaiMaPel()->attach($mp_id_array);
-            $value->sum_pengetahuan = $value->nilaiMaPel->sum('pivot.pengetahuan');
-            $value->sum_keterampilan = $value->nilaiMaPel->sum('pivot.keterampilan');
-            $value->sum_nilai_akhir = $value->nilaiMaPel->sum('pivot.nilai_akhir');
-            $value->avg_pengetahuan = $value->sum_pengetahuan/$mp->count();
-            $value->avg_keterampilan = $value->sum_keterampilan/$mp->count();
-            $value->avg_nilai_akhir = $value->sum_nilai_akhir/$mp->count();
-            if ($value->avg_nilai_akhir >= 85) {
+            ]; //data nilai meidy yang diinput oleh guru disimpan dulu ke dalam array
+            $value->nilaiMaPel()->attach($mp_id_array); //baru data array tadi di simpan/sinkronkan ke tabel pivot(nilai_mapel) hasil relasi many to many tabel nilai akademik dan matapelajran
+            $value->sum_pengetahuan = $value->nilaiMaPel->sum('pivot.pengetahuan'); //untuk mendapatkan nilai total pengetahuan
+            $value->sum_keterampilan = $value->nilaiMaPel->sum('pivot.keterampilan'); //untuk mendapatkan nilai total keterampilan
+            $value->sum_nilai_akhir = $value->nilaiMaPel->sum('pivot.nilai_akhir'); //untuk mendapatkan nilai total nilai akhir
+            $value->avg_pengetahuan = $value->sum_pengetahuan/$mp->count(); //untuk mendapatkan nilai rata2 pengetahuan
+            $value->avg_keterampilan = $value->sum_keterampilan/$mp->count(); //untuk mendapatkan nilai rata2 keterampilan
+            $value->avg_nilai_akhir = $value->sum_nilai_akhir/$mp->count(); //untuk mendapatkan nilai rata2 nilai akhir
+            if ($value->avg_nilai_akhir >= 85) { //untuk menentukan predikat si meidy berdarkan nilai rata2 nilai akhir
                 $value->avg_predikat = "A-";
             } else if ($value->avg_nilai_akhir >= 80) {
                 $value->avg_predikat = "B+";
@@ -206,12 +131,14 @@ class NilaiakademikController extends Controller
             } else {
                 $value->avg_predikat = "D";
             }
-            $value->update();
+            $value->update(); //update data nilai akademiknya si meidy
         }
 
-        return redirect()->route('nilai.index2',['kelas'=>$request->kelas,'mapel'=>$request->mapel])->with(['success'=>'Berhasil menambah data']);
+        return redirect()->route('nilai.index2',['kelas'=>$request->kelas,'mapel'=>$request->mapel])->with(['success'=>'Berhasil menambah data']); //mengarahkan ke pilih nilai akademik di menu nilai akademik
 
     }
+
+    //sampai ini aja fungsi yang digunakan, sisanya sampai kebawah gak dipakai
 
     /**
      * Display the specified resource.
@@ -312,22 +239,6 @@ class NilaiakademikController extends Controller
         $siswa = Siswa::findOrFail($nilaiakademik->siswa_id);
         $nilaiakademik->delete();
         return redirect()->route('cari.nilai.siswa',$siswa->id)->with(['success'=>'Berhasil merubah data','data'=>$siswa]);
-    }
-
-    public function searchStudent(Request $request)
-    {
-        $students = Siswa::search($request->name)->get();
-        $search = $request->name;
-        return view('admin.medical_record.index_student',compact('students','search'));
-    }
-
-    public function ajax(Request $request)
-    {
-        $siswa = Siswa::findOrFail(1);
-        $matapelajaran = Matapelajaran::all();
-        $html = view('admin.nilai.nilai_akademik', compact('siswa','matapelajaran'))->render();
-
-        return response()->json(compact('html'));
     }
 
 }

@@ -50,7 +50,7 @@
                                         value="{{old('nama', $kelas->nama ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nomor</label>
+                                    <label>Ruang</label>
                                     <input type="number" name="nomor" placeholder="Masukan Nomor Kelas" class="form-control"
                                         value="{{old('nomor', $kelas->nomor ?? '')}}" required>
                                 </div>

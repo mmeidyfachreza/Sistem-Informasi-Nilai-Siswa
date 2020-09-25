@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Guru;
 use App\User;
-use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Rap2hpoutre\FastExcel\FastExcel;
 
     /**
      * controller ini berfungsi untuk mengelola
@@ -19,14 +16,14 @@ use Rap2hpoutre\FastExcel\FastExcel;
 class GuruController extends Controller
 {
     /**
-     * fungsi ini untuk menampilkan data 
+     * fungsi ini untuk menampilkan data
      * guru saat mengakses fitur guru
-     * 
+     *
      */
-    public function index()
+    public function index() //fungsi untuk menampilkan data guru
     {
-        if(request()->ajax()){
-            $data = Guru::with('user')->get();
+        if(request()->ajax()){ //jika terdapat response berupa ajax maka kode dibawah dijalankan
+            $data = Guru::with('user')->get(); //mendapatkan data guru bersama relasi tabel user
             return datatables()->of($data)
                     ->addIndexColumn()
                     ->editColumn('nip', function($data){
@@ -45,21 +42,21 @@ class GuruController extends Controller
                         return $button;
                     })
                     ->rawColumns(['action','email','nip'])
-                    ->make(true);
+                    ->make(true); //mengirim kan data guru berupa response ke halaman utama menu data guru
         }
-        
-        return view('admin.guru.index');
+
+        return view('admin.guru.index'); //mengarahkan ke halaman utama menu data guru
     }
 
     /**
-     * fungsi ini untuk mengarahkan ke 
+     * fungsi ini untuk mengarahkan ke
      * formulir tambah data guru
-     * 
+     *
      */
-    public function create()
+    public function create() //menyiapkan formulir tambah data guru baru
     {
-        $gender = ['Laki-laki','Perempuan'];
-        return view('admin.guru.form',compact('gender'));
+        $gender = ['Laki-laki','Perempuan']; //pilihan untuk kolom jenis kelamin
+        return view('admin.guru.form',compact('gender')); //mengarahkan ke halaman formulir tambah data guru baru
     }
 
     /**
@@ -73,10 +70,10 @@ class GuruController extends Controller
         $user = User::create([
             'email'=>$request->email,
             'password'=>Hash::make($request->password)
-        ]); //proses tambah data user
+        ]); //proses pembuatan user untuk dara guru yang baru
         $guru->user_id = $user->id;
         $guru->save(); //proses acc simpan data ke db
-        return redirect()->route('guru.index')->with('success','Berhasil menambah data');
+        return redirect()->route('guru.index')->with('success','Berhasil menambah data'); //mengarahan ke halaman utama menu guru
     }
 
     /**
@@ -93,19 +90,19 @@ class GuruController extends Controller
     /**
      * proses mengarahkan ke formulir
      * halaman ubah data guru
-     * 
+     *
      */
     public function edit($id)
     {
-        $guru = Guru::with('user')->findOrFail($id);        
+        $guru = Guru::with('user')->findOrFail($id); //mendapatkan data guru berdasarkan data yang dipilih untuk di edit
         $gender = ['Laki-laki','Perempuan'];
-        return view('admin.guru.form',compact('guru','gender'));
+        return view('admin.guru.form',compact('guru','gender')); //mengarahkan ke halaman fomulir edit data guru
     }
 
     /**
      * proses penyimpanan data dari formulir
      * ubah data guru ke dalam database
-     * 
+     *
      */
     public function update(Request $request, $id)
     {
@@ -124,12 +121,12 @@ class GuruController extends Controller
 
     /**
      * proses hapus data guru di database
-     * 
-     * 
+     *
+     *
      */
     public function destroy($id)
     {
-        if (request()->ajax()) { 
+        if (request()->ajax()) {
             if (auth()->user()->id==$id) {
                 # code...
                 return back()->withErrors(['Tidak Bisa Menghapus Akun yang sedang digunakan']);
@@ -139,6 +136,6 @@ class GuruController extends Controller
             $guru->delete(); //proses hapus data guru
             return response()->json(['success'=>'berhasil menghapus data']);
         }
-        
+
     }
 }
