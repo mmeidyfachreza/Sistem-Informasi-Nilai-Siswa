@@ -148,24 +148,20 @@ class SiswaController extends Controller
 
     }
 
-    // public function export(){
-    //     return (new FastExcel(Siswa::with('classroom')->get()))->download('users.xlsx', function ($data) {
-    //         return [
-    //             'NIS' => ($data->nip? $data->nip : " "),
-    //             'Kelas' => ($data->classroom? $data->classroom->name : " "),
-    //             'Nama' => $data->name,
-    //             'Tanggal Lahir' => $data->born_date,
-    //             'Tempat Lahir' => $data->born_city,
-    //             'Alamat' => $data->address,
-    //             'Jenis Kelamin' => $data->gender,
-    //             'Golongan Darah' => $data->blood_type,
-    //             'Asal Sekolah' => $data->school_from,
-    //             'Nama Ayah' => $data->father_name,
-    //             'Nama Ibu' => $data->mother_name,
-    //             'Wali' => $data->guardian,
-    //             'No BPJS' => $data->no_bpjs,
-    //             'FASKES BPJS' => $data->faskes_bpjs,
-    //         ];
-    //     });
-    // }
+    public function akun($id)
+    {
+        $user = User::findOrFail($id);
+        return view('siswa.akun.form',compact('user'));
+    }
+
+    public function updateAkun(Request $request,$id)
+    {
+        $user = User::findOrFail($id);
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->update();
+        return redirect()->route('akun.siswa.show',$user->id)->with('success','Berhasil merubah data');
+    }
 }

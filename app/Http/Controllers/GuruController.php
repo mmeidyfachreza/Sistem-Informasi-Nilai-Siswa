@@ -138,4 +138,21 @@ class GuruController extends Controller
         }
 
     }
+
+    public function akun($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.akun.form',compact('user'));
+    }
+
+    public function updateAkun(Request $request,$id)
+    {
+        $user = User::findOrFail($id);
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->update();
+        return redirect()->route('akun.guru.show',$user->id)->with('success','Berhasil merubah data');
+    }
 }

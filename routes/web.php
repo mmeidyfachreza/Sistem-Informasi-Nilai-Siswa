@@ -20,6 +20,8 @@ Route::group(['prefix' => 'siswa'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/raport','HomeController@indexRaport')->name('index.raport.siswa');
     Route::get('/cetak-raport/{id}','HomeController@printRaport')->name('print.raport.siswa');
+    Route::get('/akun/{id}','SiswaController@akun')->name('akun.siswa.show');
+    Route::post('/akun/ubah/{id}','SiswaController@updateAkun')->name('akun.siswa.update');
 });
 
 Route::get('raport', 'RaportController@cetak');
@@ -36,6 +38,7 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::resource('raport', 'RaportController')->except('create');
     Route::resource('ekskul', 'EkskulController');
     Route::resource('pkl', 'PKLController');
+    Route::resource('akun', 'UserController')->only('show','update');
 
     Route::get('raport/create/{id}', 'RaportController@create')->name('raport.create');
     Route::get('raport/kelas/{kelas}/nilai-akademik', 'RaportController@indexNilai')->name('raport.index.nilai');
