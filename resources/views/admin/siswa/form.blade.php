@@ -81,7 +81,7 @@
                                         class="form-control" value="{{old('nohp', $siswa->nohp ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email</label>
+                                    <label>Username</label>
                                     <input type="text" name="email" placeholder="Masukan Asal Sekolah"
                                         class="form-control" value="{{old('email', $siswa->user->email ?? '')}}" required>
                                 </div>

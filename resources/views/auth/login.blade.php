@@ -61,7 +61,7 @@
                 @csrf
               <div class="form-group-material">
                 <input id="email" type="text" name="email" required data-msg="Masukan Email Anda" class="input-material">
-                <label for="email" class="label-material">Email</label>
+                <label for="email" class="label-material">Username</label>
               </div>
               <div class="form-group-material">
                 <input id="password" type="password" name="password" required data-msg="Masukan Password Anda" class="input-material">
