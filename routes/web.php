@@ -38,7 +38,8 @@ Route::group(['middleware'=>'guru', 'prefix' => 'admin'], function () {
     Route::resource('raport', 'RaportController')->except('create');
     Route::resource('ekskul', 'EkskulController');
     Route::resource('pkl', 'PKLController');
-    Route::resource('akun', 'UserController')->only('show','update');
+    Route::get('/akun/{id}','GuruController@akun')->name('akun.guru.show');
+    Route::post('/akun/ubah/{id}','GuruController@updateAkun')->name('akun.guru.update');
 
     Route::get('raport/create/{id}', 'RaportController@create')->name('raport.create');
     Route::get('raport/kelas/{kelas}/nilai-akademik', 'RaportController@indexNilai')->name('raport.index.nilai');
