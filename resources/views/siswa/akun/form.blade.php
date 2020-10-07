@@ -36,7 +36,7 @@
                         <form action="{{route('akun.siswa.update',$user->id)}}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>Username</label>
                                 <input type="text" name="email" placeholder="Masukan email" class="form-control"
                                     value="{{old('email', $user->email ?? '')}}" required>
                             </div>
