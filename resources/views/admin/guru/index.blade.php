@@ -49,11 +49,11 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>NIP</th>
-                                        <th>Email</th>
+                                        <th>Username</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
             ]
         });
 
-        $('body').on('click', '.deleteProduct', function () { 
+        $('body').on('click', '.deleteProduct', function () {
             var data_id = $(this).data("id");
             confirm("Apakah anda yakin untuk menghapus!");
             var url = '{{ route("guru.destroy", ":id") }}';
@@ -94,7 +94,7 @@
             $.ajax({
                 type: "DELETE",
                 url: url,
-                
+
                 success: function (data) {
                     table.draw();
                 },

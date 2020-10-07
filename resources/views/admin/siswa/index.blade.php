@@ -51,7 +51,7 @@
                                         <th>NIS</th>
                                         <th>Angkatan</th>
                                         <th>Kelas</th>
-                                        <th>Email</th>
+                                        <th>Username</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

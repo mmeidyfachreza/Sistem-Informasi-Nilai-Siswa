@@ -60,7 +60,7 @@
             <form method="POST" action="{{ route('login') }}" class="text-left form-validate">
                 @csrf
               <div class="form-group-material">
-                <input id="email" type="text" name="email" required data-msg="Masukan Email Anda" class="input-material">
+                <input id="email" type="text" name="email" required data-msg="Masukan Username Anda" class="input-material">
                 <label for="email" class="label-material">Username</label>
               </div>
               <div class="form-group-material">
