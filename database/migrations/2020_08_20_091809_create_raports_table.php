@@ -26,7 +26,7 @@ class CreateRaportsTable extends Migration
             $table->integer('sakit')->nullable();
             $table->integer('izin')->nullable();
             $table->integer('tanpa_ket')->nullable();
-            $table->enum('kenaikan_kelas',['Naik','Tidak Naik']);
+            $table->string('keterangan_kenaikan',150)->nullable();
             $table->bigInteger('kelas_id')->unsigned()->nullable();
             $table->foreign('kelas_id')->references('id')->on('kelas')->cascadeOnDelete();
             $table->timestamps();

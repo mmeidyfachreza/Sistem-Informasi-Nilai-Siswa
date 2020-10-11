@@ -44,6 +44,10 @@
                                 <label>Password</label>
                                 <input type="password" name="password" placeholder="Masukan password jika ingin dirubah" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label>Konfirmasi Password</label>
+                                <input type="password" name="new_confirm_password" placeholder="Masukan lagi password jika ingin dirubah" class="form-control">
+                            </div>
                             <br>
                             <div class="form-group">
                                 <input type="submit" value="Simpan" class="btn btn-primary">

@@ -280,7 +280,7 @@
         </div>
         <div class="catatan-akademik">
             <p><b>F. Kenaikan Kelas</b></p>
-            <p class="catatan"><i><b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque quaerat expedita in non, adipisci voluptate. Quod</b></i></p>
+            <p class="catatan"><i><b>{{$raport->keterangan_kenaikan}}</b></i></p>
         </div>
         <div class="ttd">
             <table>

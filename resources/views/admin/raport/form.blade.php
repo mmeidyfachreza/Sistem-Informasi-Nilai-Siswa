@@ -43,10 +43,10 @@
                         <label>Lama PKL (bulan)</label>
                         @isset($raport)
                         <input type="number" name="lamanya[{{$i}}]" class="form-control" min="0"
-                            value="{{old('lamanya['.$i.']', $raport->PKLsiswa->hasilPKL->find($item->id)->pivot->lamanya ?? 0)}}" placeholder="masukan jumlah bulan">    
+                            value="{{old('lamanya['.$i.']', $raport->PKLsiswa->hasilPKL->find($item->id)->pivot->lamanya ?? 0)}}" placeholder="masukan jumlah bulan">
                         @endisset
                         <input type="number" name="lamanya[{{$i}}]" class="form-control" min="0"
-                            value="{{old('lamanya['.$i.']', 0)}}" placeholder="masukan jumlah bulan">    
+                            value="{{old('lamanya['.$i.']', 0)}}" placeholder="masukan jumlah bulan">
                     </div>
                     <div class="form-group">
                         <label>Keterangan</label>
@@ -54,7 +54,7 @@
                         <textarea name="keterangan[{{$i}}]" class="form-control" id="" cols="30" rows="2">{{old('keterangan['.$i.']', $raport->PKLsiswa->hasilPKL->find($item->id)->pivot->keterangan ?? 0)}}</textarea>
                         @endisset
                         <textarea name="keterangan[{{$i}}]" class="form-control" id="" cols="30" rows="2">{{old('keterangan['.$i.']', "")}}</textarea>
-                    </div> 
+                    </div>
                     <br>
                     @endfor
                 </div>
@@ -84,7 +84,7 @@
                         <textarea name="keterangan2[{{$i}}]" class="form-control" id="" cols="30" rows="2">{{old('keterangan2['.$i.']', $raport->PKLsiswa->hasilPKL->find($item->id)->pivot->keterangan ?? 0)}}</textarea>
                         @endisset
                         <textarea name="keterangan2[{{$i}}]" class="form-control" id="" cols="30" rows="2">{{old('keterangan2['.$i.']', "")}}</textarea>
-                    </div> 
+                    </div>
                     <br>
                     @endfor
                 </div>
@@ -93,21 +93,25 @@
                 <div style="margin: 20px 0px">
                     <div class="form-group">
                         <label>Catatan Akademik</label>
-                        <textarea class="form-control" name="cat_akademik" id="" cols="30" rows="2">{{old('cat_akademik', $raport->cat_akademik ?? '')}}</textarea>  
+                        <textarea class="form-control" name="cat_akademik" id="" cols="30" rows="2">{{old('cat_akademik', $raport->cat_akademik ?? '')}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Izin</label>
-                        <input class="form-control" type="number" name="izin" min="1" value="{{old('izin', $raport->izin ?? '')}}"> 
+                        <input class="form-control" type="number" name="izin" min="1" value="{{old('izin', $raport->izin ?? '')}}">
                     </div>
                     <div class="form-group">
                         <label>Sakit</label>
-                        <input class="form-control" type="number" name="sakit" min="1" value="{{old('sakit', $raport->sakit ?? '')}}"> 
+                        <input class="form-control" type="number" name="sakit" min="1" value="{{old('sakit', $raport->sakit ?? '')}}">
                     </div>
                     <div class="form-group">
                         <label>Tanpa Keterangan</label>
-                        <input class="form-control" type="number" name="tanpa_ket" min="1" value="{{old('tanpa_ket', $raport->tanpa_ket ?? '')}}"> 
+                        <input class="form-control" type="number" name="tanpa_ket" min="1" value="{{old('tanpa_ket', $raport->tanpa_ket ?? '')}}">
                     </div>
                     <div class="form-group">
+                        <label>Keterangan Kenaikan Kelas</label>
+                        <textarea class="form-control" name="keterangan_kenaikan" id="" cols="30" rows="2">{{old('keterangan_kenaikan', $raport->keterangan_kenaikan ?? '')}}</textarea>
+                    </div>
+                    {{-- <div class="form-group">
                         <label>Kenaikan Kelas</label>
                         <select name="kenaikan_kelas" class="custom-select">
                             <option value='' selected disabled>Pilih</option>
@@ -122,12 +126,8 @@
                             @endforeach
                             @endisset
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
-        <input type="hidden" name="nilaiakademik_id" value="{{$record->id}}">
-        <div class="form-group">
-            <button type="submit" value="Simpan" class="btn btn-primary">Submit</button>
-            <a href="{{URL::previous()}}" class="btn btn-danger">Batal</a>
-        </div>
+

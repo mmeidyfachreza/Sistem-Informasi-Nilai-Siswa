@@ -16,7 +16,7 @@ class Raport extends Model
         'sakit',
         'izin',
         'tanpa_ket',
-        'ke_kelas'
+        'keterangan_kenaikan'
     ];
 
     public function nilaiAkademik()

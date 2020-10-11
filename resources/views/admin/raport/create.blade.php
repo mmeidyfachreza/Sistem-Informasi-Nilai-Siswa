@@ -60,6 +60,12 @@
                         <form action="{{route('raport.store')}}" method="POST">
                             @csrf
                             @include('admin.raport.form')
+                            <input type="hidden" name="nilaiakademik_id" value="{{$record->id}}">
+                            <input type="hidden" name="kelas_id" value="{{$record->siswa->kelas->id}}">
+                            <div class="form-group">
+                                <button type="submit" value="Simpan" class="btn btn-primary">Submit</button>
+                                <a href="{{URL::previous()}}" class="btn btn-danger">Batal</a>
+                            </div>
                         </form>
                     <div>
                 </div>

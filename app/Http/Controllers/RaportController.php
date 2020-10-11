@@ -132,7 +132,7 @@ class RaportController extends Controller
      */
     public function store(Request $request) //fungsi penyimpanan data raport yang telah diisi di halaman pembuatan raport
     {
-        $nilaiakademik = Nilaiakademik::find($request->nilaiakademik_id); //mendapatkan data nilai akademik dari database
+        $nilaiakademik = Nilaiakademik::with('siswa')->find($request->nilaiakademik_id); //mendapatkan data nilai akademik dari database
         $matapelajaran = Matapelajaran::where('semester','=',$nilaiakademik->semester)->get(); //mendapatkan data mata pelajaran dari database berdasarkan semester
         $list_pkl = PKL::all(); //mendapatkan data pkl dari database
         $list_ekskul = Ekskul::all(); //mendapatkan data ekskul dari database
@@ -143,7 +143,7 @@ class RaportController extends Controller
             'sakit' => $request->sakit,
             'izin' => $request->izin,
             'tanpa_ket' => $request->tanpa_ket,
-            'kenaikan_kelas'=>'Naik'
+            'keterangan_kenaikan'=>$request->keterangan_kenaikan,
         ]); //proses penyimpanan data raport ke database
 
         /*
@@ -192,9 +192,18 @@ class RaportController extends Controller
             $raport->ekskul_siswa_id = $ekskul->id;
         }
         $raport->save();
-
         $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($raport->id);
-        return view('admin.raport.print',compact('raport','matapelajaran'));
+        $tahun = $nilaiakademik->tahun;
+        $kelas = Kelas::findOrFail($request->kelas_id); //mendapatkan nilai siswa berdasarkan kelas yang dipilih saat halaman utama raport
+        $nilaiakademik = Nilaiakademik::with('siswa')
+        ->where('nama_kelas','=',$kelas->nama)
+        ->where('nama_jurusan','=',$kelas->jurusan->nama)
+        ->where('nomor_kelas','=',$kelas->nomor)
+        ->where('semester','=',$nilaiakademik->semester)
+        ->where('tahun','=',$nilaiakademik->tahun)
+        ->where('angkatan','=',$nilaiakademik->angkatan)->get();
+        //return view('admin.raport.print',compact('raport','matapelajaran'));
+        return view('admin.raport.index3',compact('nilaiakademik','kelas','tahun')); //mengarahkan ke halaman yang menampilkan data siswa beserta nilai akademiknya
     }
 
     /**

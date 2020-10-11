@@ -156,11 +156,32 @@ class SiswaController extends Controller
 
     public function updateAkun(Request $request,$id)
     {
+
         $user = User::findOrFail($id);
         $user->email = $request->email;
         if ($request->password) {
+            $rules = [
+                'password' => ['required'],
+                'new_confirm_password' => ['same:password'],
+            ];
+
+            $customMessages = [
+                'same' => 'Password tidak sesuai.'
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
             $user->password = Hash::make($request->password);
         }
+        $rules = [
+            'email' => 'required|unique:users,email,'.$user->id
+        ];
+
+        $customMessages = [
+            'unique' => 'Silahkan gunakan email lain.'
+        ];
+
+        $this->validate($request, $rules, $customMessages);
         $user->update();
         return redirect()->route('akun.siswa.show',$user->id)->with('success','Berhasil merubah data');
     }
