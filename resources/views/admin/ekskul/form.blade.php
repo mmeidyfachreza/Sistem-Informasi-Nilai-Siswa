@@ -46,9 +46,9 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Nama Kegiatan</label>
-                                    <input type="text" name="nama" placeholder="Masukan Nama Lengkap" class="form-control"
+                                    <input type="text" name="nama" placeholder="Masukan Nama Kegiatan" class="form-control"
                                         value="{{old('nama', $ekskul->nama ?? '')}}" required>
-                                </div>                                
+                                </div>
                                 <br>
                                 <div class="form-group">
                                     <input type="submit" value="Simpan" class="btn btn-primary">

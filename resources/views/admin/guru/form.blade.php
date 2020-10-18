@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>No HP</label>
-                                    <input type="text" name="nohp" placeholder="Masukan Tempat Lahir"
+                                    <input type="text" name="nohp" placeholder="Masukan No HP"
                                         class="form-control" value="{{old('nohp', $guru->nohp ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
