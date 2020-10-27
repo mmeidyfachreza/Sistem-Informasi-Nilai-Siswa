@@ -283,35 +283,65 @@
             <p class="catatan"><i><b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque quaerat expedita in non, adipisci voluptate. Quod</b></i></p>
         </div>
         <div class="ttd">
-            <table>
-                <tr>
-                    <td>Mengetahui</td>
-                    <td>Samarinda</td>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span
+                    style="">Mengetahui,</span><span style="width:11.46pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
 
-                </tr>
-                <tr>
-                    <td>Orang Tua/Wali</td>
-                    <td>Wali kelas</td>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span style="">Samarinda,</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">Orang
+                    Tua/Wali</span><span style="width:30.97pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span style="">&nbsp;&nbsp;Wali Kelas</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="">Mengetahui,</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span
+                    style="">_______________</span><span style="width:16.23pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="">Kepala Sekolah</span><span style="width:55pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span style=""><u>{{$raport->guru->nama}}</u></span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="text-align:center; margin-bottom:0"><u>{{$kepsek->nama}}</u></p>
+            <p style="text-align:center; margin-top:0">NIP : {{$kepsek->nip}}</p>
 
-                </tr>
-                <tr style="height: 100px">
-                    <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>
-                    <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <table>
-                <tr>
-                    <td>Mengetahui</td>
-                </tr>
-                <tr>
-                    <td>Kepala Sekolah</td>
-                </tr>
-                <tr style="height: 150px">
-                    <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>
-                </tr>
-            </table>
         </div>
     </div>
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Kelas;
+use App\Kepsek;
 use App\Matapelajaran;
 use App\Nilaiakademik;
 use App\Raport;
@@ -94,5 +95,18 @@ class HomeController extends Controller
         ->groupBy('siswa.angkatan_thn')
         ->get();
         dd($query);
+    }
+
+    public function kepsekForm()
+    {
+        $kepsek = Kepsek::all()->first();
+        return view('admin.kepsek.form',compact('kepsek'));
+    }
+
+    public function kepsekUpdate(Request $request)
+    {
+        $kepsek = Kepsek::all()->first();
+        $kepsek->update($request->all());
+        return redirect()->route('kepsek.show')->with('success','Berhasil merubah data');
     }
 }

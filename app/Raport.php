@@ -16,7 +16,8 @@ class Raport extends Model
         'sakit',
         'izin',
         'tanpa_ket',
-        'keterangan_kenaikan'
+        'keterangan_kenaikan',
+        'guru_id',
     ];
 
     public function nilaiAkademik()
@@ -32,5 +33,10 @@ class Raport extends Model
     public function ekskulSiswa()
     {
         return $this->belongsTo('App\EkskulSiswa','ekskul_siswa_id');
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo('App\Guru','guru_id');
     }
 }

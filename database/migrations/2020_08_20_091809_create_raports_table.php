@@ -29,6 +29,8 @@ class CreateRaportsTable extends Migration
             $table->string('keterangan_kenaikan',150)->nullable();
             $table->bigInteger('kelas_id')->unsigned()->nullable();
             $table->foreign('kelas_id')->references('id')->on('kelas')->cascadeOnDelete();
+            $table->bigInteger('guru_id')->unsigned()->nullable();
+            $table->foreign('guru_id')->references('id')->on('guru')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -45,6 +47,7 @@ class CreateRaportsTable extends Migration
             $table->dropForeign(['pkl_siswa_id']);
             $table->dropForeign(['ekskul_siswa_id']);
             $table->dropForeign(['kelas_id']);
+            $table->dropForeign(['guru_id']);
         });
         Schema::dropIfExists('raport');
     }

@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .identitas .titik-dua{
+        .identitas .titik-dua {
             text-align: center;
             width: 20%;
         }
 
-        .identitas td.td-head{
+        .identitas td.td-head {
             width: 20%;
         }
 
         .nilai-akademik table,
         .pkl table,
         .ekskul table,
-        .ttd table
-        {
+        .ttd table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .ketidakhadiran table
-        {
+        .ketidakhadiran table {
             width: 50%;
             border-collapse: collapse;
         }
@@ -36,15 +35,13 @@
         .pkl th,
         .ekskul td,
         .ekskul th,
-        .ketidakhadiran td
-        {
+        .ketidakhadiran td {
             border: 1px solid black;
         }
 
         .nilai-akademik th,
         .pkl th,
-        .ekskul th
-        {
+        .ekskul th {
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: center;
@@ -52,40 +49,41 @@
 
         .nilai-akademik td,
         .pkl td,
-        .ekskul td
-        {
+        .ekskul td {
             padding: 10px;
         }
 
-        .ketidakhadiran td{
+        .ketidakhadiran td {
             padding: 1px;
         }
 
-        .catatan-akademik .catatan{
+        .catatan-akademik .catatan {
             border: 1px solid black;
             padding: 20px 0px;
         }
 
-        .text-center{
+        .text-center {
             text-align: center;
         }
 
-        .page1{
+        .page1 {
             padding: 10px 30px 25px 60px;
             margin-bottom: 110px;
         }
 
-        .page2{
+        .page2 {
             padding: 10px 30px 25px 60px;
             margin-top: 110px;
         }
 
-        body{
+        body {
             font-size: 12px;
             margin: 0px;
         }
+
     </style>
 </head>
+
 <body>
     <div class="page1">
         <div class="identitas">
@@ -98,12 +96,15 @@
                 <tr>
                     <td class="td-head">NISN/NIS</td>
                     <td class="titik-dua">:</td>
-                    <td>{{$raport->nilaiakademik->siswa->nisn ?? '-'}} / {{$raport->nilaiakademik->siswa->nis ?? ''}}</td>
+                    <td>{{$raport->nilaiakademik->siswa->nisn ?? '-'}} / {{$raport->nilaiakademik->siswa->nis ?? ''}}
+                    </td>
                 </tr>
                 <tr>
                     <td class="td-head">Kelas</td>
                     <td class="titik-dua">:</td>
-                    <td>{{$raport->nilaiakademik->siswa->kelas->nama ?? ''}} {{$raport->nilaiakademik->siswa->kelas->jurusan->nama ?? ''}} {{$raport->nilaiakademik->siswa->kelas->nomor ?? ''}}</td>
+                    <td>{{$raport->nilaiakademik->siswa->kelas->nama ?? ''}}
+                        {{$raport->nilaiakademik->siswa->kelas->jurusan->nama ?? ''}}
+                        {{$raport->nilaiakademik->siswa->kelas->nomor ?? ''}}</td>
                 </tr>
                 <tr>
                     <td class="td-head">Semester</td>
@@ -132,10 +133,14 @@
                         <td>{{$x++}}</td>
                         <td>{{$item->nama}}</td>
                         @if ($raport->nilaiakademik->nilaiMaPel->find($item->id))
-                        <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->pengetahuan}}</td>
-                        <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->keterampilan}}</td>
-                        <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->nilai_akhir}}</td>
-                        <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->predikat}}</td>
+                        <td class="text-center">
+                            {{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->pengetahuan}}</td>
+                        <td class="text-center">
+                            {{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->keterampilan}}</td>
+                        <td class="text-center">
+                            {{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->nilai_akhir}}</td>
+                        <td class="text-center">{{$raport->nilaiakademik->nilaiMaPel->find($item->id)->pivot->predikat}}
+                        </td>
                         @else
                         <td></td>
                         <td></td>
@@ -166,6 +171,7 @@
             <p class="catatan"><i><b>{{$raport->cat_akademik}}</b></i></p>
         </div>
     </div>
+    <br>
     <div class="page2">
         <div class="identitas">
             <table>
@@ -177,12 +183,15 @@
                 <tr>
                     <td class="td-head">NISN/NIS</td>
                     <td class="titik-dua">:</td>
-                    <td>{{$raport->nilaiakademik->siswa->nisn ?? '-'}} / {{$raport->nilaiakademik->siswa->nis ?? ''}}</td>
+                    <td>{{$raport->nilaiakademik->siswa->nisn ?? '-'}} / {{$raport->nilaiakademik->siswa->nis ?? ''}}
+                    </td>
                 </tr>
                 <tr>
                     <td class="td-head">Kelas</td>
                     <td class="titik-dua">:</td>
-                    <td>{{$raport->nilaiakademik->siswa->kelas->nama ?? ''}} {{$raport->nilaiakademik->siswa->kelas->jurusan->nama ?? ''}} {{$raport->nilaiakademik->siswa->kelas->nomor ?? ''}}</td>
+                    <td>{{$raport->nilaiakademik->siswa->kelas->nama ?? ''}}
+                        {{$raport->nilaiakademik->siswa->kelas->jurusan->nama ?? ''}}
+                        {{$raport->nilaiakademik->siswa->kelas->nomor ?? ''}}</td>
                 </tr>
                 <tr>
                     <td class="td-head">Semester</td>
@@ -206,26 +215,24 @@
                 <tbody>
                     <?php $x=1 ?>
                     @isset($raport->PKLSiswa)
-                    @for ($i = 0; $i < 3; $i++)
-                    <tr>
+                    @for ($i = 0; $i < 3; $i++) <tr>
                         <td>{{$x++}}</td>
                         <td>{{$raport->PKLSiswa->hasilPKL->toArray()[$i]['mitra'] ?? ""}}</td>
                         <td>{{$raport->PKLSiswa->hasilPKL->toArray()[$i]['lokasi'] ?? ""}}</td>
                         <td>{{$raport->PKLSiswa->hasilPKL->toArray()[$i]['pivot']['lamanya'] ?? ""}}</td>
                         <td>{{$raport->PKLSiswa->hasilPKL->toArray()[$i]['pivot']['keterangan'] ?? ""}}</td>
-                    </tr>
-                    @endfor
-                    @else
-                    @for ($i = 0; $i < 3; $i++)
-                    <tr>
-                        <td>{{$x++}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    @endfor
-                    @endisset
+                        </tr>
+                        @endfor
+                        @else
+                        @for ($i = 0; $i < 3; $i++) <tr>
+                            <td>{{$x++}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            @endfor
+                            @endisset
                 </tbody>
             </table>
         </div>
@@ -242,22 +249,20 @@
                 <tbody>
                     <?php $x=1 ?>
                     @isset($raport->EkskulSiswa)
-                    @for ($i = 0; $i < 3; $i++)
-                    <tr>
+                    @for ($i = 0; $i < 3; $i++) <tr>
                         <td>{{$x++}}</td>
                         <td>{{$raport->EkskulSiswa->hasilEkskul->toArray()[$i]['nama'] ?? ""}}</td>
                         <td>{{$raport->EkskulSiswa->hasilEkskul->toArray()[$i]['pivot']['keterangan'] ?? ""}}</td>
-                    </tr>
-                    @endfor
-                    @else
-                    @for ($i = 0; $i < 3; $i++)
-                    <tr>
-                        <td>{{$x++}}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    @endfor
-                    @endisset
+                        </tr>
+                        @endfor
+                        @else
+                        @for ($i = 0; $i < 3; $i++) <tr>
+                            <td>{{$x++}}</td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            @endfor
+                            @endisset
                 </tbody>
             </table>
         </div>
@@ -283,36 +288,71 @@
             <p class="catatan"><i><b>{{$raport->keterangan_kenaikan}}</b></i></p>
         </div>
         <div class="ttd">
-            <table>
-                <tr>
-                    <td>Mengetahui</td>
-                    <td>Samarinda</td>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span
+                    style="">Mengetahui,</span><span style="width:11.46pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
 
-                </tr>
-                <tr>
-                    <td>Orang Tua/Wali</td>
-                    <td>Wali kelas</td>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span style="">Samarinda,</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">Orang
+                    Tua/Wali</span><span style="width:30.97pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span>
+                    <span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span style="">&nbsp;&nbsp;Wali Kelas</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="">Mengetahui,</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span
+                    style="">_______________</span><span style="width:16.23pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                    style="">Kepala Sekolah</span><span style="width:55pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span
+                    style="width:36pt; display:inline-block;">&nbsp;</span><span style=""><u>{{$raport->guru->nama}}</u></span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
+            </p>
+            <p style="text-align:center; margin-bottom:0"><u>{{$kepsek->nama}}</u></p>
+            <p style="text-align:center; margin-top:0">NIP : {{$kepsek->nip}}</p>
 
-                </tr>
-                <tr style="height: 100px">
-                    <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>
-                    <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>
-                </tr>
-            </table>
         </div>
-        <div>
-            <table>
-                <tr>
-                    <td>Mengetahui</td>
-                </tr>
-                <tr>
-                    <td>Kepala Sekolah</td>
-                </tr>
-                <tr style="height: 150px">
-                    <td><input type="text" style="border: 0;border-bottom: 1px solid #000;"></td>
-                </tr>
-            </table>
-        </div>
+
+    </div>
+    <div>
+
     </div>
 </body>
+
 </html>

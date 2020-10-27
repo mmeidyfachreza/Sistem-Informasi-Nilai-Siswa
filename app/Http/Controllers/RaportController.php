@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ekskul;
 use App\EkskulSiswa;
 use App\Kelas;
+use App\Kepsek;
 use App\Matapelajaran;
 use App\Nilaiakademik;
 use App\PKL;
@@ -144,6 +145,7 @@ class RaportController extends Controller
             'izin' => $request->izin,
             'tanpa_ket' => $request->tanpa_ket,
             'keterangan_kenaikan'=>$request->keterangan_kenaikan,
+            'guru_id'=>Auth::user()->guru->id,
         ]); //proses penyimpanan data raport ke database
 
         /*
@@ -203,7 +205,8 @@ class RaportController extends Controller
         ->where('tahun','=',$nilaiakademik->tahun)
         ->where('angkatan','=',$nilaiakademik->angkatan)->get();
         //return view('admin.raport.print',compact('raport','matapelajaran'));
-        return view('admin.raport.index3',compact('nilaiakademik','kelas','tahun')); //mengarahkan ke halaman yang menampilkan data siswa beserta nilai akademiknya
+        $kepsek = Kepsek::all()->first();
+        return view('admin.raport.index3',compact('nilaiakademik','kelas','tahun','kepsek')); //mengarahkan ke halaman yang menampilkan data siswa beserta nilai akademiknya
     }
 
     /**
@@ -217,7 +220,8 @@ class RaportController extends Controller
         $nilaiakademik = Nilaiakademik::find($id); //mendapatkan data nilai akdemik yang dipilih
         $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($nilaiakademik->raport->id); //mendapatkan data raport yang dipilih bersama relasi tabelnya
         $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiakademik->semester)->get(); //menampilkan data matapelajaran berdasarkan semester
-        return view('admin.raport.print',compact('raport','matapelajaran')); //mengarahkan ke halaman lihat raport
+        $kepsek = Kepsek::all()->first();
+        return view('admin.raport.print',compact('raport','matapelajaran','kepsek')); //mengarahkan ke halaman lihat raport
     }
 
     /**

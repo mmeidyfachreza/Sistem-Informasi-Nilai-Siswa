@@ -31,6 +31,7 @@
             </ul>
         </li>
         <li><a href="{{route('akun.guru.show',Auth::user()->id)}}"> <i class="fas fa-user"></i>Akun </a></li>
+        <li><a href="{{route('kepsek.show')}}"> <i class="fas fa-user"></i>Kepala Sekolah </a></li>
     </ul>
 </div>
 @endsection

@@ -25,4 +25,9 @@ class Guru extends Model
     {
         return $this->hasMany('App\Kelas');
     }
+
+    public function raport()
+    {
+        return $this->hasMany('App\Raport');
+    }
 }
