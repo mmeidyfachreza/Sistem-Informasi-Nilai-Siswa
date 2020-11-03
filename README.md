@@ -63,9 +63,6 @@ http://localhost:8000
 
 * [Laravel 7](https://laravel.com/) - Framework yang digunakan
 
-## Pembuat
-
-* **Muhammad Meidy Fachreza** - *Initial work* - [MMeidyF](https://github.com/PurpleBooth)
 
 ## Penjelasan Singkat
 

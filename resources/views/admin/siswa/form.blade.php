@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input type="text" name="email" placeholder="Masukan Asal Sekolah"
+                                    <input type="text" name="email" placeholder="Masukan Username"
                                         class="form-control" value="{{old('email', $siswa->user->email ?? '')}}" required>
                                 </div>
                                 <div class="form-group">
