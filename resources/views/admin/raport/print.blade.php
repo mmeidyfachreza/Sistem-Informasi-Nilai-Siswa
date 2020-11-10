@@ -336,6 +336,19 @@
                     style="">Kepala Sekolah</span><span style="width:55pt; display:inline-block;">&nbsp;</span><span
                     style="width:36pt; display:inline-block;">&nbsp;</span><span
                     style="width:36pt; display:inline-block;">&nbsp;</span><span style=""><u>{{$raport->guru->nama}}</u></span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;">
+                <span style="width:16.23pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:55pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:36pt; display:inline-block;">&nbsp;</span>
+                <span style="width:45pt; display:inline-block;">&nbsp;</span>
+                <span style="">NIP : {{$raport->guru->nip}}</span>
+            </p>
             <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
             </p>
             <p style="margin-top:0pt; margin-bottom:0pt; line-height:115%; font-size:12px;"><span style="">&nbsp;</span>
