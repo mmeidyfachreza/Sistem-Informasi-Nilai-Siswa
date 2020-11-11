@@ -262,6 +262,7 @@ class RaportController extends Controller
     {
         $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find(38);
         $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiAkademik->semester)->get();
-        return view('admin.raport.print',compact('raport','matapelajaran'));
+        $kepsek = Kepsek::all()->first();
+        return view('admin.raport.print',compact('raport','matapelajaran','kepsek'));
     }
 }
