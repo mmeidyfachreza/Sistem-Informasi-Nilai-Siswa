@@ -80,7 +80,8 @@ class HomeController extends Controller
     {
         $raport = Raport::with('nilaiAkademik')->with('PKLSiswa')->with('EkskulSiswa')->find($id); //proses pencarian raport
         $matapelajaran = Matapelajaran::where('semester','=',$raport->nilaiAkademik->semester)->get(); //penyesuaiam data matapelajaran yang ditampilkan saat cetak raport
-        return view('siswa.raport.print',compact('raport','matapelajaran'));
+        $kepsek = Kepsek::all()->first();
+        return view('siswa.raport.print',compact('raport','matapelajaran','kepsek'));
     }
 
     public function query()
